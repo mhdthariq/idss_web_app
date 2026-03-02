@@ -1,0 +1,20 @@
+{
+  "mcnemar": {
+    "contingency": {
+      "both_correct": 457,
+      "xgb_only": 120,
+      "mlp_only": 44,
+      "both_wrong": 144
+    },
+    "chi2": 34.298780487804876,
+    "p_value_corrected": 4.726778635166795e-09,
+    "p_value_exact": 2.461226157514897e-09
+  },
+  "delong": {
+    "auc_xgb": 0.8091078034631886,
+    "auc_mlp": 0.7529569098772079,
+    "auc_diff": 0.05615089358598069,
+    "z_statistic": 4.618972455645703,
+    "p_value": 3.85645040812399e-06
+  }
+}

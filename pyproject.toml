@@ -1,0 +1,48 @@
+[project]
+name = "idss-web-app"
+version = "0.1.0"
+description = "IDSS Web App — Intelligent Decision Support System for Accounts Receivable Late Payment Risk Prediction"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    # --- FastAPI backend ---
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "pydantic>=2.10.0",
+    "python-multipart>=0.0.12",
+    # --- ML / inference (must match root project versions) ---
+    "numpy>=1.26.0",
+    "pandas>=2.2.0",
+    "scikit-learn>=1.5.0",
+    "xgboost>=2.1.0",
+    "torch>=2.4.0",
+    "shap>=0.46.0",
+    "joblib>=1.4.0",
+    # --- Utilities ---
+    "orjson>=3.10.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "httpx>=0.27.0",
+    "ruff>=0.8.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["backend"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

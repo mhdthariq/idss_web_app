@@ -1,0 +1,17 @@
+{
+  "xgb_orig": {
+    "model_size_mb": 0.63,
+    "n_trees": 2000,
+    "inference_total_ms": 3.6,
+    "inference_per_row_us": 4.7
+  },
+  "mlp_aug": {
+    "model_size_mb": 0.76,
+    "n_parameters": 195772,
+    "n_trainable": 195772,
+    "inference_total_ms": 3.98,
+    "inference_per_row_us": 5.2
+  },
+  "test_samples": 765,
+  "benchmark_runs": 100
+}

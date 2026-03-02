@@ -1,0 +1,2782 @@
+{
+  "RF-Aug": [
+    {
+      "feature": "Cust_Historical_Late_Rate",
+      "importance": 0.11027672209678592
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_TE",
+      "importance": 0.057931929770216016
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_TE",
+      "importance": 0.04820856429728811
+    },
+    {
+      "feature": "Kecamatan_TE",
+      "importance": 0.04594561250319755
+    },
+    {
+      "feature": "Jumlah_Cust_Zscore",
+      "importance": 0.03222852541938074
+    },
+    {
+      "feature": "NamaSalesman_TE",
+      "importance": 0.03211134606703092
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_TE",
+      "importance": 0.02616264585374274
+    },
+    {
+      "feature": "Div_Jumlah_Ratio",
+      "importance": 0.025612735830346386
+    },
+    {
+      "feature": "Branch_Jumlah_Ratio",
+      "importance": 0.025430010971386828
+    },
+    {
+      "feature": "Jumlah",
+      "importance": 0.024376674462613587
+    },
+    {
+      "feature": "Jumlah_Bin_TE",
+      "importance": 0.024371488788300207
+    },
+    {
+      "feature": "Jumlah_Winsor",
+      "importance": 0.024015615642590096
+    },
+    {
+      "feature": "Jumlah_Percentile",
+      "importance": 0.02298431159673311
+    },
+    {
+      "feature": "Log_Jumlah_Winsor",
+      "importance": 0.022814890980050875
+    },
+    {
+      "feature": "Log_Jumlah",
+      "importance": 0.022492440179732034
+    },
+    {
+      "feature": "Cust_Total_Jumlah",
+      "importance": 0.022211518819288276
+    },
+    {
+      "feature": "Cust_Std_Jumlah",
+      "importance": 0.02203836294166654
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_TE",
+      "importance": 0.021641624481368433
+    },
+    {
+      "feature": "Cust_Avg_Jumlah",
+      "importance": 0.02104703269097732
+    },
+    {
+      "feature": "Kecamatan_Encoded",
+      "importance": 0.016337050289494167
+    },
+    {
+      "feature": "Kecamatan_Freq",
+      "importance": 0.015433469157877333
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_Freq",
+      "importance": 0.015046090930982683
+    },
+    {
+      "feature": "Sales_Tx_Count",
+      "importance": 0.014985779096876465
+    },
+    {
+      "feature": "Kota_TE",
+      "importance": 0.014153997656462292
+    },
+    {
+      "feature": "NamaSalesman_Freq",
+      "importance": 0.01401918779836192
+    },
+    {
+      "feature": "Cust_Tx_Count",
+      "importance": 0.013523509211925445
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_Freq",
+      "importance": 0.01253840143155061
+    },
+    {
+      "feature": "Sales_Cust_Count",
+      "importance": 0.012445693455673803
+    },
+    {
+      "feature": "NamaDivisi_TE",
+      "importance": 0.010674919431811739
+    },
+    {
+      "feature": "KodeCabang_TE",
+      "importance": 0.010605452339923277
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_Freq",
+      "importance": 0.010361212989657953
+    },
+    {
+      "feature": "Sales_Avg_Jumlah",
+      "importance": 0.009359919923474477
+    },
+    {
+      "feature": "Sales_Std_Jumlah",
+      "importance": 0.009016367083104387
+    },
+    {
+      "feature": "NamaSalesman_Encoded",
+      "importance": 0.00889950334228912
+    },
+    {
+      "feature": "NamaSubKategori_TE",
+      "importance": 0.008856957565770904
+    },
+    {
+      "feature": "NamaSubKategori_Encoded",
+      "importance": 0.008252620202670495
+    },
+    {
+      "feature": "SubCat_Std_Jumlah",
+      "importance": 0.007799751141945221
+    },
+    {
+      "feature": "Kota_Avg_Jumlah",
+      "importance": 0.007741625276003944
+    },
+    {
+      "feature": "SubCat_Avg_Jumlah",
+      "importance": 0.007702575135294194
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_Freq",
+      "importance": 0.007674771696028547
+    },
+    {
+      "feature": "Kota_Freq",
+      "importance": 0.007542315669449581
+    },
+    {
+      "feature": "Log_Jumlah_vs_Div",
+      "importance": 0.00747597108094118
+    },
+    {
+      "feature": "SubCat_Tx_Count",
+      "importance": 0.007466442693075091
+    },
+    {
+      "feature": "NamaSubKategori_Freq",
+      "importance": 0.007178458056786601
+    },
+    {
+      "feature": "Kota_Tx_Count",
+      "importance": 0.007020790857091058
+    },
+    {
+      "feature": "Kota_Std_Jumlah",
+      "importance": 0.006523970922965793
+    },
+    {
+      "feature": "Log_Jumlah_vs_Branch",
+      "importance": 0.006147412137411168
+    },
+    {
+      "feature": "Div_Tx_Count",
+      "importance": 0.005973286765277548
+    },
+    {
+      "feature": "Kota_Encoded",
+      "importance": 0.005875627074255316
+    },
+    {
+      "feature": "NamaDivisi_Freq",
+      "importance": 0.005834315466145622
+    },
+    {
+      "feature": "NamaGroupCustomer_Freq",
+      "importance": 0.005622262205125676
+    },
+    {
+      "feature": "Div_Avg_Jumlah",
+      "importance": 0.005214137440380257
+    },
+    {
+      "feature": "NamaGroupCustomer_TE",
+      "importance": 0.005053673326483064
+    },
+    {
+      "feature": "NamaGroupCustomer_Encoded",
+      "importance": 0.004699916639525769
+    },
+    {
+      "feature": "Div_Std_Jumlah",
+      "importance": 0.004530814132539017
+    },
+    {
+      "feature": "KodeCabang_Freq",
+      "importance": 0.004231044391196895
+    },
+    {
+      "feature": "Branch_Tx_Count",
+      "importance": 0.0042214801698331845
+    },
+    {
+      "feature": "NamaDivisi_Encoded",
+      "importance": 0.004150261182047336
+    },
+    {
+      "feature": "Branch_Std_Jumlah",
+      "importance": 0.0037473002594250317
+    },
+    {
+      "feature": "NamaKategori_Freq",
+      "importance": 0.0035197039675839313
+    },
+    {
+      "feature": "Branch_Avg_Jumlah",
+      "importance": 0.003477583139605677
+    },
+    {
+      "feature": "Jumlah_Bin_Encoded",
+      "importance": 0.0033365408445993707
+    },
+    {
+      "feature": "NamaKategori_TE",
+      "importance": 0.003291569714224882
+    },
+    {
+      "feature": "Sales_Div_Diversity",
+      "importance": 0.003144151157719401
+    },
+    {
+      "feature": "Has_Remark",
+      "importance": 0.002659798149445427
+    },
+    {
+      "feature": "KodeCabang_Encoded",
+      "importance": 0.0018151314872573668
+    },
+    {
+      "feature": "NamaKategori_Encoded",
+      "importance": 0.0013083029871336597
+    },
+    {
+      "feature": "Is_Group_Customer",
+      "importance": 0.00107502536666154
+    },
+    {
+      "feature": "Provinsi_Encoded",
+      "importance": 0.0005318041659389693
+    }
+  ],
+  "XGB-Aug": [
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_TE",
+      "importance": 0.06951647996902466
+    },
+    {
+      "feature": "Jumlah_Bin_TE",
+      "importance": 0.03544923663139343
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_TE",
+      "importance": 0.0345022939145565
+    },
+    {
+      "feature": "NamaKategori_Freq",
+      "importance": 0.03279678523540497
+    },
+    {
+      "feature": "Jumlah_Bin_Encoded",
+      "importance": 0.03176227957010269
+    },
+    {
+      "feature": "NamaGroupCustomer_Freq",
+      "importance": 0.02770782820880413
+    },
+    {
+      "feature": "Cust_Historical_Late_Rate",
+      "importance": 0.026882857084274292
+    },
+    {
+      "feature": "KodeCabang_TE",
+      "importance": 0.022894514724612236
+    },
+    {
+      "feature": "NamaDivisi_Freq",
+      "importance": 0.02181115746498108
+    },
+    {
+      "feature": "NamaSalesman_TE",
+      "importance": 0.02180318534374237
+    },
+    {
+      "feature": "Branch_Std_Jumlah",
+      "importance": 0.021743014454841614
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_Freq",
+      "importance": 0.020466763526201248
+    },
+    {
+      "feature": "NamaKategori_Encoded",
+      "importance": 0.020016923546791077
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_Freq",
+      "importance": 0.019248545169830322
+    },
+    {
+      "feature": "Kecamatan_TE",
+      "importance": 0.01869841106235981
+    },
+    {
+      "feature": "Branch_Tx_Count",
+      "importance": 0.01803981326520443
+    },
+    {
+      "feature": "NamaGroupCustomer_Encoded",
+      "importance": 0.01713353767991066
+    },
+    {
+      "feature": "NamaDivisi_TE",
+      "importance": 0.016970301046967506
+    },
+    {
+      "feature": "NamaSalesman_Freq",
+      "importance": 0.01673249900341034
+    },
+    {
+      "feature": "KodeCabang_Freq",
+      "importance": 0.01645337976515293
+    },
+    {
+      "feature": "Sales_Tx_Count",
+      "importance": 0.016302788630127907
+    },
+    {
+      "feature": "Log_Jumlah_Winsor",
+      "importance": 0.015798863023519516
+    },
+    {
+      "feature": "NamaKategori_TE",
+      "importance": 0.015215148217976093
+    },
+    {
+      "feature": "Cust_Total_Jumlah",
+      "importance": 0.0147355692461133
+    },
+    {
+      "feature": "NamaGroupCustomer_TE",
+      "importance": 0.014507871121168137
+    },
+    {
+      "feature": "Log_Jumlah_vs_Branch",
+      "importance": 0.013242773711681366
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_Freq",
+      "importance": 0.013159478083252907
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_TE",
+      "importance": 0.012919224798679352
+    },
+    {
+      "feature": "Kota_TE",
+      "importance": 0.012777610681951046
+    },
+    {
+      "feature": "Cust_Tx_Count",
+      "importance": 0.0125468410551548
+    },
+    {
+      "feature": "Log_Jumlah",
+      "importance": 0.01244979165494442
+    },
+    {
+      "feature": "NamaDivisi_Encoded",
+      "importance": 0.012227690778672695
+    },
+    {
+      "feature": "NamaSubKategori_Encoded",
+      "importance": 0.012184454128146172
+    },
+    {
+      "feature": "Cust_Avg_Jumlah",
+      "importance": 0.012012642808258533
+    },
+    {
+      "feature": "Sales_Div_Diversity",
+      "importance": 0.01196336280554533
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_Freq",
+      "importance": 0.011925514787435532
+    },
+    {
+      "feature": "Jumlah_Cust_Zscore",
+      "importance": 0.01175116840749979
+    },
+    {
+      "feature": "NamaSubKategori_TE",
+      "importance": 0.011748953722417355
+    },
+    {
+      "feature": "Cust_Std_Jumlah",
+      "importance": 0.011316034011542797
+    },
+    {
+      "feature": "Kota_Encoded",
+      "importance": 0.010792067274451256
+    },
+    {
+      "feature": "Kota_Avg_Jumlah",
+      "importance": 0.010577705688774586
+    },
+    {
+      "feature": "Kecamatan_Freq",
+      "importance": 0.010516731068491936
+    },
+    {
+      "feature": "Sales_Avg_Jumlah",
+      "importance": 0.010387599468231201
+    },
+    {
+      "feature": "NamaSalesman_Encoded",
+      "importance": 0.010375767946243286
+    },
+    {
+      "feature": "Jumlah_Winsor",
+      "importance": 0.010181055404245853
+    },
+    {
+      "feature": "Sales_Cust_Count",
+      "importance": 0.010132940486073494
+    },
+    {
+      "feature": "SubCat_Tx_Count",
+      "importance": 0.009947607293725014
+    },
+    {
+      "feature": "NamaSubKategori_Freq",
+      "importance": 0.009654897265136242
+    },
+    {
+      "feature": "Div_Jumlah_Ratio",
+      "importance": 0.009439832530915737
+    },
+    {
+      "feature": "SubCat_Avg_Jumlah",
+      "importance": 0.00935477763414383
+    },
+    {
+      "feature": "Kota_Std_Jumlah",
+      "importance": 0.009331763722002506
+    },
+    {
+      "feature": "Sales_Std_Jumlah",
+      "importance": 0.008890891447663307
+    },
+    {
+      "feature": "Jumlah",
+      "importance": 0.008888136595487595
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_TE",
+      "importance": 0.008827478624880314
+    },
+    {
+      "feature": "Branch_Jumlah_Ratio",
+      "importance": 0.008604818023741245
+    },
+    {
+      "feature": "Kota_Tx_Count",
+      "importance": 0.00843078549951315
+    },
+    {
+      "feature": "Branch_Avg_Jumlah",
+      "importance": 0.008338674902915955
+    },
+    {
+      "feature": "Kota_Freq",
+      "importance": 0.008288242854177952
+    },
+    {
+      "feature": "SubCat_Std_Jumlah",
+      "importance": 0.00803779624402523
+    },
+    {
+      "feature": "Div_Tx_Count",
+      "importance": 0.007710411213338375
+    },
+    {
+      "feature": "Jumlah_Percentile",
+      "importance": 0.007633963134139776
+    },
+    {
+      "feature": "Is_Group_Customer",
+      "importance": 0.007412896957248449
+    },
+    {
+      "feature": "Kecamatan_Encoded",
+      "importance": 0.006975102238357067
+    },
+    {
+      "feature": "Has_Remark",
+      "importance": 0.00671327905729413
+    },
+    {
+      "feature": "Log_Jumlah_vs_Div",
+      "importance": 0.00628883671015501
+    },
+    {
+      "feature": "Div_Avg_Jumlah",
+      "importance": 0.004669600632041693
+    },
+    {
+      "feature": "Div_Std_Jumlah",
+      "importance": 0.004180673509836197
+    },
+    {
+      "feature": "Provinsi_Encoded",
+      "importance": 0.0
+    },
+    {
+      "feature": "KodeCabang_Encoded",
+      "importance": 0.0
+    }
+  ],
+  "LGBM-Aug": [
+    {
+      "feature": "Cust_Historical_Late_Rate",
+      "importance": 274
+    },
+    {
+      "feature": "Cust_Total_Jumlah",
+      "importance": 229
+    },
+    {
+      "feature": "Jumlah_Cust_Zscore",
+      "importance": 212
+    },
+    {
+      "feature": "Jumlah_Bin_TE",
+      "importance": 201
+    },
+    {
+      "feature": "Kecamatan_TE",
+      "importance": 199
+    },
+    {
+      "feature": "NamaSalesman_TE",
+      "importance": 169
+    },
+    {
+      "feature": "Jumlah",
+      "importance": 162
+    },
+    {
+      "feature": "Kecamatan_Freq",
+      "importance": 160
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_TE",
+      "importance": 143
+    },
+    {
+      "feature": "Jumlah_Winsor",
+      "importance": 140
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_TE",
+      "importance": 138
+    },
+    {
+      "feature": "Sales_Avg_Jumlah",
+      "importance": 132
+    },
+    {
+      "feature": "Cust_Std_Jumlah",
+      "importance": 127
+    },
+    {
+      "feature": "Div_Jumlah_Ratio",
+      "importance": 126
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_TE",
+      "importance": 115
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_Freq",
+      "importance": 113
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_TE",
+      "importance": 109
+    },
+    {
+      "feature": "Sales_Tx_Count",
+      "importance": 108
+    },
+    {
+      "feature": "Cust_Avg_Jumlah",
+      "importance": 108
+    },
+    {
+      "feature": "Cust_Tx_Count",
+      "importance": 106
+    },
+    {
+      "feature": "Branch_Jumlah_Ratio",
+      "importance": 103
+    },
+    {
+      "feature": "NamaSalesman_Freq",
+      "importance": 103
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_Freq",
+      "importance": 95
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_Freq",
+      "importance": 83
+    },
+    {
+      "feature": "Kota_Tx_Count",
+      "importance": 81
+    },
+    {
+      "feature": "Kecamatan_Encoded",
+      "importance": 80
+    },
+    {
+      "feature": "Log_Jumlah",
+      "importance": 78
+    },
+    {
+      "feature": "Sales_Std_Jumlah",
+      "importance": 76
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_Freq",
+      "importance": 75
+    },
+    {
+      "feature": "Sales_Cust_Count",
+      "importance": 74
+    },
+    {
+      "feature": "NamaSalesman_Encoded",
+      "importance": 72
+    },
+    {
+      "feature": "SubCat_Avg_Jumlah",
+      "importance": 72
+    },
+    {
+      "feature": "Kota_Avg_Jumlah",
+      "importance": 67
+    },
+    {
+      "feature": "Kota_TE",
+      "importance": 66
+    },
+    {
+      "feature": "SubCat_Tx_Count",
+      "importance": 63
+    },
+    {
+      "feature": "Jumlah_Percentile",
+      "importance": 62
+    },
+    {
+      "feature": "NamaSubKategori_TE",
+      "importance": 57
+    },
+    {
+      "feature": "Log_Jumlah_Winsor",
+      "importance": 54
+    },
+    {
+      "feature": "Log_Jumlah_vs_Branch",
+      "importance": 53
+    },
+    {
+      "feature": "SubCat_Std_Jumlah",
+      "importance": 51
+    },
+    {
+      "feature": "Div_Avg_Jumlah",
+      "importance": 48
+    },
+    {
+      "feature": "NamaDivisi_TE",
+      "importance": 47
+    },
+    {
+      "feature": "Div_Tx_Count",
+      "importance": 47
+    },
+    {
+      "feature": "NamaSubKategori_Encoded",
+      "importance": 44
+    },
+    {
+      "feature": "Div_Std_Jumlah",
+      "importance": 41
+    },
+    {
+      "feature": "KodeCabang_TE",
+      "importance": 41
+    },
+    {
+      "feature": "Kota_Encoded",
+      "importance": 38
+    },
+    {
+      "feature": "NamaGroupCustomer_Freq",
+      "importance": 38
+    },
+    {
+      "feature": "NamaSubKategori_Freq",
+      "importance": 38
+    },
+    {
+      "feature": "NamaGroupCustomer_TE",
+      "importance": 34
+    },
+    {
+      "feature": "NamaKategori_TE",
+      "importance": 30
+    },
+    {
+      "feature": "NamaKategori_Freq",
+      "importance": 30
+    },
+    {
+      "feature": "NamaDivisi_Freq",
+      "importance": 28
+    },
+    {
+      "feature": "NamaGroupCustomer_Encoded",
+      "importance": 28
+    },
+    {
+      "feature": "Kota_Freq",
+      "importance": 28
+    },
+    {
+      "feature": "Kota_Std_Jumlah",
+      "importance": 27
+    },
+    {
+      "feature": "Log_Jumlah_vs_Div",
+      "importance": 18
+    },
+    {
+      "feature": "Branch_Tx_Count",
+      "importance": 16
+    },
+    {
+      "feature": "NamaDivisi_Encoded",
+      "importance": 16
+    },
+    {
+      "feature": "KodeCabang_Freq",
+      "importance": 15
+    },
+    {
+      "feature": "Branch_Avg_Jumlah",
+      "importance": 15
+    },
+    {
+      "feature": "Sales_Div_Diversity",
+      "importance": 13
+    },
+    {
+      "feature": "Jumlah_Bin_Encoded",
+      "importance": 6
+    },
+    {
+      "feature": "Branch_Std_Jumlah",
+      "importance": 5
+    },
+    {
+      "feature": "Provinsi_Encoded",
+      "importance": 1
+    },
+    {
+      "feature": "KodeCabang_Encoded",
+      "importance": 1
+    },
+    {
+      "feature": "Is_Group_Customer",
+      "importance": 0
+    },
+    {
+      "feature": "Has_Remark",
+      "importance": 0
+    },
+    {
+      "feature": "NamaKategori_Encoded",
+      "importance": 0
+    }
+  ],
+  "RF-Orig": [
+    {
+      "feature": "Cust_Historical_Late_Rate",
+      "importance": 0.08493491419273655
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_TE",
+      "importance": 0.05449793509719215
+    },
+    {
+      "feature": "Kecamatan_TE",
+      "importance": 0.04701347954011789
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_TE",
+      "importance": 0.04352597470820713
+    },
+    {
+      "feature": "Jumlah_Cust_Zscore",
+      "importance": 0.033612172350436176
+    },
+    {
+      "feature": "Log_Jumlah_vs_Div",
+      "importance": 0.030051960776289674
+    },
+    {
+      "feature": "Div_Jumlah_Ratio",
+      "importance": 0.029108363662988777
+    },
+    {
+      "feature": "NamaSalesman_TE",
+      "importance": 0.02885634874260717
+    },
+    {
+      "feature": "Jumlah_Percentile",
+      "importance": 0.026706999829944268
+    },
+    {
+      "feature": "Log_Jumlah",
+      "importance": 0.02652238212609417
+    },
+    {
+      "feature": "Branch_Jumlah_Ratio",
+      "importance": 0.026500818886498127
+    },
+    {
+      "feature": "Log_Jumlah_vs_Branch",
+      "importance": 0.026399312029967422
+    },
+    {
+      "feature": "Log_Jumlah_Winsor",
+      "importance": 0.02630789565268356
+    },
+    {
+      "feature": "Jumlah_Winsor",
+      "importance": 0.02627079171506303
+    },
+    {
+      "feature": "Cust_Total_Jumlah",
+      "importance": 0.02560335245208588
+    },
+    {
+      "feature": "Cust_Avg_Jumlah",
+      "importance": 0.025307830419954377
+    },
+    {
+      "feature": "Jumlah",
+      "importance": 0.025253820946045634
+    },
+    {
+      "feature": "Cust_Std_Jumlah",
+      "importance": 0.022904239192165925
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_TE",
+      "importance": 0.022550764144711737
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_TE",
+      "importance": 0.02024960798750842
+    },
+    {
+      "feature": "Kecamatan_Encoded",
+      "importance": 0.017678893592452134
+    },
+    {
+      "feature": "Kecamatan_Freq",
+      "importance": 0.01628379280125107
+    },
+    {
+      "feature": "NamaSalesman_Freq",
+      "importance": 0.015957626189089646
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_Freq",
+      "importance": 0.015916053043308367
+    },
+    {
+      "feature": "Cust_Tx_Count",
+      "importance": 0.015531464819319355
+    },
+    {
+      "feature": "Sales_Tx_Count",
+      "importance": 0.015181256682024306
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_Freq",
+      "importance": 0.013395514230722444
+    },
+    {
+      "feature": "Kota_TE",
+      "importance": 0.013349435708458524
+    },
+    {
+      "feature": "Sales_Cust_Count",
+      "importance": 0.012341442181281909
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_Freq",
+      "importance": 0.01068985695794225
+    },
+    {
+      "feature": "NamaSalesman_Encoded",
+      "importance": 0.009585885615255977
+    },
+    {
+      "feature": "NamaDivisi_TE",
+      "importance": 0.009178214494173586
+    },
+    {
+      "feature": "Sales_Std_Jumlah",
+      "importance": 0.009071617933427612
+    },
+    {
+      "feature": "Sales_Avg_Jumlah",
+      "importance": 0.00890772583498496
+    },
+    {
+      "feature": "NamaSubKategori_Encoded",
+      "importance": 0.008492940135927576
+    },
+    {
+      "feature": "NamaSubKategori_TE",
+      "importance": 0.007775787909863177
+    },
+    {
+      "feature": "SubCat_Std_Jumlah",
+      "importance": 0.0077271733988971
+    },
+    {
+      "feature": "Div_Tx_Count",
+      "importance": 0.007514131546543832
+    },
+    {
+      "feature": "SubCat_Avg_Jumlah",
+      "importance": 0.007377961268506938
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_Freq",
+      "importance": 0.007323332959599794
+    },
+    {
+      "feature": "Kota_Tx_Count",
+      "importance": 0.006971442873605347
+    },
+    {
+      "feature": "NamaDivisi_Freq",
+      "importance": 0.0069282404636765785
+    },
+    {
+      "feature": "SubCat_Tx_Count",
+      "importance": 0.006905906686228541
+    },
+    {
+      "feature": "Kota_Freq",
+      "importance": 0.0068459031216121825
+    },
+    {
+      "feature": "NamaSubKategori_Freq",
+      "importance": 0.006608177501535085
+    },
+    {
+      "feature": "Kota_Avg_Jumlah",
+      "importance": 0.0062999675925616005
+    },
+    {
+      "feature": "Kota_Encoded",
+      "importance": 0.006063347494314033
+    },
+    {
+      "feature": "Kota_Std_Jumlah",
+      "importance": 0.005739587558266749
+    },
+    {
+      "feature": "KodeCabang_TE",
+      "importance": 0.005125065723055415
+    },
+    {
+      "feature": "NamaGroupCustomer_Encoded",
+      "importance": 0.0049282121928921
+    },
+    {
+      "feature": "NamaDivisi_Encoded",
+      "importance": 0.004784851030601067
+    },
+    {
+      "feature": "NamaGroupCustomer_Freq",
+      "importance": 0.004628221166337675
+    },
+    {
+      "feature": "NamaGroupCustomer_TE",
+      "importance": 0.004520564610148232
+    },
+    {
+      "feature": "Div_Avg_Jumlah",
+      "importance": 0.004265151069004241
+    },
+    {
+      "feature": "Div_Std_Jumlah",
+      "importance": 0.003917559068214937
+    },
+    {
+      "feature": "Sales_Div_Diversity",
+      "importance": 0.003700317390673655
+    },
+    {
+      "feature": "Jumlah_Bin_TE",
+      "importance": 0.0034366375833527942
+    },
+    {
+      "feature": "Has_Remark",
+      "importance": 0.003326779048671986
+    },
+    {
+      "feature": "Jumlah_Bin_Encoded",
+      "importance": 0.003217226118166893
+    },
+    {
+      "feature": "Branch_Tx_Count",
+      "importance": 0.0031856851325202376
+    },
+    {
+      "feature": "KodeCabang_Encoded",
+      "importance": 0.003071693632255943
+    },
+    {
+      "feature": "Branch_Std_Jumlah",
+      "importance": 0.002761817465153613
+    },
+    {
+      "feature": "Branch_Avg_Jumlah",
+      "importance": 0.0019965867799492127
+    },
+    {
+      "feature": "NamaKategori_Freq",
+      "importance": 0.0019222196478225625
+    },
+    {
+      "feature": "KodeCabang_Freq",
+      "importance": 0.0018491231675991798
+    },
+    {
+      "feature": "NamaKategori_TE",
+      "importance": 0.0018015700976048393
+    },
+    {
+      "feature": "NamaKategori_Encoded",
+      "importance": 0.0017394665577377848
+    },
+    {
+      "feature": "Is_Group_Customer",
+      "importance": 0.0013327847951845617
+    },
+    {
+      "feature": "Provinsi_Encoded",
+      "importance": 0.0006668226749243884
+    }
+  ],
+  "XGB-Orig": [
+    {
+      "feature": "Provinsi_Encoded",
+      "importance": 0.10040988773107529
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_TE",
+      "importance": 0.06352053582668304
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_TE",
+      "importance": 0.05398166552186012
+    },
+    {
+      "feature": "KodeCabang_TE",
+      "importance": 0.04803907126188278
+    },
+    {
+      "feature": "KodeCabang_Freq",
+      "importance": 0.044412318617105484
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_TE",
+      "importance": 0.034354835748672485
+    },
+    {
+      "feature": "Cust_Historical_Late_Rate",
+      "importance": 0.029723402112722397
+    },
+    {
+      "feature": "NamaSalesman_TE",
+      "importance": 0.028421560302376747
+    },
+    {
+      "feature": "NamaSalesman_Freq",
+      "importance": 0.022437363862991333
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_Freq",
+      "importance": 0.018844271078705788
+    },
+    {
+      "feature": "Kecamatan_TE",
+      "importance": 0.018572982400655746
+    },
+    {
+      "feature": "NamaDivisi_Freq",
+      "importance": 0.017217932268977165
+    },
+    {
+      "feature": "NamaDivisi_TE",
+      "importance": 0.01680925115942955
+    },
+    {
+      "feature": "Branch_Std_Jumlah",
+      "importance": 0.016657087951898575
+    },
+    {
+      "feature": "KodeCabang_Encoded",
+      "importance": 0.016366103664040565
+    },
+    {
+      "feature": "Branch_Avg_Jumlah",
+      "importance": 0.01611579954624176
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_Freq",
+      "importance": 0.015400035306811333
+    },
+    {
+      "feature": "Sales_Cust_Count",
+      "importance": 0.014875424094498158
+    },
+    {
+      "feature": "Sales_Tx_Count",
+      "importance": 0.014731107279658318
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_TE",
+      "importance": 0.013743828982114792
+    },
+    {
+      "feature": "Kota_TE",
+      "importance": 0.01257204171270132
+    },
+    {
+      "feature": "Jumlah_Bin_TE",
+      "importance": 0.012326487340033054
+    },
+    {
+      "feature": "Branch_Tx_Count",
+      "importance": 0.011472580023109913
+    },
+    {
+      "feature": "Sales_Div_Diversity",
+      "importance": 0.011466559022665024
+    },
+    {
+      "feature": "Div_Tx_Count",
+      "importance": 0.011020619422197342
+    },
+    {
+      "feature": "NamaSalesman_Encoded",
+      "importance": 0.010607019066810608
+    },
+    {
+      "feature": "Sales_Std_Jumlah",
+      "importance": 0.010570062324404716
+    },
+    {
+      "feature": "NamaDivisi_Encoded",
+      "importance": 0.010531112551689148
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_Freq",
+      "importance": 0.010508982464671135
+    },
+    {
+      "feature": "Kota_Tx_Count",
+      "importance": 0.009945406578481197
+    },
+    {
+      "feature": "Jumlah_Bin_Encoded",
+      "importance": 0.009882870130240917
+    },
+    {
+      "feature": "Sales_Avg_Jumlah",
+      "importance": 0.009863575920462608
+    },
+    {
+      "feature": "Kota_Std_Jumlah",
+      "importance": 0.00976130273193121
+    },
+    {
+      "feature": "NamaSubKategori_TE",
+      "importance": 0.009581344202160835
+    },
+    {
+      "feature": "Kota_Freq",
+      "importance": 0.009343582205474377
+    },
+    {
+      "feature": "Kota_Avg_Jumlah",
+      "importance": 0.00915625598281622
+    },
+    {
+      "feature": "Has_Remark",
+      "importance": 0.008528170175850391
+    },
+    {
+      "feature": "NamaGroupCustomer_Freq",
+      "importance": 0.008373284712433815
+    },
+    {
+      "feature": "NamaGroupCustomer_TE",
+      "importance": 0.008315940387547016
+    },
+    {
+      "feature": "Cust_Tx_Count",
+      "importance": 0.008275933563709259
+    },
+    {
+      "feature": "NamaGroupCustomer_Encoded",
+      "importance": 0.007958956062793732
+    },
+    {
+      "feature": "Cust_Total_Jumlah",
+      "importance": 0.007628764491528273
+    },
+    {
+      "feature": "Div_Avg_Jumlah",
+      "importance": 0.007599811535328627
+    },
+    {
+      "feature": "Log_Jumlah_vs_Branch",
+      "importance": 0.007550255861133337
+    },
+    {
+      "feature": "Jumlah_Cust_Zscore",
+      "importance": 0.007542193401604891
+    },
+    {
+      "feature": "Jumlah_Percentile",
+      "importance": 0.007371547166258097
+    },
+    {
+      "feature": "Div_Jumlah_Ratio",
+      "importance": 0.007307356223464012
+    },
+    {
+      "feature": "NamaSubKategori_Encoded",
+      "importance": 0.007291436195373535
+    },
+    {
+      "feature": "Kecamatan_Freq",
+      "importance": 0.007288527209311724
+    },
+    {
+      "feature": "NamaKategori_Encoded",
+      "importance": 0.007156239822506905
+    },
+    {
+      "feature": "Branch_Jumlah_Ratio",
+      "importance": 0.007145776879042387
+    },
+    {
+      "feature": "Log_Jumlah",
+      "importance": 0.007111845072358847
+    },
+    {
+      "feature": "Log_Jumlah_Winsor",
+      "importance": 0.006991385016590357
+    },
+    {
+      "feature": "Kota_Encoded",
+      "importance": 0.0069227078929543495
+    },
+    {
+      "feature": "NamaKategori_TE",
+      "importance": 0.006727077532559633
+    },
+    {
+      "feature": "Log_Jumlah_vs_Div",
+      "importance": 0.006618921644985676
+    },
+    {
+      "feature": "Cust_Avg_Jumlah",
+      "importance": 0.0065462528727948666
+    },
+    {
+      "feature": "Jumlah",
+      "importance": 0.00651443749666214
+    },
+    {
+      "feature": "Cust_Std_Jumlah",
+      "importance": 0.0065016234293580055
+    },
+    {
+      "feature": "Kecamatan_Encoded",
+      "importance": 0.006476739887148142
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_Freq",
+      "importance": 0.006411155220121145
+    },
+    {
+      "feature": "NamaSubKategori_Freq",
+      "importance": 0.006055633537471294
+    },
+    {
+      "feature": "SubCat_Avg_Jumlah",
+      "importance": 0.00595411192625761
+    },
+    {
+      "feature": "Jumlah_Winsor",
+      "importance": 0.005924460012465715
+    },
+    {
+      "feature": "SubCat_Tx_Count",
+      "importance": 0.00560643570497632
+    },
+    {
+      "feature": "NamaKategori_Freq",
+      "importance": 0.0055333818309009075
+    },
+    {
+      "feature": "Div_Std_Jumlah",
+      "importance": 0.005280685145407915
+    },
+    {
+      "feature": "Is_Group_Customer",
+      "importance": 0.005261831451207399
+    },
+    {
+      "feature": "SubCat_Std_Jumlah",
+      "importance": 0.00498291477560997
+    }
+  ],
+  "LGBM-Orig": [
+    {
+      "feature": "Cust_Historical_Late_Rate",
+      "importance": 170
+    },
+    {
+      "feature": "Cust_Total_Jumlah",
+      "importance": 123
+    },
+    {
+      "feature": "Div_Jumlah_Ratio",
+      "importance": 121
+    },
+    {
+      "feature": "Kecamatan_TE",
+      "importance": 120
+    },
+    {
+      "feature": "Jumlah_Cust_Zscore",
+      "importance": 114
+    },
+    {
+      "feature": "Cust_Std_Jumlah",
+      "importance": 114
+    },
+    {
+      "feature": "Log_Jumlah_vs_Branch",
+      "importance": 114
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_TE",
+      "importance": 97
+    },
+    {
+      "feature": "Log_Jumlah_vs_Div",
+      "importance": 96
+    },
+    {
+      "feature": "Cust_Avg_Jumlah",
+      "importance": 96
+    },
+    {
+      "feature": "Jumlah",
+      "importance": 94
+    },
+    {
+      "feature": "Kecamatan_Freq",
+      "importance": 91
+    },
+    {
+      "feature": "Sales_Tx_Count",
+      "importance": 86
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_TE",
+      "importance": 82
+    },
+    {
+      "feature": "NamaSalesman_TE",
+      "importance": 77
+    },
+    {
+      "feature": "Cust_Tx_Count",
+      "importance": 72
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_TE",
+      "importance": 72
+    },
+    {
+      "feature": "Jumlah_Winsor",
+      "importance": 66
+    },
+    {
+      "feature": "NamaSalesman_Encoded",
+      "importance": 65
+    },
+    {
+      "feature": "Kecamatan_Encoded",
+      "importance": 64
+    },
+    {
+      "feature": "Sales_Avg_Jumlah",
+      "importance": 58
+    },
+    {
+      "feature": "Branch_Jumlah_Ratio",
+      "importance": 54
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_TE",
+      "importance": 54
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_Freq",
+      "importance": 53
+    },
+    {
+      "feature": "NamaSubKategori_Encoded",
+      "importance": 52
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_Freq",
+      "importance": 51
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_Freq",
+      "importance": 50
+    },
+    {
+      "feature": "NamaSalesman_Freq",
+      "importance": 47
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_Freq",
+      "importance": 43
+    },
+    {
+      "feature": "NamaSubKategori_TE",
+      "importance": 43
+    },
+    {
+      "feature": "Kota_Tx_Count",
+      "importance": 41
+    },
+    {
+      "feature": "Sales_Cust_Count",
+      "importance": 40
+    },
+    {
+      "feature": "Sales_Std_Jumlah",
+      "importance": 37
+    },
+    {
+      "feature": "Kota_Freq",
+      "importance": 34
+    },
+    {
+      "feature": "Kota_Encoded",
+      "importance": 33
+    },
+    {
+      "feature": "Jumlah_Percentile",
+      "importance": 33
+    },
+    {
+      "feature": "Div_Tx_Count",
+      "importance": 33
+    },
+    {
+      "feature": "Kota_Avg_Jumlah",
+      "importance": 33
+    },
+    {
+      "feature": "Kota_TE",
+      "importance": 33
+    },
+    {
+      "feature": "SubCat_Avg_Jumlah",
+      "importance": 31
+    },
+    {
+      "feature": "SubCat_Tx_Count",
+      "importance": 28
+    },
+    {
+      "feature": "NamaDivisi_TE",
+      "importance": 27
+    },
+    {
+      "feature": "NamaGroupCustomer_Encoded",
+      "importance": 27
+    },
+    {
+      "feature": "Log_Jumlah",
+      "importance": 26
+    },
+    {
+      "feature": "Div_Avg_Jumlah",
+      "importance": 22
+    },
+    {
+      "feature": "NamaGroupCustomer_TE",
+      "importance": 17
+    },
+    {
+      "feature": "Sales_Div_Diversity",
+      "importance": 16
+    },
+    {
+      "feature": "Div_Std_Jumlah",
+      "importance": 16
+    },
+    {
+      "feature": "NamaDivisi_Encoded",
+      "importance": 16
+    },
+    {
+      "feature": "Kota_Std_Jumlah",
+      "importance": 15
+    },
+    {
+      "feature": "NamaGroupCustomer_Freq",
+      "importance": 15
+    },
+    {
+      "feature": "SubCat_Std_Jumlah",
+      "importance": 14
+    },
+    {
+      "feature": "NamaSubKategori_Freq",
+      "importance": 13
+    },
+    {
+      "feature": "NamaDivisi_Freq",
+      "importance": 13
+    },
+    {
+      "feature": "Has_Remark",
+      "importance": 11
+    },
+    {
+      "feature": "Branch_Tx_Count",
+      "importance": 9
+    },
+    {
+      "feature": "Branch_Avg_Jumlah",
+      "importance": 8
+    },
+    {
+      "feature": "Log_Jumlah_Winsor",
+      "importance": 6
+    },
+    {
+      "feature": "KodeCabang_TE",
+      "importance": 6
+    },
+    {
+      "feature": "Jumlah_Bin_TE",
+      "importance": 5
+    },
+    {
+      "feature": "NamaKategori_Freq",
+      "importance": 5
+    },
+    {
+      "feature": "Jumlah_Bin_Encoded",
+      "importance": 3
+    },
+    {
+      "feature": "Branch_Std_Jumlah",
+      "importance": 3
+    },
+    {
+      "feature": "NamaKategori_TE",
+      "importance": 3
+    },
+    {
+      "feature": "KodeCabang_Encoded",
+      "importance": 2
+    },
+    {
+      "feature": "NamaKategori_Encoded",
+      "importance": 1
+    },
+    {
+      "feature": "KodeCabang_Freq",
+      "importance": 1
+    },
+    {
+      "feature": "Is_Group_Customer",
+      "importance": 0
+    },
+    {
+      "feature": "Provinsi_Encoded",
+      "importance": 0
+    }
+  ],
+  "RF-Wt": [
+    {
+      "feature": "Cust_Historical_Late_Rate",
+      "importance": 0.10502609849091821
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_TE",
+      "importance": 0.056663712386695375
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_TE",
+      "importance": 0.048377373118366776
+    },
+    {
+      "feature": "Kecamatan_TE",
+      "importance": 0.0464959415969513
+    },
+    {
+      "feature": "Jumlah_Cust_Zscore",
+      "importance": 0.03419856561824129
+    },
+    {
+      "feature": "NamaSalesman_TE",
+      "importance": 0.033861222376994515
+    },
+    {
+      "feature": "Jumlah_Winsor",
+      "importance": 0.025792448084322916
+    },
+    {
+      "feature": "Div_Jumlah_Ratio",
+      "importance": 0.025675301872641262
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_TE",
+      "importance": 0.02553037365185519
+    },
+    {
+      "feature": "Branch_Jumlah_Ratio",
+      "importance": 0.025353761380745358
+    },
+    {
+      "feature": "Jumlah",
+      "importance": 0.02470195048806413
+    },
+    {
+      "feature": "Jumlah_Percentile",
+      "importance": 0.024225016013142742
+    },
+    {
+      "feature": "Log_Jumlah_Winsor",
+      "importance": 0.023598799324707796
+    },
+    {
+      "feature": "Log_Jumlah",
+      "importance": 0.022857778396210345
+    },
+    {
+      "feature": "Cust_Total_Jumlah",
+      "importance": 0.022635639856805608
+    },
+    {
+      "feature": "Cust_Std_Jumlah",
+      "importance": 0.021937949695996474
+    },
+    {
+      "feature": "Cust_Avg_Jumlah",
+      "importance": 0.0218162960973127
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_TE",
+      "importance": 0.021355742096307445
+    },
+    {
+      "feature": "Jumlah_Bin_TE",
+      "importance": 0.020678390491152405
+    },
+    {
+      "feature": "Kecamatan_Encoded",
+      "importance": 0.016580728776182514
+    },
+    {
+      "feature": "Kecamatan_Freq",
+      "importance": 0.016306411302776064
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_Freq",
+      "importance": 0.01562231755298712
+    },
+    {
+      "feature": "NamaSalesman_Freq",
+      "importance": 0.01529428812089557
+    },
+    {
+      "feature": "Sales_Tx_Count",
+      "importance": 0.01486188394046011
+    },
+    {
+      "feature": "Cust_Tx_Count",
+      "importance": 0.013888927393661793
+    },
+    {
+      "feature": "Sales_Cust_Count",
+      "importance": 0.012776550362670388
+    },
+    {
+      "feature": "Kota_TE",
+      "importance": 0.0126931516891221
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_Freq",
+      "importance": 0.012503455882177786
+    },
+    {
+      "feature": "NamaDivisi_TE",
+      "importance": 0.011393219047319674
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_Freq",
+      "importance": 0.010881335193207373
+    },
+    {
+      "feature": "KodeCabang_TE",
+      "importance": 0.009432578708490581
+    },
+    {
+      "feature": "Sales_Avg_Jumlah",
+      "importance": 0.009407029937828899
+    },
+    {
+      "feature": "Sales_Std_Jumlah",
+      "importance": 0.009103822893506435
+    },
+    {
+      "feature": "NamaSalesman_Encoded",
+      "importance": 0.009087225685237782
+    },
+    {
+      "feature": "NamaSubKategori_TE",
+      "importance": 0.008305327101117543
+    },
+    {
+      "feature": "Log_Jumlah_vs_Div",
+      "importance": 0.007581279902720431
+    },
+    {
+      "feature": "SubCat_Std_Jumlah",
+      "importance": 0.007570899607552174
+    },
+    {
+      "feature": "SubCat_Avg_Jumlah",
+      "importance": 0.007529718611800874
+    },
+    {
+      "feature": "NamaSubKategori_Encoded",
+      "importance": 0.007515182323744062
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_Freq",
+      "importance": 0.0074200217249495515
+    },
+    {
+      "feature": "NamaSubKategori_Freq",
+      "importance": 0.0072600897773350765
+    },
+    {
+      "feature": "Kota_Avg_Jumlah",
+      "importance": 0.007205870068095784
+    },
+    {
+      "feature": "SubCat_Tx_Count",
+      "importance": 0.007146636441761977
+    },
+    {
+      "feature": "Kota_Freq",
+      "importance": 0.007056409735068259
+    },
+    {
+      "feature": "Kota_Tx_Count",
+      "importance": 0.00703400544911326
+    },
+    {
+      "feature": "Log_Jumlah_vs_Branch",
+      "importance": 0.006549100100927052
+    },
+    {
+      "feature": "NamaDivisi_Freq",
+      "importance": 0.006528507697485372
+    },
+    {
+      "feature": "Kota_Std_Jumlah",
+      "importance": 0.006511541752110468
+    },
+    {
+      "feature": "Kota_Encoded",
+      "importance": 0.006190030905847842
+    },
+    {
+      "feature": "Div_Tx_Count",
+      "importance": 0.0059441077773509775
+    },
+    {
+      "feature": "NamaGroupCustomer_Freq",
+      "importance": 0.005481685677890677
+    },
+    {
+      "feature": "NamaGroupCustomer_TE",
+      "importance": 0.005206248280447861
+    },
+    {
+      "feature": "Div_Avg_Jumlah",
+      "importance": 0.005070722076630027
+    },
+    {
+      "feature": "Div_Std_Jumlah",
+      "importance": 0.004846759374629674
+    },
+    {
+      "feature": "NamaGroupCustomer_Encoded",
+      "importance": 0.004754324433187574
+    },
+    {
+      "feature": "Branch_Tx_Count",
+      "importance": 0.004503567108680139
+    },
+    {
+      "feature": "KodeCabang_Freq",
+      "importance": 0.004002822970781035
+    },
+    {
+      "feature": "NamaDivisi_Encoded",
+      "importance": 0.003924034613386409
+    },
+    {
+      "feature": "Jumlah_Bin_Encoded",
+      "importance": 0.0037362292226497673
+    },
+    {
+      "feature": "Branch_Std_Jumlah",
+      "importance": 0.0035553262322559334
+    },
+    {
+      "feature": "Branch_Avg_Jumlah",
+      "importance": 0.0033526093372515907
+    },
+    {
+      "feature": "NamaKategori_Freq",
+      "importance": 0.0033024371020799743
+    },
+    {
+      "feature": "NamaKategori_TE",
+      "importance": 0.003240969810749564
+    },
+    {
+      "feature": "Sales_Div_Diversity",
+      "importance": 0.0031632090886822262
+    },
+    {
+      "feature": "Has_Remark",
+      "importance": 0.002922363063436721
+    },
+    {
+      "feature": "KodeCabang_Encoded",
+      "importance": 0.0017429357235563708
+    },
+    {
+      "feature": "NamaKategori_Encoded",
+      "importance": 0.0013644894783945486
+    },
+    {
+      "feature": "Is_Group_Customer",
+      "importance": 0.0012627356232906247
+    },
+    {
+      "feature": "Provinsi_Encoded",
+      "importance": 0.0006025142810826697
+    }
+  ],
+  "XGB-Wt": [
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_TE",
+      "importance": 0.07279709726572037
+    },
+    {
+      "feature": "Branch_Tx_Count",
+      "importance": 0.03824114799499512
+    },
+    {
+      "feature": "Jumlah_Bin_TE",
+      "importance": 0.038114771246910095
+    },
+    {
+      "feature": "NamaGroupCustomer_Encoded",
+      "importance": 0.03637980669736862
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_TE",
+      "importance": 0.034028310328722
+    },
+    {
+      "feature": "Jumlah_Bin_Encoded",
+      "importance": 0.031251415610313416
+    },
+    {
+      "feature": "NamaSalesman_TE",
+      "importance": 0.028805967420339584
+    },
+    {
+      "feature": "Cust_Historical_Late_Rate",
+      "importance": 0.027882950380444527
+    },
+    {
+      "feature": "NamaKategori_Freq",
+      "importance": 0.02419321984052658
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_Freq",
+      "importance": 0.02323714829981327
+    },
+    {
+      "feature": "NamaDivisi_TE",
+      "importance": 0.023184247314929962
+    },
+    {
+      "feature": "NamaGroupCustomer_TE",
+      "importance": 0.02207021228969097
+    },
+    {
+      "feature": "KodeCabang_Freq",
+      "importance": 0.02153269574046135
+    },
+    {
+      "feature": "NamaSubKategori_TE",
+      "importance": 0.01987132430076599
+    },
+    {
+      "feature": "NamaGroupCustomer_Freq",
+      "importance": 0.01755945198237896
+    },
+    {
+      "feature": "Kecamatan_TE",
+      "importance": 0.017142580822110176
+    },
+    {
+      "feature": "KodeCabang_TE",
+      "importance": 0.016599126160144806
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_Freq",
+      "importance": 0.015204604715108871
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_Freq",
+      "importance": 0.015065927989780903
+    },
+    {
+      "feature": "Kota_TE",
+      "importance": 0.014922709204256535
+    },
+    {
+      "feature": "Cust_Tx_Count",
+      "importance": 0.01469989214092493
+    },
+    {
+      "feature": "Cust_Std_Jumlah",
+      "importance": 0.014343934133648872
+    },
+    {
+      "feature": "Log_Jumlah",
+      "importance": 0.01392618753015995
+    },
+    {
+      "feature": "NamaSalesman_Encoded",
+      "importance": 0.013162816874682903
+    },
+    {
+      "feature": "NamaSubKategori_Encoded",
+      "importance": 0.0126583157107234
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_TE",
+      "importance": 0.012449558824300766
+    },
+    {
+      "feature": "Log_Jumlah_vs_Branch",
+      "importance": 0.012393789365887642
+    },
+    {
+      "feature": "Kota_Freq",
+      "importance": 0.012024729512631893
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_Freq",
+      "importance": 0.012018809095025063
+    },
+    {
+      "feature": "Jumlah_Cust_Zscore",
+      "importance": 0.011859104968607426
+    },
+    {
+      "feature": "NamaSalesman_Freq",
+      "importance": 0.011734319850802422
+    },
+    {
+      "feature": "NamaKategori_TE",
+      "importance": 0.011716495268046856
+    },
+    {
+      "feature": "Branch_Jumlah_Ratio",
+      "importance": 0.011327321641147137
+    },
+    {
+      "feature": "Jumlah_Winsor",
+      "importance": 0.01130932942032814
+    },
+    {
+      "feature": "Is_Group_Customer",
+      "importance": 0.011282745748758316
+    },
+    {
+      "feature": "Sales_Std_Jumlah",
+      "importance": 0.011203393340110779
+    },
+    {
+      "feature": "NamaDivisi_Encoded",
+      "importance": 0.010831184685230255
+    },
+    {
+      "feature": "Sales_Tx_Count",
+      "importance": 0.01077987439930439
+    },
+    {
+      "feature": "Jumlah",
+      "importance": 0.010779640637338161
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_TE",
+      "importance": 0.010739590041339397
+    },
+    {
+      "feature": "Cust_Total_Jumlah",
+      "importance": 0.010603401809930801
+    },
+    {
+      "feature": "NamaDivisi_Freq",
+      "importance": 0.01059882901608944
+    },
+    {
+      "feature": "Jumlah_Percentile",
+      "importance": 0.010505556128919125
+    },
+    {
+      "feature": "Cust_Avg_Jumlah",
+      "importance": 0.010504358448088169
+    },
+    {
+      "feature": "Log_Jumlah_Winsor",
+      "importance": 0.010395093820989132
+    },
+    {
+      "feature": "NamaSubKategori_Freq",
+      "importance": 0.010376311838626862
+    },
+    {
+      "feature": "Div_Std_Jumlah",
+      "importance": 0.010348725132644176
+    },
+    {
+      "feature": "SubCat_Tx_Count",
+      "importance": 0.010345960967242718
+    },
+    {
+      "feature": "Sales_Avg_Jumlah",
+      "importance": 0.010191327892243862
+    },
+    {
+      "feature": "Branch_Std_Jumlah",
+      "importance": 0.009166044183075428
+    },
+    {
+      "feature": "Div_Jumlah_Ratio",
+      "importance": 0.008955773897469044
+    },
+    {
+      "feature": "Sales_Cust_Count",
+      "importance": 0.008234507404267788
+    },
+    {
+      "feature": "Kecamatan_Freq",
+      "importance": 0.008049492724239826
+    },
+    {
+      "feature": "SubCat_Std_Jumlah",
+      "importance": 0.008043872192502022
+    },
+    {
+      "feature": "Log_Jumlah_vs_Div",
+      "importance": 0.007928811945021152
+    },
+    {
+      "feature": "Kota_Avg_Jumlah",
+      "importance": 0.007897787727415562
+    },
+    {
+      "feature": "Kecamatan_Encoded",
+      "importance": 0.007602734956890345
+    },
+    {
+      "feature": "Has_Remark",
+      "importance": 0.00727595342323184
+    },
+    {
+      "feature": "Kota_Std_Jumlah",
+      "importance": 0.007272579241544008
+    },
+    {
+      "feature": "Div_Tx_Count",
+      "importance": 0.006618674378842115
+    },
+    {
+      "feature": "SubCat_Avg_Jumlah",
+      "importance": 0.0063664549961686134
+    },
+    {
+      "feature": "Kota_Encoded",
+      "importance": 0.00629684841260314
+    },
+    {
+      "feature": "Kota_Tx_Count",
+      "importance": 0.006139148958027363
+    },
+    {
+      "feature": "Branch_Avg_Jumlah",
+      "importance": 0.006138052325695753
+    },
+    {
+      "feature": "Div_Avg_Jumlah",
+      "importance": 0.005997462198138237
+    },
+    {
+      "feature": "Sales_Div_Diversity",
+      "importance": 0.005637483671307564
+    },
+    {
+      "feature": "NamaKategori_Encoded",
+      "importance": 0.0031830088701099157
+    },
+    {
+      "feature": "Provinsi_Encoded",
+      "importance": 0.0
+    },
+    {
+      "feature": "KodeCabang_Encoded",
+      "importance": 0.0
+    }
+  ],
+  "LGBM-Wt": [
+    {
+      "feature": "Cust_Historical_Late_Rate",
+      "importance": 303
+    },
+    {
+      "feature": "Cust_Total_Jumlah",
+      "importance": 243
+    },
+    {
+      "feature": "Jumlah_Cust_Zscore",
+      "importance": 228
+    },
+    {
+      "feature": "Kecamatan_TE",
+      "importance": 207
+    },
+    {
+      "feature": "NamaSalesman_TE",
+      "importance": 167
+    },
+    {
+      "feature": "Jumlah_Bin_TE",
+      "importance": 161
+    },
+    {
+      "feature": "Jumlah",
+      "importance": 157
+    },
+    {
+      "feature": "Cust_Std_Jumlah",
+      "importance": 156
+    },
+    {
+      "feature": "Jumlah_Winsor",
+      "importance": 155
+    },
+    {
+      "feature": "Div_Jumlah_Ratio",
+      "importance": 154
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_TE",
+      "importance": 145
+    },
+    {
+      "feature": "Kecamatan_Freq",
+      "importance": 141
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_TE",
+      "importance": 138
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_TE",
+      "importance": 125
+    },
+    {
+      "feature": "Sales_Tx_Count",
+      "importance": 115
+    },
+    {
+      "feature": "Cust_Avg_Jumlah",
+      "importance": 115
+    },
+    {
+      "feature": "Sales_Avg_Jumlah",
+      "importance": 110
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_Freq",
+      "importance": 109
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_TE",
+      "importance": 108
+    },
+    {
+      "feature": "Cust_Tx_Count",
+      "importance": 107
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_Freq",
+      "importance": 102
+    },
+    {
+      "feature": "NamaSalesman_Freq",
+      "importance": 97
+    },
+    {
+      "feature": "Branch_Jumlah_Ratio",
+      "importance": 96
+    },
+    {
+      "feature": "Kota_Tx_Count",
+      "importance": 87
+    },
+    {
+      "feature": "NamaSalesman_Encoded",
+      "importance": 81
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_Freq",
+      "importance": 80
+    },
+    {
+      "feature": "Kota_Avg_Jumlah",
+      "importance": 79
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_Freq",
+      "importance": 79
+    },
+    {
+      "feature": "Jumlah_Percentile",
+      "importance": 78
+    },
+    {
+      "feature": "Log_Jumlah",
+      "importance": 77
+    },
+    {
+      "feature": "Sales_Std_Jumlah",
+      "importance": 72
+    },
+    {
+      "feature": "Sales_Cust_Count",
+      "importance": 71
+    },
+    {
+      "feature": "Kota_TE",
+      "importance": 68
+    },
+    {
+      "feature": "SubCat_Tx_Count",
+      "importance": 68
+    },
+    {
+      "feature": "Kecamatan_Encoded",
+      "importance": 68
+    },
+    {
+      "feature": "Div_Tx_Count",
+      "importance": 54
+    },
+    {
+      "feature": "NamaSubKategori_TE",
+      "importance": 53
+    },
+    {
+      "feature": "KodeCabang_TE",
+      "importance": 50
+    },
+    {
+      "feature": "Log_Jumlah_Winsor",
+      "importance": 49
+    },
+    {
+      "feature": "SubCat_Std_Jumlah",
+      "importance": 46
+    },
+    {
+      "feature": "Div_Std_Jumlah",
+      "importance": 46
+    },
+    {
+      "feature": "NamaDivisi_TE",
+      "importance": 43
+    },
+    {
+      "feature": "Div_Avg_Jumlah",
+      "importance": 42
+    },
+    {
+      "feature": "SubCat_Avg_Jumlah",
+      "importance": 42
+    },
+    {
+      "feature": "Log_Jumlah_vs_Branch",
+      "importance": 42
+    },
+    {
+      "feature": "NamaGroupCustomer_Freq",
+      "importance": 40
+    },
+    {
+      "feature": "Kota_Std_Jumlah",
+      "importance": 39
+    },
+    {
+      "feature": "NamaDivisi_Freq",
+      "importance": 38
+    },
+    {
+      "feature": "NamaGroupCustomer_TE",
+      "importance": 37
+    },
+    {
+      "feature": "Kota_Encoded",
+      "importance": 37
+    },
+    {
+      "feature": "NamaSubKategori_Encoded",
+      "importance": 37
+    },
+    {
+      "feature": "NamaGroupCustomer_Encoded",
+      "importance": 34
+    },
+    {
+      "feature": "NamaKategori_TE",
+      "importance": 32
+    },
+    {
+      "feature": "Kota_Freq",
+      "importance": 30
+    },
+    {
+      "feature": "NamaKategori_Freq",
+      "importance": 26
+    },
+    {
+      "feature": "NamaSubKategori_Freq",
+      "importance": 25
+    },
+    {
+      "feature": "Log_Jumlah_vs_Div",
+      "importance": 23
+    },
+    {
+      "feature": "KodeCabang_Freq",
+      "importance": 19
+    },
+    {
+      "feature": "NamaDivisi_Encoded",
+      "importance": 17
+    },
+    {
+      "feature": "Branch_Tx_Count",
+      "importance": 15
+    },
+    {
+      "feature": "Branch_Avg_Jumlah",
+      "importance": 14
+    },
+    {
+      "feature": "Sales_Div_Diversity",
+      "importance": 8
+    },
+    {
+      "feature": "Branch_Std_Jumlah",
+      "importance": 7
+    },
+    {
+      "feature": "Jumlah_Bin_Encoded",
+      "importance": 5
+    },
+    {
+      "feature": "Provinsi_Encoded",
+      "importance": 1
+    },
+    {
+      "feature": "KodeCabang_Encoded",
+      "importance": 1
+    },
+    {
+      "feature": "Is_Group_Customer",
+      "importance": 0
+    },
+    {
+      "feature": "Has_Remark",
+      "importance": 0
+    },
+    {
+      "feature": "NamaKategori_Encoded",
+      "importance": 0
+    }
+  ],
+  "shap_mean_abs": [
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_TE",
+      "mean_abs_shap": 0.04818891015587716
+    },
+    {
+      "feature": "Kecamatan_TE",
+      "mean_abs_shap": 0.03274830424663614
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_TE",
+      "mean_abs_shap": 0.03175976555121628
+    },
+    {
+      "feature": "Cust_Historical_Late_Rate",
+      "mean_abs_shap": 0.03126106905536062
+    },
+    {
+      "feature": "NamaSalesman_TE",
+      "mean_abs_shap": 0.024331272021714725
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_TE",
+      "mean_abs_shap": 0.01558612011162663
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_TE",
+      "mean_abs_shap": 0.014308702250725655
+    },
+    {
+      "feature": "Jumlah_Cust_Zscore",
+      "mean_abs_shap": 0.012819176234416472
+    },
+    {
+      "feature": "NamaSalesman_Freq",
+      "mean_abs_shap": 0.00939335073806726
+    },
+    {
+      "feature": "Log_Jumlah_vs_Div",
+      "mean_abs_shap": 0.009390373477762198
+    },
+    {
+      "feature": "Sales_Tx_Count",
+      "mean_abs_shap": 0.009371927019096133
+    },
+    {
+      "feature": "Jumlah_Percentile",
+      "mean_abs_shap": 0.008528062451351353
+    },
+    {
+      "feature": "SalesDiv__interaction_SalesDiv_Freq",
+      "mean_abs_shap": 0.00829890388838105
+    },
+    {
+      "feature": "Branch_Jumlah_Ratio",
+      "mean_abs_shap": 0.00815925520337275
+    },
+    {
+      "feature": "Log_Jumlah_vs_Branch",
+      "mean_abs_shap": 0.008109097347199798
+    },
+    {
+      "feature": "Jumlah_Winsor",
+      "mean_abs_shap": 0.008043917167845707
+    },
+    {
+      "feature": "Div_Jumlah_Ratio",
+      "mean_abs_shap": 0.007876550605452396
+    },
+    {
+      "feature": "Log_Jumlah_Winsor",
+      "mean_abs_shap": 0.007858957509305778
+    },
+    {
+      "feature": "Log_Jumlah",
+      "mean_abs_shap": 0.00783076030365168
+    },
+    {
+      "feature": "Kota_TE",
+      "mean_abs_shap": 0.007483850016997565
+    },
+    {
+      "feature": "Cust_Total_Jumlah",
+      "mean_abs_shap": 0.0071863352239981484
+    },
+    {
+      "feature": "Jumlah",
+      "mean_abs_shap": 0.0070732697189658895
+    },
+    {
+      "feature": "Cust_Avg_Jumlah",
+      "mean_abs_shap": 0.006320133645402971
+    },
+    {
+      "feature": "Sales_Cust_Count",
+      "mean_abs_shap": 0.006078365611004916
+    },
+    {
+      "feature": "Cust_Std_Jumlah",
+      "mean_abs_shap": 0.0059347020264603895
+    },
+    {
+      "feature": "KotaDiv__interaction_KotaDiv_Freq",
+      "mean_abs_shap": 0.005751668989582925
+    },
+    {
+      "feature": "NamaDivisi_TE",
+      "mean_abs_shap": 0.0056101978367248725
+    },
+    {
+      "feature": "Cust_Tx_Count",
+      "mean_abs_shap": 0.004932058288685977
+    },
+    {
+      "feature": "Kecamatan_Encoded",
+      "mean_abs_shap": 0.004340209294908511
+    },
+    {
+      "feature": "Div_Tx_Count",
+      "mean_abs_shap": 0.0042544191263728754
+    },
+    {
+      "feature": "KodeCabang_TE",
+      "mean_abs_shap": 0.004072824554022471
+    },
+    {
+      "feature": "Sales_Std_Jumlah",
+      "mean_abs_shap": 0.003879741666512716
+    },
+    {
+      "feature": "Kecamatan_Freq",
+      "mean_abs_shap": 0.003733359668693105
+    },
+    {
+      "feature": "NamaDivisi_Freq",
+      "mean_abs_shap": 0.003633435828521502
+    },
+    {
+      "feature": "NamaSalesman_Encoded",
+      "mean_abs_shap": 0.003488893312776609
+    },
+    {
+      "feature": "SubCatBranch__interaction_SubCatBranch_Freq",
+      "mean_abs_shap": 0.003465174077071911
+    },
+    {
+      "feature": "DivBranch__interaction_DivBranch_Freq",
+      "mean_abs_shap": 0.003318341030514777
+    },
+    {
+      "feature": "Sales_Avg_Jumlah",
+      "mean_abs_shap": 0.0033034512604311075
+    },
+    {
+      "feature": "KodeCabang_Encoded",
+      "mean_abs_shap": 0.0026685766026915167
+    },
+    {
+      "feature": "Kota_Tx_Count",
+      "mean_abs_shap": 0.0025890667217132886
+    },
+    {
+      "feature": "NamaSubKategori_Encoded",
+      "mean_abs_shap": 0.0025537316667073296
+    },
+    {
+      "feature": "SubCat_Std_Jumlah",
+      "mean_abs_shap": 0.0024614020382445643
+    },
+    {
+      "feature": "SubCat_Avg_Jumlah",
+      "mean_abs_shap": 0.0024268660557898044
+    },
+    {
+      "feature": "Kota_Freq",
+      "mean_abs_shap": 0.0024017163893706294
+    },
+    {
+      "feature": "NamaSubKategori_TE",
+      "mean_abs_shap": 0.0023860514153779986
+    },
+    {
+      "feature": "Branch_Tx_Count",
+      "mean_abs_shap": 0.002299297475739377
+    },
+    {
+      "feature": "Kota_Avg_Jumlah",
+      "mean_abs_shap": 0.0021888853520299423
+    },
+    {
+      "feature": "NamaGroupCustomer_TE",
+      "mean_abs_shap": 0.002117090764118208
+    },
+    {
+      "feature": "Branch_Std_Jumlah",
+      "mean_abs_shap": 0.0021140823223747287
+    },
+    {
+      "feature": "Kota_Encoded",
+      "mean_abs_shap": 0.001994184102123459
+    },
+    {
+      "feature": "NamaGroupCustomer_Freq",
+      "mean_abs_shap": 0.0019203063787892934
+    },
+    {
+      "feature": "Has_Remark",
+      "mean_abs_shap": 0.0018981122985554928
+    },
+    {
+      "feature": "NamaDivisi_Encoded",
+      "mean_abs_shap": 0.0018955665802500082
+    },
+    {
+      "feature": "Jumlah_Bin_TE",
+      "mean_abs_shap": 0.0018055744612495202
+    },
+    {
+      "feature": "NamaSubKategori_Freq",
+      "mean_abs_shap": 0.0017973009885382952
+    },
+    {
+      "feature": "NamaGroupCustomer_Encoded",
+      "mean_abs_shap": 0.001782229054160105
+    },
+    {
+      "feature": "SubCat_Tx_Count",
+      "mean_abs_shap": 0.0017233104480571027
+    },
+    {
+      "feature": "Jumlah_Bin_Encoded",
+      "mean_abs_shap": 0.0016406784879304276
+    },
+    {
+      "feature": "Kota_Std_Jumlah",
+      "mean_abs_shap": 0.0015673947961608948
+    },
+    {
+      "feature": "Div_Avg_Jumlah",
+      "mean_abs_shap": 0.001503668519313658
+    },
+    {
+      "feature": "Branch_Avg_Jumlah",
+      "mean_abs_shap": 0.0014909502070680888
+    },
+    {
+      "feature": "Sales_Div_Diversity",
+      "mean_abs_shap": 0.0013569582784075534
+    },
+    {
+      "feature": "KodeCabang_Freq",
+      "mean_abs_shap": 0.0012148121185105122
+    },
+    {
+      "feature": "Div_Std_Jumlah",
+      "mean_abs_shap": 0.0011831017384565528
+    },
+    {
+      "feature": "NamaKategori_Freq",
+      "mean_abs_shap": 0.001006455495713569
+    },
+    {
+      "feature": "NamaKategori_TE",
+      "mean_abs_shap": 0.0009201253042548098
+    },
+    {
+      "feature": "NamaKategori_Encoded",
+      "mean_abs_shap": 0.0008030536616006086
+    },
+    {
+      "feature": "Provinsi_Encoded",
+      "mean_abs_shap": 0.0005974168095530786
+    },
+    {
+      "feature": "Is_Group_Customer",
+      "mean_abs_shap": 0.0005078718827699536
+    }
+  ]
+}

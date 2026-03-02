@@ -1,0 +1,792 @@
+{
+  "version": "v3",
+  "feature_set": "conservative_v4",
+  "n_features": 69,
+  "features_used": [
+    "Jumlah",
+    "Jumlah_Winsor",
+    "Log_Jumlah",
+    "Log_Jumlah_Winsor",
+    "Jumlah_Percentile",
+    "Is_Group_Customer",
+    "Has_Remark",
+    "Cust_Avg_Jumlah",
+    "Cust_Tx_Count",
+    "Cust_Std_Jumlah",
+    "Cust_Total_Jumlah",
+    "Cust_Historical_Late_Rate",
+    "SubCat_Avg_Jumlah",
+    "SubCat_Tx_Count",
+    "SubCat_Std_Jumlah",
+    "Div_Avg_Jumlah",
+    "Div_Tx_Count",
+    "Div_Std_Jumlah",
+    "Branch_Avg_Jumlah",
+    "Branch_Tx_Count",
+    "Branch_Std_Jumlah",
+    "Sales_Avg_Jumlah",
+    "Sales_Tx_Count",
+    "Sales_Std_Jumlah",
+    "Kota_Avg_Jumlah",
+    "Kota_Tx_Count",
+    "Kota_Std_Jumlah",
+    "Branch_Jumlah_Ratio",
+    "Div_Jumlah_Ratio",
+    "Jumlah_Cust_Zscore",
+    "Log_Jumlah_vs_Branch",
+    "Log_Jumlah_vs_Div",
+    "NamaSalesman_TE",
+    "NamaSubKategori_TE",
+    "NamaDivisi_TE",
+    "Kota_TE",
+    "KodeCabang_TE",
+    "Kecamatan_TE",
+    "NamaGroupCustomer_TE",
+    "NamaKategori_TE",
+    "Jumlah_Bin_TE",
+    "NamaSalesman_Freq",
+    "NamaSubKategori_Freq",
+    "NamaDivisi_Freq",
+    "Kota_Freq",
+    "KodeCabang_Freq",
+    "Kecamatan_Freq",
+    "NamaGroupCustomer_Freq",
+    "NamaKategori_Freq",
+    "DivBranch__interaction_DivBranch_TE",
+    "SalesDiv__interaction_SalesDiv_TE",
+    "SubCatBranch__interaction_SubCatBranch_TE",
+    "KotaDiv__interaction_KotaDiv_TE",
+    "DivBranch__interaction_DivBranch_Freq",
+    "SalesDiv__interaction_SalesDiv_Freq",
+    "SubCatBranch__interaction_SubCatBranch_Freq",
+    "KotaDiv__interaction_KotaDiv_Freq",
+    "Sales_Div_Diversity",
+    "Sales_Cust_Count",
+    "NamaKategori_Encoded",
+    "NamaSubKategori_Encoded",
+    "NamaDivisi_Encoded",
+    "KodeCabang_Encoded",
+    "Provinsi_Encoded",
+    "Kota_Encoded",
+    "Jumlah_Bin_Encoded",
+    "NamaSalesman_Encoded",
+    "Kecamatan_Encoded",
+    "NamaGroupCustomer_Encoded"
+  ],
+  "cat_features": [
+    "NamaKategori_Encoded",
+    "NamaSubKategori_Encoded",
+    "NamaDivisi_Encoded",
+    "KodeCabang_Encoded",
+    "Provinsi_Encoded",
+    "Kota_Encoded",
+    "Jumlah_Bin_Encoded",
+    "NamaSalesman_Encoded",
+    "Kecamatan_Encoded",
+    "NamaGroupCustomer_Encoded"
+  ],
+  "cont_features": [
+    "Jumlah",
+    "Jumlah_Winsor",
+    "Log_Jumlah",
+    "Log_Jumlah_Winsor",
+    "Jumlah_Percentile",
+    "Is_Group_Customer",
+    "Has_Remark",
+    "Cust_Avg_Jumlah",
+    "Cust_Tx_Count",
+    "Cust_Std_Jumlah",
+    "Cust_Total_Jumlah",
+    "Cust_Historical_Late_Rate",
+    "SubCat_Avg_Jumlah",
+    "SubCat_Tx_Count",
+    "SubCat_Std_Jumlah",
+    "Div_Avg_Jumlah",
+    "Div_Tx_Count",
+    "Div_Std_Jumlah",
+    "Branch_Avg_Jumlah",
+    "Branch_Tx_Count",
+    "Branch_Std_Jumlah",
+    "Sales_Avg_Jumlah",
+    "Sales_Tx_Count",
+    "Sales_Std_Jumlah",
+    "Kota_Avg_Jumlah",
+    "Kota_Tx_Count",
+    "Kota_Std_Jumlah",
+    "Branch_Jumlah_Ratio",
+    "Div_Jumlah_Ratio",
+    "Jumlah_Cust_Zscore",
+    "Log_Jumlah_vs_Branch",
+    "Log_Jumlah_vs_Div",
+    "NamaSalesman_TE",
+    "NamaSubKategori_TE",
+    "NamaDivisi_TE",
+    "Kota_TE",
+    "KodeCabang_TE",
+    "Kecamatan_TE",
+    "NamaGroupCustomer_TE",
+    "NamaKategori_TE",
+    "Jumlah_Bin_TE",
+    "NamaSalesman_Freq",
+    "NamaSubKategori_Freq",
+    "NamaDivisi_Freq",
+    "Kota_Freq",
+    "KodeCabang_Freq",
+    "Kecamatan_Freq",
+    "NamaGroupCustomer_Freq",
+    "NamaKategori_Freq",
+    "DivBranch__interaction_DivBranch_TE",
+    "SalesDiv__interaction_SalesDiv_TE",
+    "SubCatBranch__interaction_SubCatBranch_TE",
+    "KotaDiv__interaction_KotaDiv_TE",
+    "DivBranch__interaction_DivBranch_Freq",
+    "SalesDiv__interaction_SalesDiv_Freq",
+    "SubCatBranch__interaction_SubCatBranch_Freq",
+    "KotaDiv__interaction_KotaDiv_Freq",
+    "Sales_Div_Diversity",
+    "Sales_Cust_Count"
+  ],
+  "cat_cardinalities": {
+    "NamaKategori_Encoded": 3,
+    "NamaSubKategori_Encoded": 23,
+    "NamaDivisi_Encoded": 14,
+    "KodeCabang_Encoded": 5,
+    "Provinsi_Encoded": 3,
+    "Kota_Encoded": 27,
+    "Jumlah_Bin_Encoded": 4,
+    "NamaSalesman_Encoded": 56,
+    "Kecamatan_Encoded": 171,
+    "NamaGroupCustomer_Encoded": 18
+  },
+  "device": "cpu",
+  "class_distribution": {
+    "train_aug_late_rate": 0.5,
+    "train_orig_late_rate": 0.289210233592881,
+    "val_late_rate": 0.30264357338195075,
+    "test_late_rate": 0.269281045751634,
+    "imbalance_ratio_orig": 2.457692307692308,
+    "n_synthetic": 1895
+  },
+  "best_dl_model": "TabNet-Aug",
+  "best_dl_auc": 0.7701,
+  "best_dl_experiment": "A",
+  "synthetic_sample_weight_c": 0.75,
+  "models": {
+    "mlp_a": {
+      "experiment": "A",
+      "model_type": "Residual MLP",
+      "test_metrics_default": {
+        "model": "MLP-Aug",
+        "dataset": "Test",
+        "threshold": 0.5,
+        "accuracy": 0.6875816993464052,
+        "precision": 0.4492307692307692,
+        "recall": 0.7087378640776699,
+        "f1": 0.5499058380414312,
+        "auc_roc": 0.7601125449398196,
+        "avg_precision": 0.5898884650428615
+      },
+      "test_metrics_optimized": {
+        "model": "MLP-Aug (t=0.48)",
+        "dataset": "Test",
+        "threshold": 0.47512562814070347,
+        "accuracy": 0.6692810457516339,
+        "precision": 0.43526170798898073,
+        "recall": 0.7669902912621359,
+        "f1": 0.5553602811950791,
+        "auc_roc": 0.7601125449398196,
+        "avg_precision": 0.5898884650428615
+      },
+      "val_metrics_default": {
+        "model": "MLP-Aug",
+        "dataset": "Validation",
+        "threshold": 0.5,
+        "accuracy": 0.650865998176846,
+        "precision": 0.4442013129102845,
+        "recall": 0.6114457831325302,
+        "f1": 0.514575411913815,
+        "auc_roc": 0.7101602488384912,
+        "avg_precision": 0.5670188893142262
+      },
+      "val_metrics_optimized": {
+        "model": "MLP-Aug (t=0.48)",
+        "dataset": "Validation",
+        "threshold": 0.47512562814070347,
+        "accuracy": 0.6390154968094804,
+        "precision": 0.4377431906614786,
+        "recall": 0.677710843373494,
+        "f1": 0.5319148936170213,
+        "auc_roc": 0.7101602488384912,
+        "avg_precision": 0.5670188893142262
+      },
+      "optimal_threshold": 0.47512562814070347,
+      "bootstrap_ci": {
+        "auc_roc": {
+          "mean": 0.7605947783064722,
+          "std": 0.018183831429942475,
+          "ci_lower": 0.7256617047742298,
+          "ci_upper": 0.7974843554405632
+        },
+        "f1": {
+          "mean": 0.555021683515457,
+          "std": 0.02413111675471114,
+          "ci_lower": 0.5073515993988836,
+          "ci_upper": 0.6038424653983723
+        },
+        "precision": {
+          "mean": 0.4352334465972915,
+          "std": 0.02514376938676553,
+          "ci_lower": 0.3850415512465374,
+          "ci_upper": 0.48564953250579806
+        },
+        "recall": {
+          "mean": 0.7673580038100376,
+          "std": 0.028352914503729915,
+          "ci_lower": 0.7114402215725496,
+          "ci_upper": 0.8208247316267547
+        },
+        "avg_precision": {
+          "mean": 0.5915098261609069,
+          "std": 0.03128820701877168,
+          "ci_lower": 0.5291175922333546,
+          "ci_upper": 0.6534740967926764
+        }
+      },
+      "config": {
+        "hidden_dims": [
+          192,
+          192,
+          192,
+          192,
+          192
+        ],
+        "dropout": 0.489569448880504,
+        "emb_dropout": 0.2442976617262911,
+        "use_layernorm": false,
+        "use_input_batchnorm": false,
+        "focal_alpha": 0.6618371923000497,
+        "focal_gamma": 2.2148945872259285,
+        "label_smoothing": 0.0994961496744576,
+        "lr": 0.003158440094818043,
+        "weight_decay": 0.0005345184516782285,
+        "batch_size": 256,
+        "use_weighted_sampler": true,
+        "use_cosine_annealing": false,
+        "best_epoch": 24,
+        "best_val_auc": 0.7101602488384912,
+        "total_epochs_trained": 50,
+        "total_params": 195772,
+        "n_optuna_trials": 40,
+        "tune_time_seconds": 1137.089851140976
+      }
+    },
+    "mlp_b": {
+      "experiment": "B",
+      "model_type": "Residual MLP",
+      "test_metrics_default": {
+        "model": "MLP-Orig",
+        "dataset": "Test",
+        "threshold": 0.5,
+        "accuracy": 0.6928104575163399,
+        "precision": 0.45084745762711864,
+        "recall": 0.6456310679611651,
+        "f1": 0.530938123752495,
+        "auc_roc": 0.762205394515171,
+        "avg_precision": 0.6174701764354553
+      },
+      "test_metrics_optimized": {
+        "model": "MLP-Orig (t=0.26)",
+        "dataset": "Test",
+        "threshold": 0.26256281407035176,
+        "accuracy": 0.5254901960784314,
+        "precision": 0.3481624758220503,
+        "recall": 0.8737864077669902,
+        "f1": 0.4979253112033195,
+        "auc_roc": 0.762205394515171,
+        "avg_precision": 0.6174701764354553
+      },
+      "val_metrics_default": {
+        "model": "MLP-Orig",
+        "dataset": "Validation",
+        "threshold": 0.5,
+        "accuracy": 0.6791248860528715,
+        "precision": 0.4720670391061452,
+        "recall": 0.5090361445783133,
+        "f1": 0.48985507246376814,
+        "auc_roc": 0.7091326088668399,
+        "avg_precision": 0.5732588987405913
+      },
+      "val_metrics_optimized": {
+        "model": "MLP-Orig (t=0.26)",
+        "dataset": "Validation",
+        "threshold": 0.26256281407035176,
+        "accuracy": 0.5241567912488605,
+        "precision": 0.380050505050505,
+        "recall": 0.9066265060240963,
+        "f1": 0.5355871886120996,
+        "auc_roc": 0.7091326088668399,
+        "avg_precision": 0.5732588987405913
+      },
+      "optimal_threshold": 0.26256281407035176,
+      "bootstrap_ci": {
+        "auc_roc": {
+          "mean": 0.7633841057278883,
+          "std": 0.020093218141144516,
+          "ci_lower": 0.7231130281744075,
+          "ci_upper": 0.8019385172235445
+        },
+        "f1": {
+          "mean": 0.49759717712130375,
+          "std": 0.022569279817132578,
+          "ci_lower": 0.45276451310861426,
+          "ci_upper": 0.5425060210312076
+        },
+        "precision": {
+          "mean": 0.3482205850425827,
+          "std": 0.020708829770555586,
+          "ci_lower": 0.306686246083508,
+          "ci_upper": 0.3903891509433962
+        },
+        "recall": {
+          "mean": 0.8735057647775323,
+          "std": 0.02346382655532922,
+          "ci_lower": 0.8273831653201783,
+          "ci_upper": 0.9181818181818182
+        },
+        "avg_precision": {
+          "mean": 0.6197977654932773,
+          "std": 0.03212587364574341,
+          "ci_lower": 0.5548169512533966,
+          "ci_upper": 0.6827216665577586
+        }
+      },
+      "config": {
+        "hidden_dims": [
+          192,
+          192
+        ],
+        "dropout": 0.3212037354713949,
+        "emb_dropout": 0.3934587247196655,
+        "use_layernorm": false,
+        "use_input_batchnorm": true,
+        "focal_alpha": 0.43746194768320784,
+        "focal_gamma": 1.9263696622042081,
+        "label_smoothing": 0.14885439981905058,
+        "lr": 0.004740285546926841,
+        "weight_decay": 0.00024342513338907197,
+        "batch_size": 256,
+        "use_weighted_sampler": true,
+        "use_cosine_annealing": false,
+        "best_epoch": 23,
+        "best_val_auc": 0.7091326088668399,
+        "total_epochs_trained": 49,
+        "total_params": 84722,
+        "n_optuna_trials": 40,
+        "tune_time_seconds": 621.2079298496246
+      }
+    },
+    "mlp_c": {
+      "experiment": "C",
+      "model_type": "Residual MLP",
+      "test_metrics_default": {
+        "model": "MLP-WtAug",
+        "dataset": "Test",
+        "threshold": 0.5,
+        "accuracy": 0.7450980392156863,
+        "precision": 0.5379310344827586,
+        "recall": 0.3786407766990291,
+        "f1": 0.4444444444444444,
+        "auc_roc": 0.7599128124077323,
+        "avg_precision": 0.5816668811478473
+      },
+      "test_metrics_optimized": {
+        "model": "MLP-WtAug (t=0.26)",
+        "dataset": "Test",
+        "threshold": 0.2580402010050251,
+        "accuracy": 0.6627450980392157,
+        "precision": 0.42934782608695654,
+        "recall": 0.7669902912621359,
+        "f1": 0.5505226480836237,
+        "auc_roc": 0.7599128124077323,
+        "avg_precision": 0.5816668811478473
+      },
+      "val_metrics_default": {
+        "model": "MLP-WtAug",
+        "dataset": "Validation",
+        "threshold": 0.5,
+        "accuracy": 0.723792160437557,
+        "precision": 0.5622317596566524,
+        "recall": 0.39457831325301207,
+        "f1": 0.46371681415929206,
+        "auc_roc": 0.7285238995196472,
+        "avg_precision": 0.5886879887605623
+      },
+      "val_metrics_optimized": {
+        "model": "MLP-WtAug (t=0.26)",
+        "dataset": "Validation",
+        "threshold": 0.2580402010050251,
+        "accuracy": 0.6162260711030082,
+        "precision": 0.42495784148397975,
+        "recall": 0.7590361445783133,
+        "f1": 0.5448648648648649,
+        "auc_roc": 0.7285238995196472,
+        "avg_precision": 0.5886879887605623
+      },
+      "optimal_threshold": 0.2580402010050251,
+      "bootstrap_ci": {
+        "auc_roc": {
+          "mean": 0.7605995161720076,
+          "std": 0.01846616709340341,
+          "ci_lower": 0.7261723739318544,
+          "ci_upper": 0.7989217801858388
+        },
+        "f1": {
+          "mean": 0.5501608903657771,
+          "std": 0.024778007861901777,
+          "ci_lower": 0.5016984488265784,
+          "ci_upper": 0.6006901595521109
+        },
+        "precision": {
+          "mean": 0.4292292664683993,
+          "std": 0.025461909209343995,
+          "ci_lower": 0.3788463846914278,
+          "ci_upper": 0.48171685284118504
+        },
+        "recall": {
+          "mean": 0.7676100344763243,
+          "std": 0.029487705367628674,
+          "ci_lower": 0.7127498388136686,
+          "ci_upper": 0.8244187856772184
+        },
+        "avg_precision": {
+          "mean": 0.5835360984541426,
+          "std": 0.03207712606596149,
+          "ci_lower": 0.5185839759836024,
+          "ci_upper": 0.6445540279925516
+        }
+      },
+      "config": {
+        "hidden_dims": [
+          192,
+          192
+        ],
+        "dropout": 0.39731645413735817,
+        "emb_dropout": 0.09527957076024421,
+        "use_layernorm": false,
+        "use_input_batchnorm": false,
+        "focal_alpha": 0.4535459392839074,
+        "focal_gamma": 0.9069815095183444,
+        "label_smoothing": 0.11298571062949285,
+        "lr": 0.001312367843607107,
+        "weight_decay": 6.897395462103526e-05,
+        "batch_size": 256,
+        "use_weighted_sampler": true,
+        "use_cosine_annealing": true,
+        "best_epoch": 10,
+        "best_val_auc": 0.7285238995196472,
+        "total_epochs_trained": 36,
+        "total_params": 84604,
+        "n_optuna_trials": 40,
+        "tune_time_seconds": 1210.6512880325317
+      }
+    },
+    "tabnet_a": {
+      "experiment": "A",
+      "model_type": "TabNet",
+      "test_metrics_default": {
+        "model": "TabNet-Aug",
+        "dataset": "Test",
+        "threshold": 0.5,
+        "accuracy": 0.6888888888888889,
+        "precision": 0.45180722891566266,
+        "recall": 0.7281553398058253,
+        "f1": 0.5576208178438662,
+        "auc_roc": 0.7700904875210588,
+        "avg_precision": 0.5709046916602152
+      },
+      "test_metrics_optimized": {
+        "model": "TabNet-Aug (t=0.48)",
+        "dataset": "Test",
+        "threshold": 0.47512562814070347,
+        "accuracy": 0.681045751633987,
+        "precision": 0.4444444444444444,
+        "recall": 0.7378640776699029,
+        "f1": 0.5547445255474452,
+        "auc_roc": 0.7700904875210588,
+        "avg_precision": 0.5709046916602152
+      },
+      "val_metrics_default": {
+        "model": "TabNet-Aug",
+        "dataset": "Validation",
+        "threshold": 0.5,
+        "accuracy": 0.6399270738377393,
+        "precision": 0.43859649122807015,
+        "recall": 0.677710843373494,
+        "f1": 0.5325443786982249,
+        "auc_roc": 0.7230352783683753,
+        "avg_precision": 0.5814191063036394
+      },
+      "val_metrics_optimized": {
+        "model": "TabNet-Aug (t=0.48)",
+        "dataset": "Validation",
+        "threshold": 0.47512562814070347,
+        "accuracy": 0.6362807657247037,
+        "precision": 0.437847866419295,
+        "recall": 0.7108433734939759,
+        "f1": 0.5419058553386912,
+        "auc_roc": 0.7230352783683753,
+        "avg_precision": 0.5814191063036394
+      },
+      "optimal_threshold": 0.47512562814070347,
+      "bootstrap_ci": {
+        "auc_roc": {
+          "mean": 0.770688915698466,
+          "std": 0.018383841307841865,
+          "ci_lower": 0.7351869997032536,
+          "ci_upper": 0.807403268549648
+        },
+        "f1": {
+          "mean": 0.554783265611262,
+          "std": 0.02526980225363049,
+          "ci_lower": 0.5048107913897137,
+          "ci_upper": 0.6047430654338549
+        },
+        "precision": {
+          "mean": 0.4447292557737951,
+          "std": 0.026326066367377093,
+          "ci_lower": 0.3938324268090893,
+          "ci_upper": 0.49434895130833556
+        },
+        "recall": {
+          "mean": 0.7387511573032023,
+          "std": 0.030966012578085192,
+          "ci_lower": 0.6789461612747465,
+          "ci_upper": 0.7980992268041237
+        },
+        "avg_precision": {
+          "mean": 0.5732587083881813,
+          "std": 0.034920271801291446,
+          "ci_lower": 0.50446912432417,
+          "ci_upper": 0.6395046792832784
+        }
+      },
+      "config": {
+        "n_d": 24,
+        "n_a": 24,
+        "n_steps": 4,
+        "gamma": 1.8478238827782782,
+        "lambda_sparse": 1.1958567363504199e-06,
+        "mask_type": "entmax",
+        "pos_weight": 1.9175912254961003,
+        "momentum": 0.17135399385800265,
+        "lr": 0.026797605622457612,
+        "batch_size": 256,
+        "virtual_batch_size": 128,
+        "n_optuna_trials": 25,
+        "tune_time_seconds": 2346.3706550598145
+      }
+    },
+    "tabnet_b": {
+      "experiment": "B",
+      "model_type": "TabNet",
+      "test_metrics_default": {
+        "model": "TabNet-Orig",
+        "dataset": "Test",
+        "threshold": 0.5,
+        "accuracy": 0.6875816993464052,
+        "precision": 0.4479495268138801,
+        "recall": 0.6893203883495146,
+        "f1": 0.5430210325047801,
+        "auc_roc": 0.7694652378553937,
+        "avg_precision": 0.6037873832628343
+      },
+      "test_metrics_optimized": {
+        "model": "TabNet-Orig (t=0.54)",
+        "dataset": "Test",
+        "threshold": 0.542964824120603,
+        "accuracy": 0.7006535947712418,
+        "precision": 0.46179401993355484,
+        "recall": 0.6747572815533981,
+        "f1": 0.5483234714003945,
+        "auc_roc": 0.7694652378553937,
+        "avg_precision": 0.6037873832628343
+      },
+      "val_metrics_default": {
+        "model": "TabNet-Orig",
+        "dataset": "Validation",
+        "threshold": 0.5,
+        "accuracy": 0.6344576116681859,
+        "precision": 0.4406196213425129,
+        "recall": 0.7710843373493976,
+        "f1": 0.56078860898138,
+        "auc_roc": 0.7493779037719503,
+        "avg_precision": 0.599562979392033
+      },
+      "val_metrics_optimized": {
+        "model": "TabNet-Orig (t=0.54)",
+        "dataset": "Validation",
+        "threshold": 0.542964824120603,
+        "accuracy": 0.6599817684594348,
+        "precision": 0.4625228519195612,
+        "recall": 0.7620481927710844,
+        "f1": 0.5756541524459613,
+        "auc_roc": 0.7493779037719503,
+        "avg_precision": 0.599562979392033
+      },
+      "optimal_threshold": 0.542964824120603,
+      "bootstrap_ci": {
+        "auc_roc": {
+          "mean": 0.7700113595393794,
+          "std": 0.018834569342423547,
+          "ci_lower": 0.7322315039104468,
+          "ci_upper": 0.8039650479609858
+        },
+        "f1": {
+          "mean": 0.5489773248228543,
+          "std": 0.026333237906785486,
+          "ci_lower": 0.49589993169398905,
+          "ci_upper": 0.5996278948476977
+        },
+        "precision": {
+          "mean": 0.46283008028860717,
+          "std": 0.027830806002234653,
+          "ci_lower": 0.40549371510771653,
+          "ci_upper": 0.5162418293626904
+        },
+        "recall": {
+          "mean": 0.6759586968274143,
+          "std": 0.0335421179453456,
+          "ci_lower": 0.6076375252371601,
+          "ci_upper": 0.7370963152653294
+        },
+        "avg_precision": {
+          "mean": 0.6054823691052454,
+          "std": 0.03222814922929794,
+          "ci_lower": 0.5437410243650124,
+          "ci_upper": 0.6651298192714945
+        }
+      },
+      "config": {
+        "n_d": 32,
+        "n_a": 32,
+        "n_steps": 3,
+        "gamma": 1.9822242853522916,
+        "lambda_sparse": 0.006291914452728701,
+        "mask_type": "entmax",
+        "pos_weight": 3.320403987948488,
+        "momentum": 0.1312551114446974,
+        "lr": 0.012013191856694963,
+        "batch_size": 512,
+        "virtual_batch_size": 64,
+        "n_optuna_trials": 25,
+        "tune_time_seconds": 1053.5664930343628
+      }
+    },
+    "tabnet_c": {
+      "experiment": "C",
+      "model_type": "TabNet",
+      "test_metrics_default": {
+        "model": "TabNet-WtAug",
+        "dataset": "Test",
+        "threshold": 0.5,
+        "accuracy": 0.6888888888888889,
+        "precision": 0.45180722891566266,
+        "recall": 0.7281553398058253,
+        "f1": 0.5576208178438662,
+        "auc_roc": 0.7700904875210588,
+        "avg_precision": 0.5709046916602152
+      },
+      "test_metrics_optimized": {
+        "model": "TabNet-WtAug (t=0.48)",
+        "dataset": "Test",
+        "threshold": 0.47512562814070347,
+        "accuracy": 0.681045751633987,
+        "precision": 0.4444444444444444,
+        "recall": 0.7378640776699029,
+        "f1": 0.5547445255474452,
+        "auc_roc": 0.7700904875210588,
+        "avg_precision": 0.5709046916602152
+      },
+      "val_metrics_default": {
+        "model": "TabNet-WtAug",
+        "dataset": "Validation",
+        "threshold": 0.5,
+        "accuracy": 0.6399270738377393,
+        "precision": 0.43859649122807015,
+        "recall": 0.677710843373494,
+        "f1": 0.5325443786982249,
+        "auc_roc": 0.7230352783683753,
+        "avg_precision": 0.5814191063036394
+      },
+      "val_metrics_optimized": {
+        "model": "TabNet-WtAug (t=0.48)",
+        "dataset": "Validation",
+        "threshold": 0.47512562814070347,
+        "accuracy": 0.6362807657247037,
+        "precision": 0.437847866419295,
+        "recall": 0.7108433734939759,
+        "f1": 0.5419058553386912,
+        "auc_roc": 0.7230352783683753,
+        "avg_precision": 0.5814191063036394
+      },
+      "optimal_threshold": 0.47512562814070347,
+      "bootstrap_ci": {
+        "auc_roc": {
+          "mean": 0.770688915698466,
+          "std": 0.018383841307841865,
+          "ci_lower": 0.7351869997032536,
+          "ci_upper": 0.807403268549648
+        },
+        "f1": {
+          "mean": 0.554783265611262,
+          "std": 0.02526980225363049,
+          "ci_lower": 0.5048107913897137,
+          "ci_upper": 0.6047430654338549
+        },
+        "precision": {
+          "mean": 0.4447292557737951,
+          "std": 0.026326066367377093,
+          "ci_lower": 0.3938324268090893,
+          "ci_upper": 0.49434895130833556
+        },
+        "recall": {
+          "mean": 0.7387511573032023,
+          "std": 0.030966012578085192,
+          "ci_lower": 0.6789461612747465,
+          "ci_upper": 0.7980992268041237
+        },
+        "avg_precision": {
+          "mean": 0.5732587083881813,
+          "std": 0.034920271801291446,
+          "ci_lower": 0.50446912432417,
+          "ci_upper": 0.6395046792832784
+        }
+      },
+      "config": {
+        "n_d": 24,
+        "n_a": 24,
+        "n_steps": 4,
+        "gamma": 1.8478238827782782,
+        "lambda_sparse": 1.1958567363504199e-06,
+        "mask_type": "entmax",
+        "pos_weight": 1.9175912254961003,
+        "momentum": 0.17135399385800265,
+        "lr": 0.026797605622457612,
+        "batch_size": 256,
+        "virtual_batch_size": 128,
+        "n_optuna_trials": 25,
+        "tune_time_seconds": 2341.6777822971344
+      }
+    }
+  },
+  "improvements_over_v2_dl": [
+    "A/B/C experimental design (augmented / original / weighted-augmented)",
+    "Uses v4 preprocessed data (v2 split 70/15/15 + SMOTE on train only)",
+    "Scaler fitted on original train only (no synthetic distribution leakage)",
+    "Focal Loss supports per-sample weights for Experiment C",
+    "6 DL variants trained and compared (3 experiments \u00d7 2 architectures)",
+    "Direct comparison with ML v4 baselines on identical data splits",
+    "Comprehensive augmentation impact analysis (A vs B deltas)",
+    "Bootstrap CIs for all 6 variants"
+  ]
+}

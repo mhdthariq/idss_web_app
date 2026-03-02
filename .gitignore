@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+wheels/
+*.egg-info/
+*.egg
+
+# Virtual environments
+.venv/
+
+# Raw data (not needed for hosting — only processed data is used)
+data/raw/
+
+# Thesis docs (not needed for hosting — only docs/figures/ is served by API)
+docs/latex/
+docs/*.md
+
+# Large binary artifacts (track with Git LFS or exclude from git)
+# Uncomment the lines below if you do NOT want to commit these to git:
+# models/*.pkl
+# models/*.pt
+# data/processed/*.csv
+# data/processed/*.pkl
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Node / Next.js (frontend)
+node_modules/
+.next/
+out/
+
+# Test / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# Misc
+*.log
+output.txt
+
+# Docs build artifacts (keep figures/)
+docs/latex/build/

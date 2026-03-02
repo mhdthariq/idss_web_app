@@ -1,0 +1,50 @@
+{
+  "smote": {
+    "description": "Standard SMOTE (k=5)",
+    "n_total": 6390,
+    "n_synthetic": 1895,
+    "n_class_0": 3195,
+    "n_class_1": 3195,
+    "balance_ratio": 1.0
+  },
+  "adasyn": {
+    "description": "ADASYN (adaptive, k=5)",
+    "n_total": 6103,
+    "n_synthetic": 1608,
+    "n_class_0": 3195,
+    "n_class_1": 2908,
+    "balance_ratio": 0.9102
+  },
+  "borderline_smote": {
+    "description": "Borderline-SMOTE (type-1, k=5)",
+    "n_total": 6390,
+    "n_synthetic": 1895,
+    "n_class_0": 3195,
+    "n_class_1": 3195,
+    "balance_ratio": 1.0
+  },
+  "smote_tomek": {
+    "description": "SMOTE + Tomek Links (oversample then clean)",
+    "n_total": 5806,
+    "n_synthetic": 1311,
+    "n_class_0": 2903,
+    "n_class_1": 2903,
+    "balance_ratio": 1.0
+  },
+  "smote_enn": {
+    "description": "SMOTE + ENN (oversample then aggressive clean)",
+    "n_total": 3246,
+    "n_synthetic": -1249,
+    "n_class_0": 1564,
+    "n_class_1": 1682,
+    "balance_ratio": 1.0754
+  },
+  "random_noise": {
+    "description": "Random Oversample + Gaussian Noise (\u03c3=1%)",
+    "n_total": 6390,
+    "n_synthetic": 1895,
+    "n_class_0": 3195,
+    "n_class_1": 3195,
+    "balance_ratio": 1.0
+  }
+}
