@@ -29,9 +29,10 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 _pipeline_maps: dict[str, Any] | None = None
 _xgb_model: Any | None = None
-_mlp_model: Any | None = None  # ResidualEmbeddingMLP instance (eval mode)
+_mlp_model: Any | None = None  # ResidualEmbeddingMLP or ort.InferenceSession
 _mlp_scaler: Any | None = None  # StandardScaler for continuous features
 _mlp_config: dict[str, Any] | None = None
+_mlp_backend: str = "none"  # "onnx", "torch", or "none"
 _shap_explainer: Any | None = None  # SHAP TreeExplainer for XGBoost
 _is_initialised: bool = False
 
@@ -71,6 +72,11 @@ def get_mlp() -> tuple[Any, Any, dict[str, Any]] | None:
     return _mlp_model, _mlp_scaler, _mlp_config  # type: ignore[return-value]
 
 
+def get_mlp_backend() -> str:
+    """Return 'onnx', 'torch', or 'none'."""
+    return _mlp_backend
+
+
 def get_shap_explainer() -> Any | None:
     """Return the SHAP TreeExplainer for XGBoost, or ``None``."""
     return _shap_explainer
@@ -105,20 +111,55 @@ def _load_json(path: Path, label: str) -> dict:
         return json.load(f)
 
 
-def _load_mlp(
+def _load_mlp_onnx(
+    onnx_path: Path,
+    scaler_path: Path,
+    config_path: Path,
+) -> tuple[Any, Any, dict[str, Any]] | None:
+    """
+    Load the MLP model from ONNX format using onnxruntime.
+
+    Returns ``(session, scaler, config)`` on success, ``None`` on failure.
+    The session replaces the PyTorch model — callers use ``get_mlp_backend()``
+    to know which inference path to take.
+    """
+    if not all(p.exists() for p in [onnx_path, scaler_path, config_path]):
+        missing = [str(p) for p in [onnx_path, scaler_path, config_path] if not p.exists()]
+        logger.info("MLP ONNX artifacts missing — will try PyTorch: %s", missing)
+        return None
+
+    try:
+        import onnxruntime as ort
+
+        config = _load_json(config_path, "MLP config")
+        scaler = _load_pickle(scaler_path, "MLP scaler")
+
+        session = ort.InferenceSession(
+            str(onnx_path),
+            providers=["CPUExecutionProvider"],
+        )
+        logger.info("MLP loaded via ONNX from %s", onnx_path)
+        return session, scaler, config
+
+    except Exception:
+        logger.warning("Failed to load MLP via ONNX — will try PyTorch", exc_info=True)
+        return None
+
+
+def _load_mlp_torch(
     weights_path: Path,
     scaler_path: Path,
     config_path: Path,
 ) -> tuple[Any, Any, dict[str, Any]] | None:
     """
-    Attempt to load the ResidualEmbeddingMLP and its scaler.
+    Attempt to load the ResidualEmbeddingMLP via PyTorch and its scaler.
 
     Returns ``(model, scaler, config)`` on success, ``None`` on failure
     (missing files, import errors, etc.).
     """
     if not all(p.exists() for p in [weights_path, scaler_path, config_path]):
         missing = [str(p) for p in [weights_path, scaler_path, config_path] if not p.exists()]
-        logger.warning("MLP artifacts missing — skipping MLP: %s", missing)
+        logger.warning("MLP PyTorch artifacts missing — skipping MLP: %s", missing)
         return None
 
     try:
@@ -147,7 +188,7 @@ def _load_mlp(
         model.eval()
 
         logger.info(
-            "MLP loaded successfully — %d params",
+            "MLP loaded via PyTorch — %d params",
             sum(p.numel() for p in model.parameters()),
         )
         return model, scaler, config
@@ -223,6 +264,7 @@ def initialise(
     pipeline_maps_path: Path | None = None,
     xgb_model_path: Path | None = None,
     mlp_weights_path: Path | None = None,
+    mlp_onnx_path: Path | None = None,
     mlp_scaler_path: Path | None = None,
     mlp_config_path: Path | None = None,
     build_shap: bool = True,
@@ -233,14 +275,18 @@ def initialise(
     Parameters can be overridden for testing; by default they are read
     from ``backend.app.config``.
 
+    MLP loading strategy: try ONNX first (lightweight, works on Vercel),
+    then fall back to PyTorch (for local development).
+
     Returns a status dict (artifact name → loaded successfully).
     """
     global _pipeline_maps, _xgb_model, _mlp_model, _mlp_scaler
-    global _mlp_config, _shap_explainer, _is_initialised
+    global _mlp_config, _mlp_backend, _shap_explainer, _is_initialised
 
     # Import paths from config (this also ensures sys.path is set up)
     from backend.app.config import (
         MLP_CONFIG_PATH,
+        MLP_ONNX_PATH,
         MLP_SCALER_PATH,
         MLP_WEIGHTS_PATH,
         PIPELINE_MAPS_PATH,
@@ -250,6 +296,7 @@ def initialise(
     pipeline_maps_path = pipeline_maps_path or PIPELINE_MAPS_PATH
     xgb_model_path = xgb_model_path or XGB_MODEL_PATH
     mlp_weights_path = mlp_weights_path or MLP_WEIGHTS_PATH
+    mlp_onnx_path = mlp_onnx_path or MLP_ONNX_PATH
     mlp_scaler_path = mlp_scaler_path or MLP_SCALER_PATH
     mlp_config_path = mlp_config_path or MLP_CONFIG_PATH
 
@@ -279,13 +326,23 @@ def initialise(
         )
         status["xgb_model"] = False
 
-    # --- MLP (optional) ---
-    mlp_result = _load_mlp(mlp_weights_path, mlp_scaler_path, mlp_config_path)
+    # --- MLP (optional — try ONNX first, then PyTorch) ---
+    mlp_result = _load_mlp_onnx(mlp_onnx_path, mlp_scaler_path, mlp_config_path)
     if mlp_result is not None:
         _mlp_model, _mlp_scaler, _mlp_config = mlp_result
+        _mlp_backend = "onnx"
         status["mlp_model"] = True
+        status["mlp_backend"] = "onnx"  # type: ignore[assignment]
     else:
-        status["mlp_model"] = False
+        mlp_result = _load_mlp_torch(mlp_weights_path, mlp_scaler_path, mlp_config_path)
+        if mlp_result is not None:
+            _mlp_model, _mlp_scaler, _mlp_config = mlp_result
+            _mlp_backend = "torch"
+            status["mlp_model"] = True
+            status["mlp_backend"] = "torch"  # type: ignore[assignment]
+        else:
+            _mlp_backend = "none"
+            status["mlp_model"] = False
 
     # --- SHAP explainer (optional, depends on XGB) ---
     if build_shap and _xgb_model is not None:
@@ -302,13 +359,14 @@ def initialise(
 def teardown() -> None:
     """Release all loaded artifacts (called on shutdown)."""
     global _pipeline_maps, _xgb_model, _mlp_model, _mlp_scaler
-    global _mlp_config, _shap_explainer, _is_initialised
+    global _mlp_config, _mlp_backend, _shap_explainer, _is_initialised
 
     _pipeline_maps = None
     _xgb_model = None
     _mlp_model = None
     _mlp_scaler = None
     _mlp_config = None
+    _mlp_backend = "none"
     _shap_explainer = None
     _is_initialised = False
     logger.info("Model registry torn down.")

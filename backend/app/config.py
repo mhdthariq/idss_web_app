@@ -60,6 +60,7 @@ FIGURES_DIR = PROJECT_ROOT / "docs" / "figures"
 PIPELINE_MAPS_PATH = MODELS_DIR / "pipeline_maps.pkl"
 XGB_MODEL_PATH = MODELS_DIR / "xgb_orig_v4.pkl"
 MLP_WEIGHTS_PATH = MODELS_DIR / "mlp_v4.pt"
+MLP_ONNX_PATH = MODELS_DIR / "mlp_v4.onnx"
 MLP_SCALER_PATH = MODELS_DIR / "mlp_v4_scaler.pkl"
 MLP_CONFIG_PATH = MODELS_DIR / "mlp_v4_config.json"
 
@@ -89,7 +90,7 @@ FEATURE_CONFIG_PATH = PROCESSED_DIR / "feature_config.json"
 # In development the Next.js dev server runs on localhost:3000.
 CORS_ORIGINS: list[str] = os.environ.get(
     "CORS_ORIGINS",
-    "http://localhost:3000,http://127.0.0.1:3000",
+    "http://localhost:3000,http://127.0.0.1:3000,http://localhost:3456,https://*.vercel.app",
 ).split(",")
 
 # Host / port for uvicorn (used by the `run.py` convenience script)

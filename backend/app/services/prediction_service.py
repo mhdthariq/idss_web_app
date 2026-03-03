@@ -81,6 +81,9 @@ def _predict_mlp(feature_df: pd.DataFrame) -> np.ndarray | None:
     """
     Run MLP inference if the model is available.
 
+    Supports both ONNX (via onnxruntime) and PyTorch backends.
+    The backend is determined by ``model_registry.get_mlp_backend()``.
+
     Returns
     -------
     np.ndarray | None
@@ -90,9 +93,8 @@ def _predict_mlp(feature_df: pd.DataFrame) -> np.ndarray | None:
     if mlp_tuple is None:
         return None
 
-    import torch
-
     model, scaler, config = mlp_tuple
+    backend = model_registry.get_mlp_backend()
 
     X_all = feature_df[CONSERVATIVE_FEATURES].fillna(0).replace([np.inf, -np.inf], 0)
 
@@ -107,12 +109,27 @@ def _predict_mlp(feature_df: pd.DataFrame) -> np.ndarray | None:
         max_valid = int(cat_cardinalities.get(col, 999)) - 1
         X_cat[:, ci] = np.clip(X_cat[:, ci], 0, max_valid)
 
-    model.eval()
-    with torch.no_grad():
-        cont_t = torch.FloatTensor(X_cont)
-        cat_t = torch.LongTensor(X_cat)
-        logits = model(cont_t, cat_t)
-        proba = torch.sigmoid(logits).cpu().numpy()
+    if backend == "onnx":
+        # model is an ort.InferenceSession
+        logits = model.run(
+            None,
+            {
+                "x_cont": X_cont.astype(np.float32),
+                "x_cat": X_cat.astype(np.int64),
+            },
+        )[0]
+        # Apply sigmoid: 1 / (1 + exp(-logits))
+        proba = 1.0 / (1.0 + np.exp(-logits.astype(np.float64)))
+    else:
+        # PyTorch backend
+        import torch
+
+        model.eval()
+        with torch.no_grad():
+            cont_t = torch.FloatTensor(X_cont)
+            cat_t = torch.LongTensor(X_cat)
+            logits = model(cont_t, cat_t)
+            proba = torch.sigmoid(logits).cpu().numpy()
 
     return proba.astype(float)
 
