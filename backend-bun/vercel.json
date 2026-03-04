@@ -1,11 +1,13 @@
 {
-  "buildCommand": "bun build api/[[...slug]].ts --outfile=api/handler.js --target=node --bundle --minify",
+  "version": 2,
+  "installCommand": "bun install",
+  "buildCommand": "bun run build:vercel",
   "functions": {
-    "api/handler.js": {
+    "api/index.js": {
+      "memory": 1024,
+      "maxDuration": 30,
       "includeFiles": "data/**/*"
     }
   },
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/api/handler" }
-  ]
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
 }

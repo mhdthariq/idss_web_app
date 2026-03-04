@@ -2,7 +2,7 @@
  * IDSS Backend — Elysia app factory.
  * Separated from index.ts so it can be used by both:
  * - Local dev (index.ts → .listen())
- * - Vercel serverless (api/[[...slug]].ts → .handle())
+ * - Vercel serverless (api/index.ts → .handle())
  */
 
 import { Elysia } from "elysia";
@@ -15,6 +15,12 @@ import { configRoutes } from "./routes/config";
 
 // Use `any` to avoid Elysia's deeply nested generic types
 let _app: any = null;
+
+function detectRuntime(): string {
+  if (typeof (globalThis as any).Bun !== "undefined") return "bun";
+  if (typeof (globalThis as any).Deno !== "undefined") return "deno";
+  return "node";
+}
 
 export async function createApp() {
   if (_app) return _app;
@@ -31,7 +37,7 @@ export async function createApp() {
       cors({
         origin: corsOrigins,
         credentials: true,
-      })
+      }),
     )
     .use(healthRoutes)
     .use(predictRoutes)
@@ -40,7 +46,7 @@ export async function createApp() {
     .get("/", () => ({
       name: "IDSS — Debt Prediction API",
       version: "0.2.0-bun",
-      runtime: typeof Bun !== "undefined" ? "bun" : "node",
+      runtime: detectRuntime(),
       docs: "/api/health",
     }));
 

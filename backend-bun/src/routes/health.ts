@@ -19,21 +19,26 @@ export const healthRoutes = new Elysia()
     return {
       status: required ? "healthy" : "degraded",
       version: "0.2.0-bun",
-      runtime: "bun",
+      runtime: typeof (globalThis as any).Bun !== "undefined" ? "bun" : "node",
       models_loaded: {
         xgboost: hasXgb,
         mlp: hasMlp,
         pipeline_maps: hasPipelineMaps,
         shap_explainer: hasShap,
-        unique_values: !!(pm.unique_values && Object.keys(pm.unique_values).length > 0),
+        unique_values: !!(
+          pm.unique_values && Object.keys(pm.unique_values).length > 0
+        ),
       },
     };
   })
   .get("/api/debug", () => {
+    const isBun = typeof (globalThis as any).Bun !== "undefined";
     return {
       status: "ok",
-      runtime: "bun",
-      bun_version: Bun.version,
+      runtime: isBun ? "bun" : "node",
+      runtime_version: isBun
+        ? (globalThis as any).Bun.version
+        : process.version,
       cwd: process.cwd(),
       env_PORT: process.env.PORT ?? "(not set)",
       env_CORS_ORIGINS: process.env.CORS_ORIGINS ?? "(not set)",

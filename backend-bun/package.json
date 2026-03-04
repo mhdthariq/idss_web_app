@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "bun run src/index.ts",
-    "build:vercel": "bun build api/[[...slug]].ts --outdir=api --target=node --bundle --external elysia --external @elysiajs/cors"
+    "build:vercel": "bun build api/index.ts --outfile=api/index.js --target=node --bundle --minify",
+    "start": "bun run src/index.ts",
+    "start:node": "node api/index.js"
   },
   "devDependencies": {
     "@types/bun": "latest"
@@ -16,5 +18,8 @@
   "dependencies": {
     "@elysiajs/cors": "^1.4.1",
     "elysia": "^1.4.27"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
