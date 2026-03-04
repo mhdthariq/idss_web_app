@@ -1,9 +1,18 @@
 #!/bin/sh
 # Startup script for cloud deployment.
-set -e
+# NO set -e — we want to fallback gracefully.
 
 cd /app
-export PYTHONPATH="${PYTHONPATH:-/app}:/app"
+export PYTHONPATH="/app:${PYTHONPATH:-}"
 
-# Always use entry.py — it catches import errors and shows them at /api/debug
-exec uvicorn backend.app.entry:app --host 0.0.0.0 --port "${PORT:-8080}"
+echo "=== IDSS Startup ==="
+echo "CWD: $(pwd)"
+echo "Python: $(python3 --version 2>&1)"
+
+# Try entry.py first (catches import errors, shows them at /api/debug)
+echo "Trying entry.py..."
+exec uvicorn backend.app.entry:app --host 0.0.0.0 --port "${PORT:-8080}" 2>&1
+
+# If exec fails (shouldn't reach here due to exec), try minimal
+echo "entry.py failed, trying minimal.py..."
+exec uvicorn backend.app.minimal:app --host 0.0.0.0 --port "${PORT:-8080}" 2>&1
