@@ -1,5 +1,11 @@
 {
+  "buildCommand": "bun build api/[[...slug]].ts --outfile=api/handler.js --target=node --bundle --minify",
+  "functions": {
+    "api/handler.js": {
+      "includeFiles": "data/**/*"
+    }
+  },
   "rewrites": [
-    { "source": "/(.*)", "destination": "/api/[[...slug]]" }
+    { "source": "/(.*)", "destination": "/api/handler" }
   ]
 }

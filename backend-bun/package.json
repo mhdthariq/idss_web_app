@@ -1,8 +1,12 @@
 {
   "name": "backend-bun",
-  "module": "index.ts",
+  "module": "src/index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "dev": "bun run src/index.ts",
+    "build:vercel": "bun build api/[[...slug]].ts --outdir=api --target=node --bundle --external elysia --external @elysiajs/cors"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
