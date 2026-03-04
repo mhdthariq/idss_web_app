@@ -13,9 +13,10 @@ import { predictRoutes } from "./routes/predict";
 import { analysisRoutes } from "./routes/analysis";
 import { configRoutes } from "./routes/config";
 
-let _app: Elysia | null = null;
+// Use `any` to avoid Elysia's deeply nested generic types
+let _app: any = null;
 
-export async function createApp(): Promise<Elysia> {
+export async function createApp() {
   if (_app) return _app;
 
   // Load all artifacts
