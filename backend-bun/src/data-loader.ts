@@ -1,18 +1,23 @@
 /**
  * Data loader — loads all JSON artifacts at startup.
+ * Uses __dirname for Node.js/Vercel compatibility.
  */
 
 import { readFileSync, existsSync } from "fs";
-import { join } from "path";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
 import { loadXGBoostModelDirect } from "./xgboost-predict";
 import { loadMLPModel } from "./mlp-predict";
 import type { PipelineMaps } from "./feature-engineering";
 
-// Resolve paths relative to the project root (backend-bun/)
-const DATA_DIR = join(import.meta.dir, "..", "data");
-const MODELS_DIR = join(import.meta.dir, "..", "..", "models");
-const PROCESSED_DIR = join(import.meta.dir, "..", "..", "data", "processed");
-const FIGURES_DIR = join(import.meta.dir, "..", "..", "docs", "figures");
+// Resolve paths — works in both Bun and Node.js
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const DATA_DIR = join(__dirname, "..", "data");
+const MODELS_DIR = join(__dirname, "..", "..", "models");
+const PROCESSED_DIR = join(__dirname, "..", "..", "data", "processed");
+const FIGURES_DIR = join(__dirname, "..", "..", "docs", "figures");
 
 // Loaded data
 let pipelineMaps: PipelineMaps = {};
@@ -25,6 +30,7 @@ let costAnalysis: any = null;
 let statisticalTests: any = null;
 let instabilityResults: any = null;
 let shapComparison: any = null;
+let _initialised = false;
 
 function loadJSON(path: string, label: string): any {
   if (!existsSync(path)) {
@@ -37,7 +43,9 @@ function loadJSON(path: string, label: string): any {
 }
 
 export async function initialise(): Promise<void> {
-  console.log("=" .repeat(60));
+  if (_initialised) return;
+
+  console.log("=".repeat(60));
   console.log("  IDSS Backend (Bun/Elysia) — Loading artifacts");
   console.log("=".repeat(60));
 
@@ -56,16 +64,16 @@ export async function initialise(): Promise<void> {
     loadXGBoostModelDirect(xgbJson);
   }
 
-  // MLP model
+  // MLP model — pure TypeScript, loads JSON weights (no ONNX runtime needed)
   mlpConfig = loadJSON(join(DATA_DIR, "mlp_v4_config.json"), "MLP config");
   const scalerJson = loadJSON(join(DATA_DIR, "mlp_scaler.json"), "MLP scaler");
 
-  const onnxPath = join(MODELS_DIR, "mlp_v4.onnx");
-  if (scalerJson && existsSync(onnxPath)) {
+  const weightsPath = join(DATA_DIR, "mlp_weights.json");
+  if (scalerJson && existsSync(weightsPath)) {
     try {
-      await loadMLPModel(onnxPath, scalerJson);
+      await loadMLPModel(weightsPath, scalerJson);
     } catch (e) {
-      console.error("  ✗ MLP ONNX load failed:", e);
+      console.error("  ✗ MLP weights load failed:", e);
     }
   }
 
@@ -100,6 +108,8 @@ export async function initialise(): Promise<void> {
   const elapsed = ((performance.now() - start) / 1000).toFixed(2);
   console.log(`  Startup complete in ${elapsed}s`);
   console.log("=".repeat(60));
+
+  _initialised = true;
 }
 
 // Getters

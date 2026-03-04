@@ -1,0 +1,14 @@
+{
+  "buildCommand": "bun install",
+  "framework": null,
+  "installCommand": "curl -fsSL https://bun.sh/install | bash && export PATH=$HOME/.bun/bin:$PATH && bun install",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/[[...slug]]" }
+  ],
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "@vercel/node@3",
+      "maxDuration": 30
+    }
+  }
+}
