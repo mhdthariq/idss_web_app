@@ -105,16 +105,17 @@ REQUIRED_ARTIFACTS: list[Path] = [
     PIPELINE_MAPS_PATH,
     XGB_MODEL_PATH,
     TEST_CSV_PATH,
-    TRAIN_CSV_PATH,
 ]
 
 OPTIONAL_ARTIFACTS: dict[str, Path] = {
     "MLP weights": MLP_WEIGHTS_PATH,
+    "MLP ONNX": MLP_ONNX_PATH,
     "MLP scaler": MLP_SCALER_PATH,
     "MLP config": MLP_CONFIG_PATH,
     "SHAP values": SHAP_VALUES_PATH,
     "Feature importance": FEATURE_IMPORTANCE_PATH,
     "ML metrics": ML_METRICS_PATH,
+    "Train CSV": TRAIN_CSV_PATH,
 }
 
 
