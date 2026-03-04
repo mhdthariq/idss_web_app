@@ -51,55 +51,73 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
     On shutdown:
       Release all loaded artifacts to free memory.
+
+    NOTE: The entire startup is wrapped in try/except so the app ALWAYS
+    starts, even if model loading fails.  This is critical for deployments
+    where logs are hard to access — the /api/health endpoint will report
+    the startup error.
     """
     logger.info("=" * 60)
     logger.info("  IDSS Backend — Starting up")
     logger.info("=" * 60)
 
     start = time.perf_counter()
+    startup_error: str | None = None
 
-    # --- 1. Import config (this also puts parent project's `src` on sys.path) ---
-    from backend.app.config import PARENT_PROJECT_ROOT, check_artifacts
+    try:
+        # --- 1. Import config (puts parent project's `src` on sys.path) ---
+        from backend.app.config import PARENT_PROJECT_ROOT, check_artifacts
 
-    logger.info("Parent project root: %s", PARENT_PROJECT_ROOT)
+        logger.info("Parent project root: %s", PARENT_PROJECT_ROOT)
 
-    # Quick artifact check (non-strict — log missing but don't crash)
-    artifact_status = check_artifacts(strict=False)
-    for name, exists in artifact_status.items():
-        level = logging.INFO if exists else logging.WARNING
-        symbol = "✓" if exists else "✗"
-        logger.log(level, "  %s %s", symbol, name)
+        # Quick artifact check (non-strict — log missing but don't crash)
+        artifact_status = check_artifacts(strict=False)
+        for name, exists in artifact_status.items():
+            level = logging.INFO if exists else logging.WARNING
+            symbol = "✓" if exists else "✗"
+            logger.log(level, "  %s %s", symbol, name)
 
-    # --- 2. Initialise model registry ---
-    from backend.app.ml import model_registry
+        # --- 2. Initialise model registry ---
+        from backend.app.ml import model_registry
 
-    registry_status = model_registry.initialise()
-    for name, loaded in registry_status.items():
-        symbol = "✓" if loaded else "✗"
-        logger.info("  Model registry: %s %s", symbol, name)
+        registry_status = model_registry.initialise()
+        for name, loaded in registry_status.items():
+            symbol = "✓" if loaded else "✗"
+            logger.info("  Model registry: %s %s", symbol, name)
 
-    # --- 3. Load precomputed SHAP data ---
-    from backend.app.services.shap_service import load_precomputed_shap
+        # --- 3. Load precomputed SHAP data ---
+        from backend.app.services.shap_service import load_precomputed_shap
 
-    shap_status = load_precomputed_shap()
-    for name, loaded in shap_status.items():
-        symbol = "✓" if loaded else "✗"
-        logger.info("  SHAP service: %s %s", symbol, name)
+        shap_status = load_precomputed_shap()
+        for name, loaded in shap_status.items():
+            symbol = "✓" if loaded else "✗"
+            logger.info("  SHAP service: %s %s", symbol, name)
+
+    except Exception as exc:
+        startup_error = f"{type(exc).__name__}: {exc}"
+        logger.exception("STARTUP FAILED — app will run in degraded mode")
 
     elapsed = time.perf_counter() - start
     logger.info("Startup complete in %.2f seconds", elapsed)
+    if startup_error:
+        logger.error("STARTUP ERROR: %s", startup_error)
     logger.info("=" * 60)
+
+    # Store startup error on the app state for /api/health to report
+    app.state.startup_error = startup_error
 
     # --- Yield control to the application ---
     yield
 
     # --- Shutdown ---
     logger.info("IDSS Backend — Shutting down")
-    model_registry.teardown()
-
-    from backend.app.services.shap_service import teardown as shap_teardown
-
-    shap_teardown()
+    try:
+        from backend.app.ml import model_registry
+        model_registry.teardown()
+        from backend.app.services.shap_service import teardown as shap_teardown
+        shap_teardown()
+    except Exception:
+        logger.exception("Error during shutdown")
     logger.info("Shutdown complete.")
 
 

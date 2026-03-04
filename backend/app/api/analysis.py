@@ -21,7 +21,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, Request, status
 from fastapi.responses import FileResponse
 
 from backend.app.config import (
@@ -505,17 +505,15 @@ async def get_feature_config() -> FeatureConfigResponse:
 
 @health_router.get(
     "/api/health",
-    response_model=HealthResponse,
+    response_model=None,
     summary="API health check",
     description=(
         "Returns the health status of the API and which model artifacts are currently loaded."
     ),
 )
-async def health_check() -> HealthResponse:
-    """Return API health status."""
-    from backend.app.config import check_artifacts
-
-    artifact_status = check_artifacts(strict=False)
+async def health_check(request: Request) -> dict:
+    """Return API health status with startup error info."""
+    startup_error = getattr(request.app.state, "startup_error", None)
 
     models_loaded: dict[str, bool] = {}
     try:
@@ -535,12 +533,43 @@ async def health_check() -> HealthResponse:
         models_loaded["pipeline_maps"] = False
         models_loaded["unique_values"] = False
 
-    # Overall status
     required_ok = models_loaded.get("xgboost", False) and models_loaded.get("pipeline_maps", False)
     overall_status = "healthy" if required_ok else "degraded"
 
-    return HealthResponse(
-        status=overall_status,
-        version="0.1.0",
-        models_loaded=models_loaded,
-    )
+    result: dict = {
+        "status": overall_status,
+        "version": "0.1.0",
+        "models_loaded": models_loaded,
+    }
+    if startup_error:
+        result["startup_error"] = startup_error
+
+    return result
+
+
+@health_router.get(
+    "/api/debug",
+    summary="Debug / diagnostic info",
+    description="Returns diagnostic info for remote debugging (env, paths, errors).",
+)
+async def debug_info(request: Request) -> dict:
+    """Return diagnostic info for remote debugging."""
+    import os
+    import sys
+
+    startup_error = getattr(request.app.state, "startup_error", None)
+
+    return {
+        "startup_error": startup_error,
+        "cwd": os.getcwd(),
+        "pythonpath": sys.path[:10],
+        "python_version": sys.version,
+        "env_PYTHONPATH": os.environ.get("PYTHONPATH", "(not set)"),
+        "env_IDSS_PROJECT_ROOT": os.environ.get("IDSS_PROJECT_ROOT", "(not set)"),
+        "files_in_cwd": sorted(os.listdir("."))[:30],
+        "models_dir_exists": os.path.isdir("models"),
+        "src_dir_exists": os.path.isdir("src"),
+        "backend_dir_exists": os.path.isdir("backend"),
+        "data_dir_exists": os.path.isdir("data"),
+    }
+
