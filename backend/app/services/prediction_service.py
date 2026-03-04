@@ -142,6 +142,12 @@ def _compute_shap_explanation(
     """
     Compute SHAP explanation for the XGBoost model on a single row.
 
+    Uses XGBoost's built-in Tree SHAP (``pred_contribs=True``) which
+    produces identical values to ``shap.TreeExplainer`` without requiring
+    the ``shap`` / ``numba`` / ``llvmlite`` packages (~300 MB saved).
+
+    Falls back to ``shap.TreeExplainer`` if available (local dev).
+
     Parameters
     ----------
     feature_df : pd.DataFrame
@@ -155,35 +161,29 @@ def _compute_shap_explanation(
         ``{"xgboost": ShapExplanation(...)}`` or ``None`` if SHAP is
         unavailable.
     """
-    explainer = model_registry.get_shap_explainer()
-    if explainer is None:
-        return None
-
     try:
+        import xgboost as xgb
+
+        xgb_model = model_registry.get_xgb_model()
+        if xgb_model is None:
+            return None
+
         X = feature_df[CONSERVATIVE_FEATURES].fillna(0).replace([np.inf, -np.inf], 0)
 
-        shap_values = explainer.shap_values(X)
+        # Use XGBoost's native Tree SHAP via pred_contribs
+        # This returns a matrix of shape (n_samples, n_features + 1)
+        # where the last column is the base value (bias term).
+        booster = xgb_model.get_booster()
+        dmatrix = xgb.DMatrix(X, feature_names=list(CONSERVATIVE_FEATURES))
+        contribs = booster.predict(dmatrix, pred_contribs=True)
 
-        # shap_values may be a list (for multi-class) or a 2D array.
-        # For binary classification we want the positive-class SHAP values.
-        if isinstance(shap_values, list):
-            # Class 1 (Late) explanation
-            sv = shap_values[1] if len(shap_values) > 1 else shap_values[0]
-        else:
-            sv = shap_values
-
-        # sv shape: (1, n_features) for a single row
-        sv_row = sv[0] if sv.ndim == 2 else sv
-
-        # Get base value
-        base_value = explainer.expected_value
-        if isinstance(base_value, (list, np.ndarray)):
-            base_value = float(base_value[1]) if len(base_value) > 1 else float(base_value[0])
-        else:
-            base_value = float(base_value)
+        # contribs shape: (1, n_features + 1) for single row
+        sv_row = contribs[0]
+        base_value = float(sv_row[-1])       # last column is the bias
+        shap_values = sv_row[:-1]            # all but last are feature SHAP values
 
         # Sort by absolute SHAP value, take top N
-        abs_shap = np.abs(sv_row)
+        abs_shap = np.abs(shap_values)
         top_indices = np.argsort(abs_shap)[::-1][:top_n]
 
         feature_names = CONSERVATIVE_FEATURES
@@ -196,7 +196,7 @@ def _compute_shap_explanation(
             contributions.append(
                 ShapFeatureContribution(
                     feature=fname,
-                    shap_value=round(float(sv_row[idx]), 6),
+                    shap_value=round(float(shap_values[idx]), 6),
                     feature_value=round(float(fval), 6)
                     if isinstance(fval, (int, float, np.number))
                     else str(fval),

@@ -1,6 +1,12 @@
 # IDSS Backend — Python dependencies for Vercel deployment
 # Generated from pyproject.toml
-# NOTE: torch is replaced by onnxruntime (250MB Vercel limit)
+#
+# NOTE: These packages are EXCLUDED to fit within Vercel's 500MB limit:
+#   - torch (~170MB)     → replaced by onnxruntime (~25MB) for MLP inference
+#   - shap  (~300MB)     → numba/llvmlite too large; replaced by XGBoost's
+#                          native pred_contribs=True (identical Tree SHAP values)
+#
+# NOTE: xgboost is pinned to <3.0 to avoid nvidia-nccl-cu12 (~293MB dep)
 
 fastapi>=0.115.0
 uvicorn[standard]>=0.32.0
@@ -9,8 +15,7 @@ python-multipart>=0.0.12
 numpy>=1.26.0
 pandas>=2.2.0
 scikit-learn>=1.5.0
-xgboost>=2.1.0
+xgboost>=2.1.0,<3.0
 onnxruntime>=1.19.0
-shap>=0.46.0
 joblib>=1.4.0
 orjson>=3.10.0
