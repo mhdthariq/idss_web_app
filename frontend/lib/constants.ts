@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+  process.env.NEXT_PUBLIC_API_URL ?? "https://idss-api.vercel.app";
 
 export const DEFAULT_THRESHOLD = 0.5;
 
