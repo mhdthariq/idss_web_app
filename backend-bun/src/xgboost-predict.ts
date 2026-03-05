@@ -20,50 +20,31 @@ interface TreeNode {
   children?: TreeNode[];
 }
 
-interface XGBTree {
-  tree_id: number;
-  tree: TreeNode;
+export interface XGBModelJson {
+  learner?: {
+    learner_model_param?: {
+      base_score?: string;
+    };
+    gradient_booster?: {
+      model?: {
+        trees?: XGBTreeData[];
+      };
+    };
+  };
 }
 
-let trees: XGBTree[] = [];
+interface XGBTreeData {
+  tree_param?: { num_nodes?: string };
+  left_children?: number[];
+  right_children?: number[];
+  split_indices?: number[];
+  split_conditions?: number[];
+  default_left?: number[];
+}
+
 let baseScore = 0.5;
-let featureIndexMap: Map<string, number> = new Map();
 
-export function loadXGBoostModel(modelJson: any): void {
-  // Build feature name → index map
-  featureIndexMap.clear();
-  CONSERVATIVE_FEATURES.forEach((f, i) => {
-    featureIndexMap.set(f, i);
-  });
-
-  // Parse the learner → gradient_booster → model → trees
-  const learner = modelJson.learner;
-  const gbtree = learner?.gradient_booster?.model ?? learner?.gradient_booster;
-
-  // Extract base score
-  const lp = learner?.learner_model_param;
-  if (lp?.base_score) {
-    baseScore = parseFloat(lp.base_score);
-  }
-
-  // Parse trees
-  const treesData = gbtree?.trees ?? gbtree?.gbtree_model_param
-    ? undefined
-    : undefined;
-
-  if (gbtree?.trees) {
-    trees = gbtree.trees.map((t: any, idx: number) => ({
-      tree_id: idx,
-      tree: buildTree(t),
-    }));
-  } else {
-    throw new Error("Could not parse XGBoost model JSON structure");
-  }
-
-  console.log(`  XGBoost loaded: ${trees.length} trees, base_score=${baseScore}`);
-}
-
-function buildTree(treeData: any): TreeNode {
+function buildTree(treeData: XGBTreeData): TreeNode {
   // XGBoost JSON format stores nodes as arrays
   const numNodes = treeData.tree_param?.num_nodes
     ? parseInt(treeData.tree_param.num_nodes)
@@ -108,14 +89,11 @@ function buildTree(treeData: any): TreeNode {
     }
   }
 
-  // Nest into tree structure (but we'll use flat array traversal)
-  return nodes[0]!; // root
+  // Return root node
+  return nodes[0] ?? { nodeid: 0, leaf: 0 };
 }
 
-function traverseTree(
-  treeData: any,
-  featureValues: number[]
-): number {
+function traverseTree(treeData: XGBTreeData, featureValues: number[]): number {
   const leftChildren: number[] = treeData.left_children ?? [];
   const rightChildren: number[] = treeData.right_children ?? [];
   const splitIndices: number[] = treeData.split_indices ?? [];
@@ -129,7 +107,7 @@ function traverseTree(
     const threshold = splitConditions[nodeIdx] ?? 0;
     const fval = featureValues[splitIdx];
 
-    if (fval === undefined || isNaN(fval)) {
+    if (fval === undefined || Number.isNaN(fval)) {
       // Missing → go to default direction
       nodeIdx =
         defaultLeft[nodeIdx] === 1
@@ -147,26 +125,29 @@ function traverseTree(
 }
 
 // Store raw tree data for traversal
-let rawTreesData: any[] = [];
+let rawTreesData: XGBTreeData[] = [];
 
-export function loadXGBoostModelDirect(modelJson: any): void {
+// Keep buildTree available for potential direct model loading
+void buildTree;
+
+export function loadXGBoostModelDirect(modelJson: XGBModelJson): void {
   const learner = modelJson.learner;
   const lp = learner?.learner_model_param;
   if (lp?.base_score) {
     // XGBoost JSON format stores base_score as "[5E-1]" or similar
-    let bs = lp.base_score;
+    let bs: string = lp.base_score;
     if (typeof bs === "string") {
       bs = bs.replace(/[\[\]]/g, ""); // Remove brackets
     }
-    baseScore = parseFloat(bs);
-    if (isNaN(baseScore)) baseScore = 0.5;
+    const parsed = parseFloat(bs);
+    baseScore = Number.isNaN(parsed) ? 0.5 : parsed;
   }
 
   const gbtree = learner?.gradient_booster?.model;
   rawTreesData = gbtree?.trees ?? [];
 
   console.log(
-    `  XGBoost loaded: ${rawTreesData.length} trees, base_score=${baseScore}`
+    `  XGBoost loaded: ${rawTreesData.length} trees, base_score=${baseScore}`,
   );
 }
 
@@ -178,7 +159,7 @@ export function predictXGBoost(featureRow: Record<string, number>): number {
   if (rawTreesData.length === 0) return 0.5;
 
   // Build feature values array in the order of CONSERVATIVE_FEATURES
-  const fvals = CONSERVATIVE_FEATURES.map((f) => featureRow[f] ?? 0);
+  const fvals = CONSERVATIVE_FEATURES.map((f: string) => featureRow[f] ?? 0);
 
   // Sum leaf values from all trees
   // For binary logistic, base_score is already the bias in log-odds space

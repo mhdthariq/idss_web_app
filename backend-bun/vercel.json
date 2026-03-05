@@ -1,14 +1,7 @@
 {
   "version": 2,
+  "framework": null,
   "installCommand": "bun install",
-  "builds": [
-    {
-      "src": "api/index.ts",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["data/**"]
-      }
-    }
-  ],
-  "routes": [{ "src": "/(.*)", "dest": "/api/index.ts" }]
+  "buildCommand": "bash build-vercel.sh",
+  "outputDirectory": ".vercel/output"
 }

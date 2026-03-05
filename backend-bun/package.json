@@ -10,7 +10,8 @@
     "start:node": "node api/index.js"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@vercel/node": "^3"
   },
   "peerDependencies": {
     "typescript": "^5"

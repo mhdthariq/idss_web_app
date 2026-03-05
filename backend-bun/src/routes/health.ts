@@ -19,7 +19,10 @@ export const healthRoutes = new Elysia()
     return {
       status: required ? "healthy" : "degraded",
       version: "0.2.0-bun",
-      runtime: typeof (globalThis as any).Bun !== "undefined" ? "bun" : "node",
+      runtime:
+        typeof (globalThis as Record<string, unknown>).Bun !== "undefined"
+          ? "bun"
+          : "node",
       models_loaded: {
         xgboost: hasXgb,
         mlp: hasMlp,
@@ -32,12 +35,20 @@ export const healthRoutes = new Elysia()
     };
   })
   .get("/api/debug", () => {
-    const isBun = typeof (globalThis as any).Bun !== "undefined";
+    const isBun =
+      typeof (globalThis as Record<string, unknown>).Bun !== "undefined";
     return {
       status: "ok",
       runtime: isBun ? "bun" : "node",
       runtime_version: isBun
-        ? (globalThis as any).Bun.version
+        ? String(
+            (
+              (globalThis as Record<string, unknown>).Bun as Record<
+                string,
+                unknown
+              >
+            )?.version ?? "unknown",
+          )
         : process.version,
       cwd: process.cwd(),
       env_PORT: process.env.PORT ?? "(not set)",

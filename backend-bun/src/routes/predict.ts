@@ -4,11 +4,13 @@
 
 import { Elysia, t } from "elysia";
 import { randomUUID } from "crypto";
-import { engineerSingleTransaction, type RawInput } from "../feature-engineering";
+import {
+  engineerSingleTransaction,
+  type RawInput,
+} from "../feature-engineering";
 import { predictXGBoost } from "../xgboost-predict";
 import { predictMLP } from "../mlp-predict";
 import { getPipelineMaps, getMLPConfig } from "../data-loader";
-import { CONSERVATIVE_FEATURES } from "../features";
 
 // CSV column name mapping: snake_case → PascalCase
 const CSV_COLUMN_MAP: Record<string, string> = {
@@ -26,13 +28,39 @@ const CSV_COLUMN_MAP: Record<string, string> = {
   keterangan: "Keterangan",
 };
 
+interface PredictionResponse {
+  prediction_id: string;
+  timestamp: string;
+  input_summary: {
+    jumlah: number;
+    customer: string;
+    divisi: string;
+    salesman: string;
+    cabang: string;
+    kota: string;
+  };
+  xgboost: { probability: number };
+  mlp: { probability: number } | null;
+  shap_explanation: null;
+  feature_vector?: Record<string, number>;
+}
+
+interface BatchResultRow {
+  row_index: number;
+  xgb_probability: number;
+  mlp_probability: number | null;
+  error: string | null;
+}
+
+interface FileUpload {
+  text(): Promise<string>;
+}
+
 export const predictRoutes = new Elysia()
   .post(
     "/api/predict",
     async ({ body, query }) => {
-      const includeShap = query.include_shap !== "false";
       const includeFeatures = query.include_features === "true";
-      const shapTopN = parseInt(query.shap_top_n ?? "10");
 
       // Convert to raw input
       const raw: RawInput = {
@@ -62,7 +90,7 @@ export const predictRoutes = new Elysia()
       const mlpProb = await predictMLP(featureRow, mlpConfig);
 
       // Build response
-      const response: any = {
+      const response: PredictionResponse = {
         prediction_id: randomUUID(),
         timestamp: new Date().toISOString(),
         input_summary: {
@@ -104,12 +132,12 @@ export const predictRoutes = new Elysia()
         include_features: t.Optional(t.String()),
         shap_top_n: t.Optional(t.String()),
       }),
-    }
+    },
   )
   .post("/api/predict/batch", async ({ body: reqBody }) => {
     // Parse CSV from the uploaded file
-    const formData = reqBody as any;
-    const file = formData.file;
+    const formData = reqBody as Record<string, unknown>;
+    const file = formData.file as FileUpload | undefined;
 
     if (!file) {
       return { error: "No file uploaded" };
@@ -123,25 +151,29 @@ export const predictRoutes = new Elysia()
     }
 
     // Parse header
-    const rawHeaders = lines[0].split(",").map((h: string) => h.trim().replace(/"/g, ""));
+    const rawHeaders = (lines[0] ?? "")
+      .split(",")
+      .map((h: string) => h.trim().replace(/"/g, ""));
     // Map snake_case headers to PascalCase
     const headers = rawHeaders.map(
-      (h: string) => CSV_COLUMN_MAP[h.toLowerCase()] ?? h
+      (h: string) => CSV_COLUMN_MAP[h.toLowerCase()] ?? h,
     );
 
     const pm = getPipelineMaps();
     const mlpConfig = getMLPConfig();
-    const results: any[] = [];
+    const results: BatchResultRow[] = [];
     let processedRows = 0;
     let failedRows = 0;
 
     for (let i = 1; i < lines.length; i++) {
-      const cols = lines[i].split(",").map((c: string) => c.trim().replace(/"/g, ""));
+      const cols = (lines[i] ?? "")
+        .split(",")
+        .map((c: string) => c.trim().replace(/"/g, ""));
       if (cols.length < headers.length) continue;
 
       const rowDict: Record<string, string> = {};
       headers.forEach((h: string, j: number) => {
-        rowDict[h] = cols[j];
+        rowDict[h] = cols[j] ?? "";
       });
 
       try {
@@ -156,7 +188,8 @@ export const predictRoutes = new Elysia()
           Provinsi: rowDict["Provinsi"] ?? "",
           Kota: rowDict["Kota"] ?? "",
           Kecamatan: rowDict["Kecamatan"] ?? "",
-          NamaGroupCustomer: rowDict["NamaGroupCustomer"] ?? "NON-GROUP CUSTOMER",
+          NamaGroupCustomer:
+            rowDict["NamaGroupCustomer"] ?? "NON-GROUP CUSTOMER",
           Keterangan: rowDict["Keterangan"] ?? "No Remark",
         };
 
@@ -171,12 +204,13 @@ export const predictRoutes = new Elysia()
           error: null,
         });
         processedRows++;
-      } catch (e: any) {
+      } catch (e: unknown) {
+        const message = e instanceof Error ? e.message : "Unknown error";
         results.push({
           row_index: i - 1,
           xgb_probability: 0,
           mlp_probability: null,
-          error: e.message ?? "Unknown error",
+          error: message,
         });
         failedRows++;
       }

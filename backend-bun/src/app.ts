@@ -13,12 +13,20 @@ import { predictRoutes } from "./routes/predict";
 import { analysisRoutes } from "./routes/analysis";
 import { configRoutes } from "./routes/config";
 
-// Use `any` to avoid Elysia's deeply nested generic types
-let _app: any = null;
+// Elysia's deeply nested generics make precise typing impractical for the composed app.
+// Using a minimal interface that exposes the methods we actually call.
+interface ElysiaApp {
+  listen(port: number): unknown;
+  handle(request: Request): Promise<Response>;
+}
+
+let _app: ElysiaApp | null = null;
 
 function detectRuntime(): string {
-  if (typeof (globalThis as any).Bun !== "undefined") return "bun";
-  if (typeof (globalThis as any).Deno !== "undefined") return "deno";
+  if (typeof (globalThis as Record<string, unknown>).Bun !== "undefined")
+    return "bun";
+  if (typeof (globalThis as Record<string, unknown>).Deno !== "undefined")
+    return "deno";
   return "node";
 }
 

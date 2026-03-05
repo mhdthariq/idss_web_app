@@ -20,7 +20,7 @@ import {
 
 export const analysisRoutes = new Elysia()
   // --- Test-set analysis ---
-  .get("/api/analysis/test-set", ({ query }) => {
+  .get("/api/analysis/test-set", ({ query: _query }) => {
     const processedDir = getProcessedDir();
     const testPath = join(processedDir, "test.csv");
 
@@ -30,11 +30,15 @@ export const analysisRoutes = new Elysia()
 
     const csvText = readFileSync(testPath, "utf-8");
     const lines = csvText.trim().split("\n");
-    const headers = lines[0]!.split(",").map((h) => h.trim().replace(/"/g, ""));
+    const headers = (lines[0] ?? "")
+      .split(",")
+      .map((h) => h.trim().replace(/"/g, ""));
 
     const rows: Record<string, string>[] = [];
     for (let i = 1; i < lines.length; i++) {
-      const cols = lines[i]!.split(",").map((c) => c.trim().replace(/"/g, ""));
+      const cols = (lines[i] ?? "")
+        .split(",")
+        .map((c) => c.trim().replace(/"/g, ""));
       const row: Record<string, string> = {};
       headers.forEach((h, j) => {
         row[h] = cols[j] ?? "";

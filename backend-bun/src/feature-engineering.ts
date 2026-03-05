@@ -68,9 +68,17 @@ function clip(x: number, lo: number, hi: number): number {
   return Math.max(lo, Math.min(hi, x));
 }
 
+/**
+ * Safely look up a field on a RawInput by string key.
+ * Returns the string value or undefined if not found.
+ */
+function getRawField(raw: RawInput, key: string): string | number | undefined {
+  return (raw as unknown as Record<string, string | number | undefined>)[key];
+}
+
 export function engineerSingleTransaction(
   raw: RawInput,
-  pm: PipelineMaps
+  pm: PipelineMaps,
 ): Record<string, number> {
   const row: Record<string, number> = {};
   const jumlah = raw.Jumlah;
@@ -95,7 +103,10 @@ export function engineerSingleTransaction(
 
   let jumlahBin: string = binLabels[binLabels.length - 1] ?? "Q4_High";
   for (let i = 0; i < binEdges.length - 1; i++) {
-    if ((binEdges[i] ?? 0) <= jumlah && jumlah < (binEdges[i + 1] ?? Infinity)) {
+    if (
+      (binEdges[i] ?? 0) <= jumlah &&
+      jumlah < (binEdges[i + 1] ?? Infinity)
+    ) {
       jumlahBin = binLabels[i] ?? jumlahBin;
       break;
     }
@@ -110,8 +121,7 @@ export function engineerSingleTransaction(
     (raw.NamaGroupCustomer ?? "NON-GROUP CUSTOMER") === "NON-GROUP CUSTOMER"
       ? 0
       : 1;
-  row["Has_Remark"] =
-    (raw.Keterangan ?? "No Remark") === "No Remark" ? 0 : 1;
+  row["Has_Remark"] = (raw.Keterangan ?? "No Remark") === "No Remark" ? 0 : 1;
 
   // Group aggregation features
   const globalMean = pm.global_jumlah_mean ?? jumlah;
@@ -141,29 +151,28 @@ export function engineerSingleTransaction(
   // Customer total Jumlah
   const custCode = raw.KodeCustomer ?? "";
   const globalTotalMean = pm.global_total_mean ?? jumlah;
-  row["Cust_Total_Jumlah"] =
-    (pm.cust_total_map ?? {})[custCode] ?? globalTotalMean;
+  row["Cust_Total_Jumlah"] = pm.cust_total_map?.[custCode] ?? globalTotalMean;
 
   // Customer historical late rate
   const globalLate = pm.global_late_rate ?? 0.289;
   row["Cust_Historical_Late_Rate"] =
-    (pm.cust_late_rate_map ?? {})[custCode] ?? globalLate;
+    pm.cust_late_rate_map?.[custCode] ?? globalLate;
 
   // Rank / ratio features
   const branchCode = raw.KodeCabang ?? "";
   const divName = raw.NamaDivisi ?? "";
   const globalMedian = pm.global_median ?? globalMean;
-  const branchMed = (pm.branch_medians ?? {})[branchCode] ?? globalMedian;
-  const divMed = (pm.div_medians ?? {})[divName] ?? globalMedian;
+  const branchMed = pm.branch_medians?.[branchCode] ?? globalMedian;
+  const divMed = pm.div_medians?.[divName] ?? globalMedian;
 
   row["Branch_Jumlah_Ratio"] = jumlah / (branchMed + 1);
   row["Div_Jumlah_Ratio"] = jumlah / (divMed + 1);
 
   const custAvg = row["Cust_Avg_Jumlah"] ?? 0;
   const custStd = row["Cust_Std_Jumlah"] ?? 0;
-  row["Jumlah_Cust_Zscore"] =
-    custStd > 0 ? (jumlah - custAvg) / custStd : 0;
-  row["Log_Jumlah_vs_Branch"] = log1p(jumlah) - log1p(row["Branch_Avg_Jumlah"] ?? 0);
+  row["Jumlah_Cust_Zscore"] = custStd > 0 ? (jumlah - custAvg) / custStd : 0;
+  row["Log_Jumlah_vs_Branch"] =
+    log1p(jumlah) - log1p(row["Branch_Avg_Jumlah"] ?? 0);
   row["Log_Jumlah_vs_Div"] = log1p(jumlah) - log1p(row["Div_Avg_Jumlah"] ?? 0);
 
   // Target encodings
@@ -183,7 +192,7 @@ export function engineerSingleTransaction(
   for (const [teCol, rawKey] of Object.entries(teColRawMap)) {
     const encMap = teMaps[teCol] ?? {};
     const val: string =
-      rawKey !== null ? String((raw as any)[rawKey] ?? "") : jumlahBin;
+      rawKey !== null ? String(getRawField(raw, rawKey) ?? "") : jumlahBin;
     row[`${teCol}_TE`] = encMap[val] ?? globalLate;
   }
 
@@ -202,7 +211,7 @@ export function engineerSingleTransaction(
 
   for (const col of freqCols) {
     const encMap = freqMaps[col] ?? {};
-    const val = String((raw as any)[col] ?? "");
+    const val = String(getRawField(raw, col) ?? "");
     row[`${col}_Freq`] = encMap[val] ?? 0;
   }
 
@@ -212,28 +221,27 @@ export function engineerSingleTransaction(
 
   for (const [prefix, info] of Object.entries(interactionTe)) {
     const combined =
-      String((raw as any)[info.col_a] ?? "") +
+      String(getRawField(raw, info.col_a) ?? "") +
       "__" +
-      String((raw as any)[info.col_b] ?? "");
+      String(getRawField(raw, info.col_b) ?? "");
     row[`${prefix}__interaction_${prefix}_TE`] =
       info.map[combined] ?? globalLate;
   }
 
   for (const [prefix, info] of Object.entries(interactionFreq)) {
     const combined =
-      String((raw as any)[info.col_a] ?? "") +
+      String(getRawField(raw, info.col_a) ?? "") +
       "__" +
-      String((raw as any)[info.col_b] ?? "");
+      String(getRawField(raw, info.col_b) ?? "");
     row[`${prefix}__interaction_${prefix}_Freq`] = info.map[combined] ?? 0;
   }
 
   // Additional derived features
   const salesman = raw.NamaSalesman ?? "";
   row["Sales_Div_Diversity"] =
-    (pm.sales_div_diversity ?? {})[salesman] ?? (pm.global_diversity ?? 1);
+    pm.sales_div_diversity?.[salesman] ?? pm.global_diversity ?? 1;
   row["Sales_Cust_Count"] =
-    (pm.sales_cust_count ?? {})[salesman] ??
-    (pm.global_sales_cust ?? 1);
+    pm.sales_cust_count?.[salesman] ?? pm.global_sales_cust ?? 1;
 
   // Label encodings
   const leMap = pm.label_encoders ?? {};
@@ -253,7 +261,7 @@ export function engineerSingleTransaction(
   for (const [leCol, rawKey] of Object.entries(leColRawMap)) {
     const le = leMap[leCol] ?? {};
     const val: string =
-      rawKey !== null ? String((raw as any)[rawKey] ?? "") : jumlahBin;
+      rawKey !== null ? String(getRawField(raw, rawKey) ?? "") : jumlahBin;
     const nClasses = Object.keys(le).length;
     row[`${leCol}_Encoded`] = le[val] ?? nClasses;
   }
