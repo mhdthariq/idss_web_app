@@ -23,6 +23,15 @@ interface ModernTestSetResponse {
     xgboost?: TestSetData["pr_curve"]["xgboost"];
     mlp?: TestSetData["pr_curve"]["mlp"];
   };
+  error?: string;
+  detail?: string;
+  message?: string;
+}
+
+interface ErrorEnvelope {
+  error?: unknown;
+  detail?: unknown;
+  message?: unknown;
 }
 
 function toNumberArray(values: unknown): number[] {
@@ -50,6 +59,14 @@ function pickNumericColumn(
 
 function normalizeTestSetData(payload: unknown): TestSetData {
   const data = (payload ?? {}) as ModernTestSetResponse & LegacyTestSetResponse;
+
+  // Some API variants return 200 + { error: "..." } for missing artifacts.
+  // Surface this server-side message directly instead of a misleading parsing error.
+  const errData = (payload ?? {}) as ErrorEnvelope;
+  const rawError = errData.error ?? errData.detail ?? errData.message;
+  if (typeof rawError === "string" && rawError.trim().length > 0) {
+    throw new Error(`API /api/analysis/test-set: ${rawError.trim()}`);
+  }
 
   const yTrueModern = toNumberArray(data.y_true);
   const xgbModern = toNumberArray(data.xgb_probabilities);
@@ -99,8 +116,13 @@ function normalizeTestSetData(payload: unknown): TestSetData {
     "label",
   ]);
   if (!yTrueLegacy || yTrueLegacy.length === 0) {
+    const availableColumns = Array.isArray(data.columns)
+      ? data.columns.join(", ")
+      : rows[0]
+        ? Object.keys(rows[0]).join(", ")
+        : "(tidak ada data)";
     throw new Error(
-      "API /api/analysis/test-set tidak menyediakan kolom label yang valid.",
+      `API /api/analysis/test-set tidak menyediakan kolom label yang valid. Kolom tersedia: ${availableColumns}`,
     );
   }
 
