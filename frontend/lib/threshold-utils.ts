@@ -14,25 +14,29 @@ export interface Metrics {
 
 export function riskLabel(
   prob: number,
-  threshold: number
+  threshold: number,
 ): "LAYAK" | "BERISIKO" {
   return prob >= threshold ? "BERISIKO" : "LAYAK";
 }
 
 export function computeConfusionMatrix(
-  yTrue: number[],
-  proba: number[],
-  threshold: number
+  yTrue: number[] | undefined,
+  proba: number[] | undefined,
+  threshold: number,
 ): ConfusionMatrix {
+  const y = Array.isArray(yTrue) ? yTrue : [];
+  const p = Array.isArray(proba) ? proba : [];
+  const n = Math.min(y.length, p.length);
+
   let tp = 0,
     fp = 0,
     tn = 0,
     fn = 0;
-  for (let i = 0; i < yTrue.length; i++) {
-    const predicted = proba[i] >= threshold ? 1 : 0;
-    if (yTrue[i] === 1 && predicted === 1) tp++;
-    else if (yTrue[i] === 0 && predicted === 1) fp++;
-    else if (yTrue[i] === 0 && predicted === 0) tn++;
+  for (let i = 0; i < n; i++) {
+    const predicted = p[i] >= threshold ? 1 : 0;
+    if (y[i] === 1 && predicted === 1) tp++;
+    else if (y[i] === 0 && predicted === 1) fp++;
+    else if (y[i] === 0 && predicted === 0) tn++;
     else fn++;
   }
   return { tp, fp, tn, fn };

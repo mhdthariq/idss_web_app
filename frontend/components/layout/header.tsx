@@ -11,19 +11,20 @@ import { Separator } from "@/components/ui/separator";
 
 export function Header() {
   const pathname = usePathname();
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const stored = window.localStorage.getItem("theme");
+    return (
+      stored === "dark" ||
+      (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    );
+  });
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    if (
-      stored === "dark" ||
-      (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      setDark(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
+    document.documentElement.classList.toggle("dark", dark);
+    window.localStorage.setItem("theme", dark ? "dark" : "light");
+  }, [dark]);
 
   const toggleTheme = () => {
     setDark((prev) => {
@@ -37,14 +38,16 @@ export function Header() {
   const currentPage = NAV_ITEMS.find(
     (item) =>
       pathname === item.href ||
-      (item.href !== "/" && pathname.startsWith(item.href))
+      (item.href !== "/" && pathname.startsWith(item.href)),
   );
 
   // Build breadcrumb segments
   const segments = pathname
     .split("/")
     .filter(Boolean)
-    .map((seg) => seg.charAt(0).toUpperCase() + seg.slice(1).replace(/-/g, " "));
+    .map(
+      (seg) => seg.charAt(0).toUpperCase() + seg.slice(1).replace(/-/g, " "),
+    );
 
   return (
     <>
@@ -69,7 +72,7 @@ export function Header() {
               <span>/</span>
               <span
                 className={cn(
-                  i === segments.length - 1 && "text-foreground font-medium"
+                  i === segments.length - 1 && "text-foreground font-medium",
                 )}
               >
                 {seg}
@@ -123,7 +126,7 @@ export function Header() {
                       "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                       isActive
                         ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                        : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50"
+                        : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50",
                     )}
                   >
                     <Icon className="h-4 w-4" />
