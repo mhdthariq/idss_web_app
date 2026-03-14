@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend,
   ReferenceLine,
+  CartesianGrid,
 } from "recharts";
 import { ChartContainer } from "@/components/charts/chart-container";
 import { CHART_COLORS, fmtChartFloat } from "@/lib/chart-utils";
@@ -38,26 +39,43 @@ export function RocCurveChart({ xgboost, mlp }: RocCurveChartProps) {
       description={`XGBoost AUC: ${fmtChartFloat(xgboost.auc)}${mlp ? ` | MLP AUC: ${fmtChartFloat(mlp.auc)}` : ""}`}
       height={380}
     >
-      <LineChart margin={{ top: 10, right: 30, bottom: 30, left: 30 }}>
+      <LineChart margin={{ top: 24, right: 12, bottom: 24, left: 0 }}>
+        <CartesianGrid
+          strokeDasharray="3 3"
+          stroke="hsl(var(--border))"
+          opacity={0.35}
+        />
         <XAxis
           dataKey="fpr"
           type="number"
           domain={[0, 1]}
-          label={{ value: "False Positive Rate", position: "bottom", offset: 10 }}
+          ticks={[0, 0.25, 0.5, 0.75, 1]}
+          tickFormatter={(v) => `${Math.round(v * 100)}%`}
+          minTickGap={24}
         />
         <YAxis
           dataKey="tpr"
           type="number"
           domain={[0, 1]}
-          label={{ value: "True Positive Rate", angle: -90, position: "left" }}
+          ticks={[0, 0.25, 0.5, 0.75, 1]}
+          tickFormatter={(v) => `${Math.round(v * 100)}%`}
+          width={44}
         />
         <ReferenceLine
-          segment={[{ x: 0, y: 0 }, { x: 1, y: 1 }]}
+          segment={[
+            { x: 0, y: 0 },
+            { x: 1, y: 1 },
+          ]}
           stroke={CHART_COLORS.diagonal}
           strokeDasharray="5 5"
         />
         <Tooltip formatter={(v) => fmtChartFloat(Number(v))} />
-        <Legend />
+        <Legend
+          verticalAlign="bottom"
+          align="center"
+          iconType="circle"
+          wrapperStyle={{ paddingTop: 10 }}
+        />
         <Line
           data={xgbData}
           type="monotone"

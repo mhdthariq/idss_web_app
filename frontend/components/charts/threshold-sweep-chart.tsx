@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
   ReferenceLine,
+  CartesianGrid,
 } from "recharts";
 import { ChartContainer } from "@/components/charts/chart-container";
 import { computeConfusionMatrix, computeMetrics } from "@/lib/threshold-utils";
@@ -51,25 +52,36 @@ export function ThresholdSweepChart({
     <ChartContainer
       title={`Threshold Sweep — ${modelName}`}
       description="Lihat bagaimana precision, recall, dan F1 berubah saat threshold digeser"
-      height={320}
+      height={360}
     >
       <LineChart
         data={sweepData}
-        margin={{ top: 10, right: 30, bottom: 30, left: 20 }}
+        margin={{ top: 24, right: 12, bottom: 24, left: 0 }}
       >
+        <CartesianGrid
+          strokeDasharray="3 3"
+          stroke="hsl(var(--border))"
+          opacity={0.35}
+        />
         <XAxis
           dataKey="threshold"
           type="number"
           domain={[0, 1]}
+          ticks={[0, 0.25, 0.5, 0.75, 1]}
           tickFormatter={(v) => fmtPct(v, 0)}
-          label={{ value: "Threshold", position: "bottom", offset: 10 }}
+          minTickGap={36}
         />
-        <YAxis domain={[0, 1]} tickFormatter={(v) => fmtPct(v, 0)} />
+        <YAxis domain={[0, 1]} tickFormatter={(v) => fmtPct(v, 0)} width={44} />
         <Tooltip
           formatter={(value, name) => [fmtPct(Number(value)), name as string]}
           labelFormatter={(label) => `Threshold: ${fmtPct(label as number, 0)}`}
         />
-        <Legend />
+        <Legend
+          verticalAlign="bottom"
+          align="center"
+          iconType="circle"
+          wrapperStyle={{ paddingTop: 10 }}
+        />
         <ReferenceLine
           x={currentThreshold}
           stroke="hsl(0, 84%, 60%)"
@@ -77,7 +89,7 @@ export function ThresholdSweepChart({
           strokeWidth={2}
           label={{
             value: `t=${fmtPct(currentThreshold, 0)}`,
-            position: "top",
+            position: "insideTopRight",
             fill: "hsl(0, 84%, 60%)",
           }}
         />

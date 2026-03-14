@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 import { ResponsiveContainer } from "recharts";
 import {
   Card,
@@ -31,10 +31,12 @@ export function ChartContainer({
           <CardDescription className="text-xs">{description}</CardDescription>
         )}
       </CardHeader>
-      <CardContent>
-        <ResponsiveContainer width="100%" height={height}>
-          {children as React.ReactElement}
-        </ResponsiveContainer>
+      <CardContent className="px-2 pb-4 sm:px-4 md:px-6">
+        <div style={{ width: "100%", height }} className="min-w-0">
+          <ResponsiveContainer width="100%" height="100%">
+            {children as ReactElement}
+          </ResponsiveContainer>
+        </div>
       </CardContent>
     </Card>
   );

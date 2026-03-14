@@ -1,6 +1,14 @@
 "use client";
 
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  CartesianGrid,
+} from "recharts";
 import { ChartContainer } from "@/components/charts/chart-container";
 import { CHART_COLORS } from "@/lib/chart-utils";
 
@@ -20,12 +28,38 @@ export function WinRateChart({ winRates }: WinRateChartProps) {
   }));
 
   return (
-    <ChartContainer title="Win Rate — XGBoost vs MLP (30 Seeds)" description="Berapa kali masing-masing model menang" height={200}>
-      <BarChart data={data} layout="vertical" margin={{ left: 80, right: 30 }}>
-        <XAxis type="number" domain={[0, 30]} />
-        <YAxis type="category" dataKey="metric" />
-        <Tooltip />
-        <Legend />
+    <ChartContainer
+      title="Win Rate — XGBoost vs MLP (30 Seeds)"
+      description="Berapa kali masing-masing model menang"
+      height={260}
+    >
+      <BarChart
+        data={data}
+        layout="vertical"
+        margin={{ top: 24, right: 12, bottom: 12, left: 40 }}
+      >
+        <CartesianGrid
+          strokeDasharray="3 3"
+          stroke="hsl(var(--border))"
+          opacity={0.35}
+          horizontal={false}
+        />
+        <XAxis type="number" domain={[0, 30]} allowDecimals={false} />
+        <YAxis type="category" dataKey="metric" width={84} />
+        <Tooltip
+          contentStyle={{
+            backgroundColor: "hsl(var(--card))",
+            border: "1px solid hsl(var(--border))",
+            borderRadius: "8px",
+          }}
+          labelStyle={{ color: "hsl(var(--foreground))" }}
+        />
+        <Legend
+          verticalAlign="top"
+          align="right"
+          height={36}
+          iconType="circle"
+        />
         <Bar dataKey="XGBoost Wins" stackId="a" fill={CHART_COLORS.xgboost} />
         <Bar dataKey="MLP Wins" stackId="a" fill={CHART_COLORS.mlp} />
       </BarChart>
