@@ -25,18 +25,28 @@ interface CalibrationCurveChartProps {
   mlp: CalibrationModelData;
 }
 
+function buildCalibrationSeries(
+  xArr: number[],
+  yArr: number[],
+): Array<{ x: number; y: number }> {
+  return xArr
+    .map((x, i) => ({ x, y: yArr[i] }))
+    .filter((point) => Number.isFinite(point.x) && Number.isFinite(point.y))
+    .sort((a, b) => a.x - b.x);
+}
+
 export function CalibrationCurveChart({
   xgb,
   mlp,
 }: CalibrationCurveChartProps) {
-  const xgbData = xgb.calibration_curve_x.map((x, i) => ({
-    x,
-    y: xgb.calibration_curve_y[i],
-  }));
-  const mlpData = mlp.calibration_curve_x.map((x, i) => ({
-    x,
-    y: mlp.calibration_curve_y[i],
-  }));
+  const xgbSeries = buildCalibrationSeries(
+    xgb.calibration_curve_x,
+    xgb.calibration_curve_y,
+  );
+  const mlpSeries = buildCalibrationSeries(
+    mlp.calibration_curve_x,
+    mlp.calibration_curve_y,
+  );
 
   return (
     <ChartContainer
@@ -44,7 +54,7 @@ export function CalibrationCurveChart({
       description={`XGBoost Brier: ${fmtChartFloat(xgb.brier_score)} ECE: ${fmtChartFloat(xgb.ece)} | MLP Brier: ${fmtChartFloat(mlp.brier_score)} ECE: ${fmtChartFloat(mlp.ece)}`}
       height={380}
     >
-      <LineChart margin={{ top: 24, right: 12, bottom: 24, left: 0 }}>
+      <LineChart margin={{ top: 24, right: 12, bottom: 28, left: 0 }}>
         <CartesianGrid
           strokeDasharray="3 3"
           stroke="hsl(var(--border))"
@@ -54,6 +64,9 @@ export function CalibrationCurveChart({
           dataKey="x"
           type="number"
           domain={[0, 1]}
+          ticks={[0, 0.25, 0.5, 0.75, 1]}
+          tickFormatter={(v) => fmtChartFloat(Number(v), 2)}
+          minTickGap={24}
           label={{
             value: "Mean Predicted Probability",
             position: "bottom",
@@ -63,6 +76,9 @@ export function CalibrationCurveChart({
         <YAxis
           type="number"
           domain={[0, 1]}
+          ticks={[0, 0.25, 0.5, 0.75, 1]}
+          tickFormatter={(v) => fmtChartFloat(Number(v), 2)}
+          width={44}
           label={{ value: "Observed Frequency", angle: -90, position: "left" }}
         />
         <ReferenceLine
@@ -75,22 +91,24 @@ export function CalibrationCurveChart({
         />
         <Tooltip formatter={(v) => fmtChartFloat(Number(v))} />
         <Legend
-          verticalAlign="bottom"
-          align="center"
+          verticalAlign="top"
+          align="right"
           iconType="circle"
-          wrapperStyle={{ paddingTop: 10 }}
+          wrapperStyle={{ paddingBottom: 8 }}
         />
         <Line
-          data={xgbData}
+          data={xgbSeries}
           dataKey="y"
+          type="linear"
           name={`XGBoost (Brier=${fmtChartFloat(xgb.brier_score)})`}
           stroke={CHART_COLORS.xgboost}
           strokeWidth={2}
           dot={{ r: 4 }}
         />
         <Line
-          data={mlpData}
+          data={mlpSeries}
           dataKey="y"
+          type="linear"
           name={`MLP (Brier=${fmtChartFloat(mlp.brier_score)})`}
           stroke={CHART_COLORS.mlp}
           strokeWidth={2}

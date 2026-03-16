@@ -11,8 +11,13 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+// Use local Bun API by default in development.
+// Override with NEXT_PUBLIC_API_URL when needed.
 export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "https://idss-api.vercel.app";
+  process.env.NEXT_PUBLIC_API_URL ??
+  (process.env.NODE_ENV === "development"
+    ? "http://localhost:8080"
+    : "https://idss-api.vercel.app");
 
 export const DEFAULT_THRESHOLD = 0.5;
 
