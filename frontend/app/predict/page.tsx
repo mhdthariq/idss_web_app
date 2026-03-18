@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { usePrediction } from "@/hooks/use-prediction";
 import { useStaticData } from "@/hooks/use-static-data";
 import { useDecisionLogStore } from "@/stores/decision-log-store";
@@ -21,7 +21,27 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { riskLabel } from "@/lib/threshold-utils";
-import type { PredictionInput, PredictionResult, UniqueValues } from "@/types/prediction";
+import type {
+  PredictionInput,
+  PredictionOptionsResponse,
+  PredictionResult,
+  UniqueValues,
+} from "@/types/prediction";
+
+type SelectField = Exclude<keyof PredictionInput, "jumlah" | "keterangan">;
+
+const SELECT_FIELDS: SelectField[] = [
+  "kode_customer",
+  "nama_salesman",
+  "nama_divisi",
+  "nama_kategori",
+  "nama_sub_kategori",
+  "kode_cabang",
+  "provinsi",
+  "kota",
+  "kecamatan",
+  "nama_group_customer",
+];
 
 export default function PredictPage() {
   const [threshold, setThreshold] = useState(DEFAULT_THRESHOLD);
@@ -31,8 +51,13 @@ export default function PredictPage() {
 
   const { data: uniqueValues } = useStaticData<UniqueValues>(
     "unique-values",
-    "/api/config/unique-values"
+    "/api/config/unique-values",
   );
+  const { data: predictionOptionsPayload } =
+    useStaticData<PredictionOptionsResponse>(
+      "prediction-options",
+      "/api/config/prediction-options",
+    );
 
   const [form, setForm] = useState<PredictionInput>({
     jumlah: 0,
@@ -51,6 +76,83 @@ export default function PredictPage() {
 
   const updateForm = (key: keyof PredictionInput, value: string | number) => {
     setForm((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const relationRows = useMemo(
+    () => predictionOptionsPayload?.rows ?? [],
+    [predictionOptionsPayload?.rows],
+  );
+
+  const sortedUniqueValues = useMemo(() => {
+    if (!uniqueValues) return {} as Record<SelectField, string[]>;
+
+    const entries = SELECT_FIELDS.map((field) => {
+      const values = ((uniqueValues[field] as string[] | undefined) ?? [])
+        .filter((v) => v.length > 0)
+        .slice()
+        .sort((a, b) => a.localeCompare(b, "id"));
+      return [field, values] as const;
+    });
+
+    return Object.fromEntries(entries) as Record<SelectField, string[]>;
+  }, [uniqueValues]);
+
+  const getFieldOptions = (
+    targetField: SelectField,
+    state: PredictionInput,
+  ) => {
+    if (relationRows.length === 0) {
+      return sortedUniqueValues[targetField] ?? [];
+    }
+
+    const validRows = relationRows.filter((row) => {
+      return SELECT_FIELDS.every((field) => {
+        if (field === targetField) return true;
+        const selected = state[field] as string;
+        return !selected || row[field] === selected;
+      });
+    });
+
+    const dedup = new Set<string>();
+    for (const row of validRows) {
+      const value = row[targetField]?.trim();
+      if (value) dedup.add(value);
+    }
+
+    return Array.from(dedup).sort((a, b) => a.localeCompare(b, "id"));
+  };
+
+  const optionsByField = {} as Record<SelectField, string[]>;
+  for (const targetField of SELECT_FIELDS) {
+    optionsByField[targetField] = getFieldOptions(targetField, form);
+  }
+
+  const updateSelectField = (key: SelectField, value: string) => {
+    setForm((prev) => {
+      const next = { ...prev, [key]: value };
+
+      if (relationRows.length === 0) {
+        return next;
+      }
+
+      let changed = true;
+      while (changed) {
+        changed = false;
+
+        for (const field of SELECT_FIELDS) {
+          const selected = next[field] as string;
+          if (!selected) continue;
+
+          const allowed = getFieldOptions(field, next);
+          if (!allowed.includes(selected)) {
+            next[field] = "";
+            changed = true;
+          }
+        }
+      }
+
+      return next;
+    });
   };
 
   const handlePredict = async () => {
@@ -74,7 +176,7 @@ export default function PredictPage() {
     }
   };
 
-  const dropdownFields: { key: keyof PredictionInput; label: string }[] = [
+  const dropdownFields: { key: SelectField; label: string }[] = [
     { key: "kode_customer", label: "Kode Customer" },
     { key: "nama_salesman", label: "Salesman" },
     { key: "nama_divisi", label: "Divisi" },
@@ -110,9 +212,7 @@ export default function PredictPage() {
                 <input
                   type="number"
                   value={form.jumlah || ""}
-                  onChange={(e) =>
-                    updateForm("jumlah", Number(e.target.value))
-                  }
+                  onChange={(e) => updateForm("jumlah", Number(e.target.value))}
                   className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                   placeholder="15000000"
                 />
@@ -124,17 +224,13 @@ export default function PredictPage() {
                   <label className="text-sm font-medium">{field.label}</label>
                   <Select
                     value={form[field.key] as string}
-                    onValueChange={(v) => updateForm(field.key, v)}
+                    onValueChange={(v) => updateSelectField(field.key, v)}
                   >
                     <SelectTrigger className="mt-1">
                       <SelectValue placeholder={`Pilih ${field.label}`} />
                     </SelectTrigger>
                     <SelectContent>
-                      {(
-                        (uniqueValues?.[
-                          field.key as keyof UniqueValues
-                        ] as string[]) ?? []
-                      ).map((val) => (
+                      {(optionsByField[field.key] ?? []).map((val) => (
                         <SelectItem key={val} value={val}>
                           {val}
                         </SelectItem>
@@ -184,7 +280,8 @@ export default function PredictPage() {
                 <p className="text-4xl mb-2">🔮</p>
                 <p>Hasil prediksi akan muncul di sini</p>
                 <p className="text-xs mt-1">
-                  Isi form di sebelah kiri dan klik &quot;Jalankan Prediksi&quot;
+                  Isi form di sebelah kiri dan klik &quot;Jalankan
+                  Prediksi&quot;
                 </p>
               </CardContent>
             </Card>
@@ -245,12 +342,8 @@ export default function PredictPage() {
                   </CardHeader>
                   <CardContent>
                     <ShapWaterfall
-                      baseValue={
-                        result.shap_explanation.xgboost.base_value
-                      }
-                      features={
-                        result.shap_explanation.xgboost.top_features
-                      }
+                      baseValue={result.shap_explanation.xgboost.base_value}
+                      features={result.shap_explanation.xgboost.top_features}
                     />
                   </CardContent>
                 </Card>

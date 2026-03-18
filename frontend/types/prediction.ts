@@ -68,3 +68,20 @@ export interface UniqueValues {
   kecamatan: string[];
   nama_group_customer: string[];
 }
+
+export interface PredictionOptionRow {
+  kode_customer: string;
+  nama_salesman: string;
+  nama_divisi: string;
+  nama_kategori: string;
+  nama_sub_kategori: string;
+  kode_cabang: string;
+  provinsi: string;
+  kota: string;
+  kecamatan: string;
+  nama_group_customer: string;
+}
+
+export interface PredictionOptionsResponse {
+  rows: PredictionOptionRow[];
+}
