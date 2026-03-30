@@ -6,6 +6,7 @@ import { FeatureImportanceBar } from "@/components/charts/feature-importance-bar
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Search } from "lucide-react";
 import type { ShapData } from "@/types/analysis";
 
 export default function FeaturesPage() {
@@ -15,7 +16,14 @@ export default function FeaturesPage() {
     "/api/data/shap"
   );
 
-  if (isLoading) return <p className="text-muted-foreground">Memuat data fitur...</p>;
+  if (isLoading)
+    return (
+      <div className="skeleton-page p-4">
+        <div className="skeleton skeleton-header" />
+        <div className="skeleton h-12 w-full" />
+        <div className="skeleton h-96 w-full" />
+      </div>
+    );
   if (error) return <p className="text-destructive">Error: {error.message}</p>;
   if (!data) return null;
 
@@ -24,11 +32,19 @@ export default function FeaturesPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">🔍 Fitur Penting</h1>
-        <p className="text-muted-foreground">
-          Analisis fitur yang paling berpengaruh terhadap prediksi model
-        </p>
+      {/* Header */}
+      <div className="page-header">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
+            <Search className="h-5 w-5 text-primary" />
+          </div>
+          <div>
+            <h1>Fitur Penting</h1>
+            <p className="text-muted-foreground text-sm">
+              Analisis fitur yang paling berpengaruh terhadap prediksi model
+            </p>
+          </div>
+        </div>
       </div>
 
       <Tabs defaultValue="importance">
@@ -60,7 +76,7 @@ export default function FeaturesPage() {
 
         <TabsContent value="shap" className="space-y-4">
           {data.shap_values?.shap_values ? (
-            <Card>
+            <Card className="surface-card">
               <CardHeader>
                 <CardTitle className="text-base">SHAP Summary</CardTitle>
                 <CardDescription>
@@ -97,7 +113,11 @@ export default function FeaturesPage() {
               </CardContent>
             </Card>
           ) : (
-            <p className="text-muted-foreground">SHAP data tidak tersedia</p>
+            <Card className="surface-card flex items-center justify-center py-12">
+              <CardContent className="text-center text-muted-foreground">
+                <p>SHAP data tidak tersedia</p>
+              </CardContent>
+            </Card>
           )}
         </TabsContent>
       </Tabs>

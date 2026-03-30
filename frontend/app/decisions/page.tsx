@@ -6,13 +6,24 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import {
-  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { fmtPercent, fmtRupiah } from "@/lib/formatters";
-import { Download, Trash2 } from "lucide-react";
+import { Download, Trash2, ClipboardList, AlertTriangle, BarChart3, FileText } from "lucide-react";
 
 export default function DecisionsPage() {
   const { entries, clearAll } = useDecisionLogStore();
@@ -20,7 +31,7 @@ export default function DecisionsPage() {
 
   const totalPredictions = entries.length;
   const highRisk = entries.filter(
-    (e) => e.xgb_label === "BERISIKO" || e.mlp_label === "BERISIKO"
+    (e) => e.xgb_label === "BERISIKO" || e.mlp_label === "BERISIKO",
   ).length;
   const avgProb =
     totalPredictions > 0
@@ -33,7 +44,7 @@ export default function DecisionsPage() {
     const rows = entries
       .map(
         (e) =>
-          `${e.timestamp},${e.jumlah},${e.kode_customer},${e.xgb_probability},${e.mlp_probability ?? ""},${e.threshold},${e.xgb_label},${e.mlp_label ?? ""}`
+          `${e.timestamp},${e.jumlah},${e.kode_customer},${e.xgb_probability},${e.mlp_probability ?? ""},${e.threshold},${e.xgb_label},${e.mlp_label ?? ""}`,
       )
       .join("\n");
     const blob = new Blob([header + rows], { type: "text/csv" });
@@ -46,38 +57,55 @@ export default function DecisionsPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">📋 Log Keputusan</h1>
-        <p className="text-muted-foreground">
-          Riwayat prediksi tersimpan di browser (localStorage) — bertahan saat refresh
-        </p>
+    <div className="page-shell space-y-6">
+      {/* Header */}
+      <div className="page-header">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
+            <ClipboardList className="h-5 w-5 text-primary" />
+          </div>
+          <div>
+            <h1>Log keputusan</h1>
+            <p className="text-muted-foreground text-sm">
+              Riwayat prediksi tersimpan di browser (localStorage) — bertahan saat refresh
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Summary */}
-      <div className="grid gap-4 sm:grid-cols-3">
-        <Card>
+      <div className="grid gap-4 sm:grid-cols-3 stagger-children">
+        <Card className="stat-card stat-card-blue">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">Total Prediksi</CardTitle>
+            <CardTitle className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+              <FileText className="h-3.5 w-3.5 text-blue-500" />
+              Total Prediksi
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{totalPredictions}</p>
+            <p className="text-3xl font-bold">{totalPredictions}</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="stat-card stat-card-red">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">⚠️ High Risk</CardTitle>
+            <CardTitle className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+              <AlertTriangle className="h-3.5 w-3.5 text-red-500" />
+              High Risk
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-red-500">{highRisk}</p>
+            <p className="text-3xl font-bold text-red-500">{highRisk}</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="stat-card stat-card-amber">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">Avg P(Late)</CardTitle>
+            <CardTitle className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+              <BarChart3 className="h-3.5 w-3.5 text-amber-500" />
+              Avg P(Late)
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{fmtPercent(avgProb)}</p>
+            <p className="text-3xl font-bold">{fmtPercent(avgProb)}</p>
           </CardContent>
         </Card>
       </div>
@@ -94,10 +122,7 @@ export default function DecisionsPage() {
         </Button>
         <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
           <DialogTrigger asChild>
-            <Button
-              variant="destructive"
-              disabled={entries.length === 0}
-            >
+            <Button variant="destructive" disabled={entries.length === 0}>
               <Trash2 className="h-4 w-4 mr-2" />
               Hapus Semua
             </Button>
@@ -111,10 +136,7 @@ export default function DecisionsPage() {
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
-              <Button
-                variant="outline"
-                onClick={() => setConfirmOpen(false)}
-              >
+              <Button variant="outline" onClick={() => setConfirmOpen(false)}>
                 Batal
               </Button>
               <Button
@@ -133,76 +155,78 @@ export default function DecisionsPage() {
 
       {/* Table */}
       {entries.length === 0 ? (
-        <Card className="flex items-center justify-center py-12">
+        <Card className="surface-card flex items-center justify-center py-16">
           <CardContent className="text-center text-muted-foreground">
-            <p className="text-4xl mb-2">📋</p>
-            <p>Belum ada prediksi</p>
-            <p className="text-xs mt-1">
-              Buat prediksi di halaman Prediksi Risiko untuk mulai mencatat
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-muted/60 mb-4">
+              <ClipboardList className="h-7 w-7 text-muted-foreground/60" />
+            </div>
+            <p className="text-2xl font-medium mb-2 text-foreground">
+              Belum ada riwayat prediksi
             </p>
+            <p>Buat prediksi di halaman Prediksi Risiko untuk mulai mencatat</p>
           </CardContent>
         </Card>
       ) : (
-        <Card>
+        <Card className="surface-card">
           <CardContent className="pt-6 overflow-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Waktu</TableHead>
-                  <TableHead>Jumlah</TableHead>
-                  <TableHead>Customer</TableHead>
-                  <TableHead>XGB</TableHead>
-                  <TableHead>MLP</TableHead>
-                  <TableHead>Threshold</TableHead>
-                  <TableHead>XGB Label</TableHead>
-                  <TableHead>MLP Label</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {entries.map((e) => (
-                  <TableRow key={e.id}>
-                    <TableCell className="text-xs whitespace-nowrap">
-                      {new Date(e.timestamp).toLocaleString("id-ID")}
-                    </TableCell>
-                    <TableCell>{fmtRupiah(e.jumlah)}</TableCell>
-                    <TableCell>{e.kode_customer}</TableCell>
-                    <TableCell>{fmtPercent(e.xgb_probability)}</TableCell>
-                    <TableCell>
-                      {e.mlp_probability != null
-                        ? fmtPercent(e.mlp_probability)
-                        : "-"}
-                    </TableCell>
-                    <TableCell>{fmtPercent(e.threshold, 0)}</TableCell>
-                    <TableCell>
-                      <Badge
-                        variant={
-                          e.xgb_label === "BERISIKO"
-                            ? "destructive"
-                            : "success"
-                        }
-                      >
-                        {e.xgb_label}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      {e.mlp_label ? (
+            <div className="overflow-hidden rounded-lg border border-border/60">
+              <Table>
+                <TableHeader>
+                  <TableRow className="bg-muted/30">
+                    <TableHead>Waktu</TableHead>
+                    <TableHead>Jumlah</TableHead>
+                    <TableHead>Customer</TableHead>
+                    <TableHead>XGB</TableHead>
+                    <TableHead>MLP</TableHead>
+                    <TableHead>Threshold</TableHead>
+                    <TableHead>XGB Label</TableHead>
+                    <TableHead>MLP Label</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {entries.map((e) => (
+                    <TableRow key={e.id} className="hover:bg-muted/20">
+                      <TableCell className="text-xs whitespace-nowrap tabular-nums">
+                        {new Date(e.timestamp).toLocaleString("id-ID")}
+                      </TableCell>
+                      <TableCell className="tabular-nums">{fmtRupiah(e.jumlah)}</TableCell>
+                      <TableCell>{e.kode_customer}</TableCell>
+                      <TableCell className="tabular-nums">{fmtPercent(e.xgb_probability)}</TableCell>
+                      <TableCell className="tabular-nums">
+                        {e.mlp_probability != null
+                          ? fmtPercent(e.mlp_probability)
+                          : "-"}
+                      </TableCell>
+                      <TableCell className="tabular-nums">{fmtPercent(e.threshold, 0)}</TableCell>
+                      <TableCell>
                         <Badge
                           variant={
-                            e.mlp_label === "BERISIKO"
-                              ? "destructive"
-                              : "success"
+                            e.xgb_label === "BERISIKO" ? "destructive" : "success"
                           }
                         >
-                          {e.mlp_label}
+                          {e.xgb_label}
                         </Badge>
-                      ) : (
-                        "-"
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                      </TableCell>
+                      <TableCell>
+                        {e.mlp_label ? (
+                          <Badge
+                            variant={
+                              e.mlp_label === "BERISIKO"
+                                ? "destructive"
+                                : "success"
+                            }
+                          >
+                            {e.mlp_label}
+                          </Badge>
+                        ) : (
+                          "-"
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           </CardContent>
         </Card>
       )}

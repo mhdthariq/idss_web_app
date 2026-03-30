@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Moon, Sun, Menu } from "lucide-react";
+import { Moon, Sun, Menu, ChevronRight, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { NAV_ITEMS } from "@/lib/constants";
@@ -51,25 +51,26 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-20 flex h-14 items-center gap-4 border-b bg-background/95 backdrop-blur px-4 md:px-6">
+      <header className="sticky top-0 z-20 flex h-14 items-center gap-4 border-b bg-background/90 backdrop-blur-md px-4 md:px-6">
         {/* Mobile menu button */}
         <Button
           variant="ghost"
           size="icon"
           className="md:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Buka menu navigasi"
         >
           <Menu className="h-5 w-5" />
         </Button>
 
         {/* Breadcrumb */}
-        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
           <Link href="/" className="hover:text-foreground transition-colors">
             🏠
           </Link>
           {segments.map((seg, i) => (
-            <span key={i} className="flex items-center gap-1">
-              <span>/</span>
+            <span key={i} className="flex items-center gap-1.5">
+              <ChevronRight className="h-3 w-3 text-muted-foreground/50" />
               <span
                 className={cn(
                   i === segments.length - 1 && "text-foreground font-medium",
@@ -85,7 +86,7 @@ export function Header() {
 
         {/* Page title */}
         {currentPage && (
-          <span className="hidden sm:inline text-sm font-medium">
+          <span className="hidden sm:inline text-sm font-medium text-muted-foreground">
             {currentPage.emoji} {currentPage.label}
           </span>
         )}
@@ -100,15 +101,26 @@ export function Header() {
       {mobileOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
           <div
-            className="absolute inset-0 bg-black/50"
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="absolute left-0 top-0 w-64 h-full bg-sidebar border-r border-sidebar-border overflow-y-auto">
-            <div className="flex items-center gap-3 px-4 py-5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-bold">
-                ID
+          <div className="absolute left-0 top-0 w-72 h-full bg-sidebar border-r border-sidebar-border overflow-y-auto shadow-2xl animate-slide-down"
+            style={{ animation: "fade-in-up 0.25s ease-out both" }}
+          >
+            <div className="flex items-center justify-between px-4 py-5">
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground text-sm font-bold shadow-sm">
+                  ID
+                </div>
+                <span className="text-sm font-semibold">IDSS Piutang</span>
               </div>
-              <span className="text-sm font-semibold">IDSS Piutang</span>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setMobileOpen(false)}
+              >
+                <X className="h-4 w-4" />
+              </Button>
             </div>
             <Separator />
             <nav className="px-3 py-4 space-y-1">
@@ -123,13 +135,16 @@ export function Header() {
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
                     className={cn(
-                      "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                      "relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                       isActive
                         ? "bg-sidebar-accent text-sidebar-accent-foreground"
                         : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50",
                     )}
                   >
-                    <Icon className="h-4 w-4" />
+                    {isActive && (
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full bg-primary" />
+                    )}
+                    <Icon className={cn("h-4 w-4", isActive && "text-primary")} />
                     <span>{item.label}</span>
                   </Link>
                 );

@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { fmtFloat } from "@/lib/formatters";
+import { Ruler, FlaskConical, Target, Coins } from "lucide-react";
 import type { CalibrationFullData } from "@/types/analysis";
 
 export default function CalibrationPage() {
@@ -15,7 +16,15 @@ export default function CalibrationPage() {
     "/api/data/calibration"
   );
 
-  if (isLoading) return <p className="text-muted-foreground">Memuat data kalibrasi...</p>;
+  if (isLoading)
+    return (
+      <div className="skeleton-page p-4">
+        <div className="skeleton skeleton-header" />
+        <div className="skeleton h-12 w-full" />
+        <div className="skeleton h-64 w-full" />
+        <div className="skeleton h-48 w-full" />
+      </div>
+    );
   if (error) return <p className="text-destructive">Error: {error.message}</p>;
   if (!data) return null;
 
@@ -24,24 +33,41 @@ export default function CalibrationPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">📐 Kalibrasi & Statistik</h1>
-        <p className="text-muted-foreground">
-          Uji statistik, kalibrasi probabilitas, dan analisis biaya
-        </p>
+      {/* Header */}
+      <div className="page-header">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
+            <Ruler className="h-5 w-5 text-primary" />
+          </div>
+          <div>
+            <h1>Kalibrasi & Statistik</h1>
+            <p className="text-muted-foreground text-sm">
+              Uji statistik, kalibrasi probabilitas, dan analisis biaya
+            </p>
+          </div>
+        </div>
       </div>
 
       <Tabs defaultValue="stats">
         <TabsList>
-          <TabsTrigger value="stats">Uji Statistik</TabsTrigger>
-          <TabsTrigger value="calibration">Kalibrasi</TabsTrigger>
-          <TabsTrigger value="cost">Analisis Biaya</TabsTrigger>
+          <TabsTrigger value="stats" className="gap-1.5">
+            <FlaskConical className="h-3.5 w-3.5" />
+            Uji Statistik
+          </TabsTrigger>
+          <TabsTrigger value="calibration" className="gap-1.5">
+            <Target className="h-3.5 w-3.5" />
+            Kalibrasi
+          </TabsTrigger>
+          <TabsTrigger value="cost" className="gap-1.5">
+            <Coins className="h-3.5 w-3.5" />
+            Analisis Biaya
+          </TabsTrigger>
         </TabsList>
 
         {/* Statistical Tests */}
         <TabsContent value="stats" className="space-y-4">
           {st?.mcnemar && (
-            <Card>
+            <Card className="surface-card">
               <CardHeader>
                 <CardTitle className="text-base">McNemar Test</CardTitle>
                 <CardDescription>
@@ -49,30 +75,33 @@ export default function CalibrationPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div className="grid gap-2 sm:grid-cols-3 text-sm">
-                  <div className="rounded-md bg-muted p-3 text-center">
-                    <p className="text-xs text-muted-foreground">χ²</p>
-                    <p className="font-bold">{fmtFloat(st.mcnemar.chi2, 2)}</p>
+                <div className="grid gap-3 sm:grid-cols-3 text-sm stagger-children">
+                  <div className="rounded-xl bg-muted/40 p-4 text-center border border-border/50">
+                    <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">χ²</p>
+                    <p className="font-bold text-xl mt-1 tabular-nums">{fmtFloat(st.mcnemar.chi2, 2)}</p>
                   </div>
-                  <div className="rounded-md bg-muted p-3 text-center">
-                    <p className="text-xs text-muted-foreground">p-value</p>
-                    <p className="font-bold">
+                  <div className="rounded-xl bg-muted/40 p-4 text-center border border-border/50">
+                    <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">p-value</p>
+                    <p className="font-bold text-xl mt-1 tabular-nums">
                       {st.mcnemar.p_value_corrected < 0.001
                         ? "< 0.001"
                         : fmtFloat(st.mcnemar.p_value_corrected)}
                     </p>
                   </div>
-                  <div className="rounded-md bg-muted p-3 text-center">
-                    <p className="text-xs text-muted-foreground">Signifikan?</p>
-                    <Badge
-                      variant={
-                        st.mcnemar.p_value_corrected < 0.05
-                          ? "destructive"
-                          : "secondary"
-                      }
-                    >
-                      {st.mcnemar.p_value_corrected < 0.05 ? "Ya" : "Tidak"}
-                    </Badge>
+                  <div className="rounded-xl bg-muted/40 p-4 text-center border border-border/50">
+                    <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Signifikan?</p>
+                    <div className="mt-2">
+                      <Badge
+                        variant={
+                          st.mcnemar.p_value_corrected < 0.05
+                            ? "destructive"
+                            : "secondary"
+                        }
+                        className="text-sm"
+                      >
+                        {st.mcnemar.p_value_corrected < 0.05 ? "Ya" : "Tidak"}
+                      </Badge>
+                    </div>
                   </div>
                 </div>
                 <p className="text-xs text-muted-foreground">
@@ -85,7 +114,7 @@ export default function CalibrationPage() {
           )}
 
           {st?.delong && (
-            <Card>
+            <Card className="surface-card">
               <CardHeader>
                 <CardTitle className="text-base">DeLong Test</CardTitle>
                 <CardDescription>
@@ -93,22 +122,22 @@ export default function CalibrationPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 text-sm">
-                  <div className="rounded-md bg-muted p-3 text-center">
-                    <p className="text-xs text-muted-foreground">AUC XGBoost</p>
-                    <p className="font-bold">{fmtFloat(st.delong.auc_xgb)}</p>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 text-sm stagger-children">
+                  <div className="rounded-xl bg-muted/40 p-4 text-center border border-border/50">
+                    <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">AUC XGBoost</p>
+                    <p className="font-bold text-xl mt-1 tabular-nums">{fmtFloat(st.delong.auc_xgb)}</p>
                   </div>
-                  <div className="rounded-md bg-muted p-3 text-center">
-                    <p className="text-xs text-muted-foreground">AUC MLP</p>
-                    <p className="font-bold">{fmtFloat(st.delong.auc_mlp)}</p>
+                  <div className="rounded-xl bg-muted/40 p-4 text-center border border-border/50">
+                    <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">AUC MLP</p>
+                    <p className="font-bold text-xl mt-1 tabular-nums">{fmtFloat(st.delong.auc_mlp)}</p>
                   </div>
-                  <div className="rounded-md bg-muted p-3 text-center">
-                    <p className="text-xs text-muted-foreground">Δ AUC</p>
-                    <p className="font-bold">{fmtFloat(st.delong.auc_diff)}</p>
+                  <div className="rounded-xl bg-muted/40 p-4 text-center border border-border/50">
+                    <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Δ AUC</p>
+                    <p className="font-bold text-xl mt-1 tabular-nums">{fmtFloat(st.delong.auc_diff)}</p>
                   </div>
-                  <div className="rounded-md bg-muted p-3 text-center">
-                    <p className="text-xs text-muted-foreground">p-value</p>
-                    <p className="font-bold">
+                  <div className="rounded-xl bg-muted/40 p-4 text-center border border-border/50">
+                    <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">p-value</p>
+                    <p className="font-bold text-xl mt-1 tabular-nums">
                       {st.delong.p_value < 0.001
                         ? "< 0.001"
                         : fmtFloat(st.delong.p_value)}
@@ -128,16 +157,16 @@ export default function CalibrationPage() {
                 xgb={data.calibration.xgb_orig}
                 mlp={data.calibration.mlp_aug}
               />
-              <Card>
+              <Card className="surface-card">
                 <CardContent className="pt-4 text-sm text-muted-foreground space-y-2">
                   <p>
-                    <strong>Cara membaca:</strong> Titik yang dekat garis diagonal = model terkalibrasi baik.
+                    <strong className="text-foreground">Cara membaca:</strong> Titik yang dekat garis diagonal = model terkalibrasi baik.
                   </p>
                   <p>
-                    <strong>Brier Score:</strong> Semakin rendah semakin baik (0 = sempurna).
+                    <strong className="text-foreground">Brier Score:</strong> Semakin rendah semakin baik (0 = sempurna).
                   </p>
                   <p>
-                    <strong>ECE:</strong> Semakin rendah semakin baik. Mengukur rata-rata deviasi dari kalibrasi sempurna.
+                    <strong className="text-foreground">ECE:</strong> Semakin rendah semakin baik. Mengukur rata-rata deviasi dari kalibrasi sempurna.
                   </p>
                 </CardContent>
               </Card>
@@ -148,7 +177,7 @@ export default function CalibrationPage() {
         {/* Cost Analysis */}
         <TabsContent value="cost" className="space-y-4">
           {ca && (
-            <Card>
+            <Card className="surface-card">
               <CardHeader>
                 <CardTitle className="text-base">
                   Analisis Biaya per Skenario
@@ -158,34 +187,36 @@ export default function CalibrationPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Skenario</TableHead>
-                      <TableHead>XGB Cost</TableHead>
-                      <TableHead>XGB Threshold</TableHead>
-                      <TableHead>MLP Cost</TableHead>
-                      <TableHead>MLP Threshold</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {Object.entries(ca).map(([scenario, d]) => (
-                      <TableRow key={scenario}>
-                        <TableCell className="font-medium">
-                          {scenario}
-                        </TableCell>
-                        <TableCell>{d["XGB-Orig"]?.min_cost ?? "N/A"}</TableCell>
-                        <TableCell>
-                          {d["XGB-Orig"]?.optimal_threshold?.toFixed(2) ?? "N/A"}
-                        </TableCell>
-                        <TableCell>{d["MLP-Aug"]?.min_cost ?? "N/A"}</TableCell>
-                        <TableCell>
-                          {d["MLP-Aug"]?.optimal_threshold?.toFixed(2) ?? "N/A"}
-                        </TableCell>
+                <div className="overflow-hidden rounded-lg border border-border/60">
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="bg-muted/30">
+                        <TableHead>Skenario</TableHead>
+                        <TableHead>XGB Cost</TableHead>
+                        <TableHead>XGB Threshold</TableHead>
+                        <TableHead>MLP Cost</TableHead>
+                        <TableHead>MLP Threshold</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {Object.entries(ca).map(([scenario, d]) => (
+                        <TableRow key={scenario} className="hover:bg-muted/20">
+                          <TableCell className="font-medium">
+                            {scenario}
+                          </TableCell>
+                          <TableCell className="tabular-nums">{d["XGB-Orig"]?.min_cost ?? "N/A"}</TableCell>
+                          <TableCell className="tabular-nums">
+                            {d["XGB-Orig"]?.optimal_threshold?.toFixed(2) ?? "N/A"}
+                          </TableCell>
+                          <TableCell className="tabular-nums">{d["MLP-Aug"]?.min_cost ?? "N/A"}</TableCell>
+                          <TableCell className="tabular-nums">
+                            {d["MLP-Aug"]?.optimal_threshold?.toFixed(2) ?? "N/A"}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
               </CardContent>
             </Card>
           )}
