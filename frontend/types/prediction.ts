@@ -1,7 +1,7 @@
 export interface PredictionInput {
   jumlah: number;
-  kode_customer: string;
-  nama_salesman: string;
+  kode_customer?: string;
+  nama_salesman?: string;
   nama_divisi: string;
   nama_kategori: string;
   nama_sub_kategori: string;
@@ -9,7 +9,7 @@ export interface PredictionInput {
   provinsi: string;
   kota: string;
   kecamatan: string;
-  nama_group_customer: string;
+  nama_group_customer?: string;
   keterangan: string;
 }
 
@@ -84,4 +84,16 @@ export interface PredictionOptionRow {
 
 export interface PredictionOptionsResponse {
   rows: PredictionOptionRow[];
+}
+
+export interface FieldHierarchy {
+  provinsi_to_kota: Record<string, string[]>;
+  kota_to_kecamatan: Record<string, string[]>;
+  kota_to_cabang: Record<string, string[]>;
+  cabang_to_salesman: Record<string, string[]>;
+  divisi_to_kategori: Record<string, string[]>;
+  kategori_to_sub_kategori: Record<string, string[]>;
+  all_provinsi: string[];
+  all_divisi: string[];
+  all_salesman: string[];
 }
